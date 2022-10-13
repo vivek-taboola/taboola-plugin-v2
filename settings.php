@@ -84,12 +84,8 @@
         opacity: 1;
     }
 
-    td.heading_mid{
-        width: 400px !important;
-    }
-
-    td.input_mid {
-        width: 375px;
+    p.heading_mid{
+        width: 419px !important;
     }
 
     .label-success {
@@ -239,8 +235,8 @@
 
         </table>
 
-        <table>
-            <tr><td class='heading_mid'><b>Position the widget immediately below the element:</b></td>
+        <table class='table3'>
+            <tr><td><p class='heading_mid'><b>Position the widget immediately below the element:</b></p></td>
             <td class='tooltip_mid'>
                     <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
                     <div>The Widget will be placed just beneath the targeted element. To target an element, enter 2 buts of information: <br><br>
@@ -268,10 +264,12 @@
                 </div>
                 </td>
             </tr>
+        </table>
 
+        <table>
             <tr>
                 <td>HTML element / CSS selector: </td>
-                <td class='input_mid'><input id = "location_mid_string" type="text" value="<?php echo !empty($settings->location_mid_string) ? htmlspecialchars($settings->location_mid_string) : "" ?>" name="location_mid_string" placeholder="P for paragraph, #my-id for an element with id='my-id, etc.'" /></td>
+                <td class='input_mid'><input id = "location_mid_string" type="text" value="<?php echo !empty($settings->location_mid_string) ? htmlspecialchars($settings->location_mid_string) : "" ?>" name="location_mid_string" placeholder="E.g. p for paragraph" /></td>
                 <td class='tooltip'>
                     <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
                     <div><b>P</b> for <b>paragraph, #my-id</b> for an element with <b>id="my-id"</b>, etc.</div>
@@ -362,7 +360,7 @@
             document.getElementById("para_num").disabled = true;
         }
     }
-    
+
 
     jQuery('#first_bc_enabled').change(sync_checkboxes);
     setTimeout(function(){jQuery('.label-success').fadeOut()}, 6000);

@@ -90,13 +90,13 @@ if (!class_exists('TaboolaWP')) {
         }
 
         private function should_show_content_widget(){
-            $retVal = ((trim($this->settings->publisher_id) != '') && is_single() && $this->settings->first_bc_enabled);
+            $retVal = ((trim($this->settings->publisher_id) != '') && is_single() && $this->settings->first_bc_enabled && trim($this->settings->first_bc_widget_id) != '');
             return $retVal;
         }
 
         private function should_show_content_widget1(){
-            $retVal = ((trim($this->settings->publisher_id) != '') && is_single() && $this->settings->second_bc_enabled);
-            return $retVal;
+            $retVal1 = ((trim($this->settings->publisher_id) != '') && is_single() && $this->settings->second_bc_enabled && trim($this->settings->second_bc_widget_id) != '');
+            return $retVal1;
         }
 
         private function should_show_sidebar_widget(){
@@ -106,7 +106,7 @@ if (!class_exists('TaboolaWP')) {
 
         // Determine if a taboola widget should be added somewhere on the current page (content or sidebar)
         function is_widget_on_page(){
-            return  $this->should_show_content_widget() || $this->should_show_sidebar_widget();
+            return  $this->should_show_content_widget() || $this->should_show_content_widget1() || $this->should_show_sidebar_widget();
         }
 
         function get_page_type(){
@@ -135,7 +135,7 @@ if (!class_exists('TaboolaWP')) {
 	            );
 
             	$scriptWrapper = new JavaScriptWrapper("loaderInjectionScript.js",$stringParams);
-                $head_string = $scriptWrapper->getScripMarkupString();
+                $head_string = $scriptWrapper->getScriptMarkupString();
             }
 
             return $head_string;
@@ -153,26 +153,18 @@ if (!class_exists('TaboolaWP')) {
             // Only adding flush script if a widget is going to be placed on the page.
             if ( $this->is_widget_on_page() ){
                 $flushInjectionScript = new JavaScriptWrapper('flushInjectionScript.js',array());
-                echo $flushInjectionScript->getScripMarkupString();
+                echo $flushInjectionScript->getScriptMarkupString();
             }
         }
 
         function load_taboola_content($content)
         {
-
-            // Pete
-            // Fail-safe for v1 upgrades.
-            // If for some reason there is no placement, use 'below-article'
-            $first_bc_widget_placement = $this->settings->first_bc_widget_placement;
-            if ($first_bc_widget_placement == '') 
-                $first_bc_widget_placement = 'below-article';
-            
             $taboola_content = array();
             if ($this->should_show_content_widget()){
 
             	$firstWidgetParams = array('{{WIDGET_ID}}' => $this->settings->first_bc_widget_id,
 		            '{{CONTAINER}}' => 'taboola-below-article-thumbnails',
-		            '{{PLACEMENT}}' =>  $first_bc_widget_placement);
+		            '{{PLACEMENT}}' =>  $this->settings->first_bc_widget_placement);
 
             	$firstWidgetScript = new JavaScriptWrapper("widgetInjectionScript.js",$firstWidgetParams);
                 $taboola_content[TABOOLA_CONTENT_FORMAT_HTML][] = "<div id='taboola-below-article-thumbnails'></div>";
@@ -191,12 +183,9 @@ if (!class_exists('TaboolaWP')) {
             $taboola_content1 = array();
             if ($this->should_show_content_widget1()){
 
-                // Adding the 2nd widget if needed
- //               if($this->settings->second_bc_enabled && trim($this->settings->second_bc_widget_id) != ''){
-
 	                $secondWidgetParams = array('{{WIDGET_ID}}' => $this->settings->second_bc_widget_id,
-	                                           '{{CONTAINER}}' => 'taboola-mid-article-thumbnails',
-	                                           '{{PLACEMENT}}' =>  $this->settings->second_bc_widget_placement);
+	                    '{{CONTAINER}}' => 'taboola-mid-article-thumbnails',
+	                    '{{PLACEMENT}}' =>  $this->settings->second_bc_widget_placement);
                                                
 	                $secondWidgetScript = new JavaScriptWrapper("widgetInjectionScript.js",$secondWidgetParams);
                     $taboola_content1[TABOOLA_CONTENT_FORMAT_HTML][] = "<div id='taboola-mid-article-thumbnails'></div>";
@@ -283,7 +272,6 @@ if (!class_exists('TaboolaWP')) {
 // mid-article location start
         function embed_taboola_content_location1($content, $taboola_content1, $location){
             $do_default = true;
-            //$position = $this->ai_generateAfterParagraph($content);
 
             if (isset($location) && $location != ''){
                 $first_char = substr($location,0,1);
@@ -321,14 +309,12 @@ if (!class_exists('TaboolaWP')) {
                         $content = $html_doc;
                         $do_default = false;
                     }
-                
                 }
-                // tag is placed outside of content in order to allow "read more" functionality.
-                // Default - add to the end of the content
-                // if ($do_default){
-                //     $content = $content.$this->format_taboola_content_para($taboola_content2,TABOOLA_CONTENT_FORMAT_STRING);
-                // }
             }
+            // Default - add to the end of the content
+            // if ($do_default){
+            //     $content = $content.$this->format_taboola_content1($taboola_content1,TABOOLA_CONTENT_FORMAT_STRING);
+            // }
 
             return $content;
         }
@@ -370,8 +356,8 @@ if (!class_exists('TaboolaWP')) {
                     $data = array(
                         "publisher_id" => trim($_POST['publisher_id']),
                         "first_bc_enabled" => isset($_POST['first_bc_enabled']) ? true : false,
-                        "first_bc_widget_id" => trim($_POST['first_bc_widget_id']),
-                        "first_bc_widget_placement" => trim($_POST['first_bc_widget_placement']),
+                        "first_bc_widget_id" => !empty($_POST['first_bc_widget_id']) ? trim($_POST['first_bc_widget_id']) : '',
+                        "first_bc_widget_placement" => !empty($_POST['first_bc_widget_placement']) ? trim($_POST['first_bc_widget_placement']) : '',
                         "second_bc_enabled" => isset($_POST['second_bc_enabled']) ? true : false,
                         "second_bc_widget_id" => !empty($_POST['second_bc_widget_id']) ? trim($_POST['second_bc_widget_id']) : '',
                         "second_bc_widget_placement" => !empty($_POST['second_bc_widget_placement']) ? trim($_POST['second_bc_widget_placement']) : '',

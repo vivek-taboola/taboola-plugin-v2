@@ -39,7 +39,7 @@ class JavaScriptWrapper {
 		return $this->_currentScript;
 	}
 
-	function getScripMarkupString(){
+	function getScriptMarkupString(){
 		return "<script type='text/javascript'>".$this."</script>";
 	}
 
