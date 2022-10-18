@@ -84,7 +84,7 @@
         opacity: 1;
     }
 
-    p.heading_mid{
+    p.heading_mid, p.heading_mid_home{
         width: 419px !important;
     }
 
@@ -293,6 +293,97 @@
 
 <!-- Mid Article Widget -->
 
+<!-- Homepage mid widget -->
+
+<hr style='margin-bottom: 25px; margin-top: 5px;'></hr>
+        <div class='checkbox'>
+            <input id="home_widget_enabled" type="checkbox" <?php echo !empty($settings->home_widget_enabled) ? "checked='checked'" : "" ?> name="home_widget_enabled"/>
+            <b>Homepage Widget</b>
+        </div>
+
+        <table>
+            <tr>
+                <td>Mode (Widget ID)</td>
+                <td>
+                    <input id="home_bc_widget_id" type="text" value="<?php echo !empty($settings->home_bc_widget_id) ? htmlspecialchars($settings->home_bc_widget_id) : "" ?>" name="home_bc_widget_id" placeholder="Widget ID" />
+                </td>
+                <td class='tooltip'>
+                    <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
+                    <div>Please contact your Taboola representative to receive the Widget ID</div>
+                </td>
+            </tr>
+          
+            <tr>
+                <td>Placement Name</td>
+                <td>
+                    <input id = "home_bc_widget_placement" type="text" value="<?php echo !empty($settings->home_bc_widget_placement) ? htmlspecialchars($settings->home_bc_widget_placement) : "" ?>" name="home_bc_widget_placement" placeholder="Placement Name" />
+                </td>
+                <td class='tooltip'>
+                    <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
+                    <div>Please contact your Taboola representative to receive placement name</div>
+                </td>
+            </tr>
+
+        </table>
+
+        <table class='table3'>
+            <tr><td><p class='heading_mid_home'><b>Position the widget immediately below the element:</b></p></td>
+            <td class='tooltip_mid'>
+                    <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
+                    <div>The Widget will be placed just beneath the targeted element. To target an element, enter 2 buts of information: <br><br>
+                    
+                    i) A CSS Selector. <br>
+                    ii) An Occurrence (1st, 2nd, 3rd etc) <br><br>
+                
+                    Example 1: <br><br>
+
+                    To Position the widget beneaththe 5th paragraph: <br>
+
+                    CSS Selector = p, and occurrence = 5 <br><br>
+
+                    Example 2: <br><br>
+
+                    To position the widget beneath the first element with <br>
+                    <b>id = "my-id"</b>, enter: <br><br>
+
+                    CSS Selector= <b>#my-id</b>, and occurrnce = <b>1</b> <br>
+
+                    ---- <br>
+
+                    For assistance, reach out via our <a href="https://developers.taboola.com/web-integrations/discuss" target="_blank">Community page.</a>
+
+                </div>
+                </td>
+            </tr>
+        </table>
+
+        <table>
+            <tr>
+                <td>HTML element / CSS selector: </td>
+                <td class='input_mid_home'><input id = "location_mid_string_home" type="text" value="<?php echo !empty($settings->location_mid_string_home) ? htmlspecialchars($settings->location_mid_string_home) : "" ?>" name="location_mid_string_home" placeholder="E.g. p for paragraph" /></td>
+                <td class='tooltip'>
+                    <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
+                    <div><b>P</b> for <b>paragraph, #my-id</b> for an element with <b>id="my-id"</b>, etc.</div>
+                </td>
+            </tr>
+
+            <tr>
+            <td>Occurrence: </td>
+            <td>
+                    <input type="number" id="para_num_home" value="<?php echo !empty($settings->mid_widget_paragraph_home) ? $settings->mid_widget_paragraph_home : "1" ?>" name="mid_widget_paragraph_home" placeholder="" style="width:65px;">
+            </td>
+            <td class='tooltip'>
+                    <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
+                    <div><b>5</b> for the <b>5th</b> occurrence, 1 for the 1st occurrence, etc. <br>
+                    (if left blank, default = 1)
+                </div>
+                </td>
+            </tr>
+
+        </table>
+
+<!-- Homepage mid widget -->
+
         <input class='button-secondary apply_button' type="submit" value="Apply Changes ✔"/>
         <!--         <a class='request_link' href=' http://taboola.com/contact' target='_blank'>Request Widget</a> -->
     </form>
@@ -345,8 +436,8 @@
             document.getElementById("first_bc_widget_placement").disabled = true;
             document.getElementById("out_of_content_enabled").disabled = true;
         }
-
     }
+
     function sync_checkboxes1(){ 
         if(document.getElementById("second_bc_enabled").checked){
             document.getElementById("second_bc_widget_id").disabled = false;
@@ -361,6 +452,20 @@
         }
     }
 
+    function sync_checkboxes_home(){
+        if(document.getElementById("home_widget_enabled").checked){
+            document.getElementById("home_bc_widget_id").disabled = false;
+            document.getElementById("home_bc_widget_placement").disabled = false;
+            document.getElementById("location_mid_string_home").disabled = false;
+            document.getElementById("para_num_home").disabled = false;
+        }else{
+            document.getElementById("home_bc_widget_id").disabled = true;
+            document.getElementById("home_bc_widget_placement").disabled = true;
+            document.getElementById("location_mid_string_home").disabled = true;
+            document.getElementById("para_num_home").disabled = true;
+        }
+    }
+
 
     jQuery('#first_bc_enabled').change(sync_checkboxes);
     setTimeout(function(){jQuery('.label-success').fadeOut()}, 6000);
@@ -371,6 +476,11 @@
     setTimeout(function(){jQuery('.label-success').fadeOut()}, 6000);
     setTimeout(function(){jQuery('.label-error').fadeOut()}, 6000);
     sync_checkboxes1();
+
+    jQuery('#home_widget_enabled').change(sync_checkboxes_home);
+    setTimeout(function(){jQuery('.label-success').fadeOut()}, 6000);
+    setTimeout(function(){jQuery('.label-error').fadeOut()}, 6000);
+    sync_checkboxes_home();
 
     jQuery('.toggle_intercept').click(function(){
         if (jQuery('.location_section').fadeToggle != undefined){
