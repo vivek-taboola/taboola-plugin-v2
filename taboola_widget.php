@@ -64,15 +64,14 @@ if (!class_exists('TaboolaWP')) {
                 //add menu for plugin
                 add_action( 'admin_menu', array(&$this, 'admin_generate_menu') );
                 add_filter('plugin_action_links', array(&$this, 'plugin_action_links'), 10, 2 );
-            } else {
-                if($this->settings != NULL){
+            }else if ($this->settings != NULL){
                     add_action('wp_head', array(&$this, 'taboola_header_loader_inject'));
                     add_action('wp_footer', array(&$this, 'taboola_footer_loader_js'));
                     add_filter('the_content', array(&$this, 'load_taboola_content'));
                     add_filter('the_content', array(&$this, 'load_taboola_content1'));
-                }
+                    add_filter('the_content', array(&$this, 'load_taboola_content_home'));
             }
-        }
+    }
 
         function plugin_action_links($links, $file) {
             static $this_plugin;
@@ -99,6 +98,11 @@ if (!class_exists('TaboolaWP')) {
             return $retVal1;
         }
 
+        private function should_show_content_widget_home(){
+            $retVal2 = ((trim($this->settings->publisher_id) != '') && is_front_page() && $this->settings->home_widget_enabled && trim($this->settings->home_bc_widget_id) != '');
+            return $retVal2;
+        }
+
         private function should_show_sidebar_widget(){
             $retVal = ((trim($this->settings->publisher_id) != '') && is_active_widget( false, false, TABOOLA_WIDGET_BASE_ID, true ));
             return $retVal;
@@ -106,14 +110,13 @@ if (!class_exists('TaboolaWP')) {
 
         // Determine if a taboola widget should be added somewhere on the current page (content or sidebar)
         function is_widget_on_page(){
-            return  $this->should_show_content_widget() || $this->should_show_content_widget1() || $this->should_show_sidebar_widget();
+            return  $this->should_show_content_widget() || $this->should_show_content_widget1() || $this->should_show_content_widget_home() || $this->should_show_sidebar_widget();
         }
 
         function get_page_type(){
-
             $page_type='article';
             if (is_front_page()){
-            $page_type='home';
+                $page_type='home';
             }else if (is_category() || is_archive() || is_search()){
                 $page_type='category';
             }
@@ -199,6 +202,32 @@ if (!class_exists('TaboolaWP')) {
 
 // Mid-article-widget-location-end
 
+// Homepage mid widget 
+
+
+        function load_taboola_content_home($content)
+        {
+            
+                $taboola_content_home = array();
+                if ($this->should_show_content_widget_home()){
+
+                        $homeWidgetParams = array('{{WIDGET_ID}}' => $this->settings->home_bc_widget_id,
+                            '{{CONTAINER}}' => 'taboola-mid-homepage-thumbnails',
+                            '{{PLACEMENT}}' =>  $this->settings->home_bc_widget_placement);
+                                                
+                        $homeWidgetScript = new JavaScriptWrapper("widgetInjectionScript.js",$homeWidgetParams);
+                        $taboola_content_home[TABOOLA_CONTENT_FORMAT_HTML][] = "<div id='taboola-mid-homepage-thumbnails'></div>";
+                        $taboola_content_home[TABOOLA_CONTENT_FORMAT_SCRIPT][] = $homeWidgetScript;
+
+                    $content = $this->embed_taboola_content_location_home($content,$taboola_content_home,trim($this->settings->location_mid_string_home));
+                }
+            return $content;
+           
+    }
+
+// Homepage mid widget
+
+
         // Extract the taboola content in the required format:
         // String - for injecting on the servr side
         // Script or HTML - for injecting on the client side
@@ -244,6 +273,31 @@ if (!class_exists('TaboolaWP')) {
         }
 
         // mid-article end
+
+        // Homepage widget start
+
+        function format_taboola_content_home($taboola_content_home,$format){
+            
+            $ret_val = null;
+
+            switch($format){
+                case TABOOLA_CONTENT_FORMAT_STRING:
+                    $result_string = join("",$taboola_content_home[TABOOLA_CONTENT_FORMAT_HTML]).
+                        "<script type='text/javascript'>".join("\n",$taboola_content_home[TABOOLA_CONTENT_FORMAT_SCRIPT])."</script>";
+                    $ret_val = $result_string;     
+                    break;
+
+                // script or html
+                default:
+                    $ret_val = str_replace("\n","",join("",$taboola_content_home[$format]));
+                    break;
+            }
+
+            return $ret_val;
+        
+    }
+
+        // Homepage widget start
 
         // Do the actual logic of choosing where to place the taboola content based on the "location" attribute
         function embed_taboola_content_location($content, $taboola_content){
@@ -321,6 +375,60 @@ if (!class_exists('TaboolaWP')) {
 // mid-article location end
 
 
+// Homepage widget location start
+
+        function embed_taboola_content_location_home($content, $taboola_content_home, $location){
+
+                $do_default = true;
+
+                if (isset($location) && $location != ''){
+                    $first_char = substr($location,0,1);
+
+                    // DIV/XPATH provided for JS handling
+                    if ($first_char == JS_MARKER){
+                        $full_indicator = substr($location,0,strlen(JS_INDICATOR));
+
+                        if ($full_indicator == JS_INDICATOR){
+
+                            $xpath = substr($location,strlen(JS_INDICATOR));
+                            $scriptWrapper = new JavaScriptWrapper("js_inject.min.js",array(
+                                "{{HTML}}" => $this->format_taboola_content_home($taboola_content_home,TABOOLA_CONTENT_FORMAT_HTML),
+                                "{{SCRIPT}}" => $this->format_taboola_content_home($taboola_content_home,TABOOLA_CONTENT_FORMAT_SCRIPT))
+                            );
+                            $scriptWrapper->appendScript("injectWidgetByXpath('".$xpath."');");
+                            $content = $content."<span id='tbdefault'></span><script type='text/javascript'>".$scriptWrapper."</script>";
+
+                            $do_default = false;
+                        }
+
+                    // server side selector provided (see simple_html_dom selectors http://simplehtmldom.sourceforge.net/manual.htm)
+                    // basically it's CSS selectors like in jQuery
+                    } else{
+                        require_once('simple_html_dom.php');
+
+                        $html_doc = str_get_html($content);
+                        $target_location = $html_doc->find($location,($this->settings->mid_widget_paragraph_home)-1);
+
+                        // if the location was found within the html content
+                        if (isset($target_location) && is_object($target_location)){
+
+                            // adding taboola content AFTER the target location
+                            $target_location->outertext = $target_location->outertext.$this->format_taboola_content_home($taboola_content_home,TABOOLA_CONTENT_FORMAT_STRING);
+                            $content = $html_doc;
+                            $do_default = false;
+                        }
+                    }
+                }
+                // Default - add to the end of the content
+                // if ($do_default){
+                //     $content = $content.$this->format_taboola_content_home($taboola_content_home,TABOOLA_CONTENT_FORMAT_STRING);
+                // }
+                return $content;
+
+        }
+
+// Homepage widget location end
+
         function admin_generate_menu(){
             global $current_user;
             add_menu_page('Taboola', 'Taboola', 'manage_options', 'taboola_widget', array(&$this, 'admin_taboola_settings'), $this->plugin_url.'img/taboola_icon.png', 110);
@@ -336,34 +444,52 @@ if (!class_exists('TaboolaWP')) {
                     $taboola_errors[] = "Please add a 'Publisher ID' in order to apply changes to your widgets";
                 }
                 if((isset($_POST['first_bc_enabled']) && trim($_POST['first_bc_widget_id']) == '') ||
-                    (isset($_POST['second_bc_enabled']) && trim($_POST['second_bc_widget_id']) == '')
+                    (isset($_POST['second_bc_enabled']) && trim($_POST['second_bc_widget_id']) == '') ||
+                    (isset($_POST['home_widget_enabled']) && trim($_POST['home_bc_widget_id']) == '')
                 ){
                     $taboola_errors[] = "Please add a 'Widget ID' in order to apply changes to your widgets";
                 }
                 if((isset($_POST['first_bc_enabled']) && trim($_POST['first_bc_widget_placement']) == '') ||
-                    (isset($_POST['second_bc_enabled']) && trim($_POST['second_bc_widget_placement']) == '')
+                    (isset($_POST['second_bc_enabled']) && trim($_POST['second_bc_widget_placement']) == '') ||
+                    (isset($_POST['home_widget_enabled']) && trim($_POST['home_bc_widget_placement']) == '')
                 ){
                     $taboola_errors[] = "Please add a 'Placement' in order to apply changes to your widgets";
                 }
-                if (!empty($_POST['location_mid_string']) && !$this->is_location_string_valid1($_POST['location_mid_string'])){
+                if (!empty($_POST['location_mid_string']) && !$this->is_location_string_valid1($_POST['location_mid_string']) || 
+                    (!empty($_POST['location_mid_string_home']) && !$this->is_location_string_valid_home($_POST['location_mid_string_home']))
+                )
+                {
                     $taboola_errors[] = "Location string not valid, please contact your Taboola account manager to get a valid location string";
                 }
-                if (!empty($_POST['mid_widget_paragraph']) && !$this->is_location_number_valid2($_POST['mid_widget_paragraph'])){
+                if (!empty($_POST['mid_widget_paragraph']) && !$this->is_location_number_valid2($_POST['mid_widget_paragraph']) ||
+                    (!empty($_POST['mid_widget_paragraph_home']) && !$this->is_location_number_valid_home($_POST['mid_widget_paragraph_home'])))
+                {
                     $taboola_errors[] = "Paragraph number not valid";
                 }
                 if(count($taboola_errors) == 0){
 
                     $data = array(
                         "publisher_id" => trim($_POST['publisher_id']),
+
                         "first_bc_enabled" => isset($_POST['first_bc_enabled']) ? true : false,
                         "first_bc_widget_id" => !empty($_POST['first_bc_widget_id']) ? trim($_POST['first_bc_widget_id']) : '',
                         "first_bc_widget_placement" => !empty($_POST['first_bc_widget_placement']) ? trim($_POST['first_bc_widget_placement']) : '',
+
+                        "out_of_content_enabled" => isset($_POST['out_of_content_enabled']) ? true : false,
+
                         "second_bc_enabled" => isset($_POST['second_bc_enabled']) ? true : false,
                         "second_bc_widget_id" => !empty($_POST['second_bc_widget_id']) ? trim($_POST['second_bc_widget_id']) : '',
                         "second_bc_widget_placement" => !empty($_POST['second_bc_widget_placement']) ? trim($_POST['second_bc_widget_placement']) : '',
-                        "out_of_content_enabled" => isset($_POST['out_of_content_enabled']) ? true : false,
+
                         "mid_widget_paragraph" => !empty($_POST['mid_widget_paragraph']) ? $_POST['mid_widget_paragraph'] : '',
-                        "location_mid_string" => !empty($_POST['location_mid_string']) ? trim($_POST['location_mid_string']) : ''
+                        "location_mid_string" => !empty($_POST['location_mid_string']) ? trim($_POST['location_mid_string']) : '',
+
+                        "home_widget_enabled" => isset($_POST['home_widget_enabled']) ? true : false,
+                        "home_bc_widget_id" => !empty($_POST['home_bc_widget_id']) ? trim($_POST['home_bc_widget_id']) : '',
+                        "home_bc_widget_placement" => !empty($_POST['home_bc_widget_placement']) ? trim($_POST['home_bc_widget_placement']) : '',
+
+                        "mid_widget_paragraph_home" => !empty($_POST['mid_widget_paragraph_home']) ? $_POST['mid_widget_paragraph_home'] : '',
+                        "location_mid_string_home" => !empty($_POST['location_mid_string_home']) ? trim($_POST['location_mid_string_home']) : ''
                     );
 
                     //var_dump($settings);
@@ -386,6 +512,16 @@ if (!class_exists('TaboolaWP')) {
         }
 
         function is_location_number_valid2($mid_widget_paragraph){
+            // TODO:: validate the location string
+            return true;
+        }
+
+        function is_location_string_valid_home($location_mid_string_home){
+            // TODO:: validate the location string
+            return true;
+        }
+
+        function is_location_number_valid_home($mid_widget_paragraph_home){
             // TODO:: validate the location string
             return true;
         }
@@ -435,6 +571,11 @@ if (!class_exists('TaboolaWP')) {
                     `out_of_content_enabled` TINYINT(1) NOT NULL DEFAULT TRUE,
                     `location_mid_string` TEXT DEFAULT NULL,
                     `mid_widget_paragraph` INT(50) DEFAULT NULL,
+                    `home_widget_enabled` TINYINT(1) NOT NULL DEFAULT FALSE,
+                    `home_bc_widget_id` VARCHAR(255) DEFAULT NULL,
+                    `home_bc_widget_placement` VARCHAR(255) DEFAULT NULL,
+                    `location_mid_string_home` TEXT DEFAULT NULL,
+                    `mid_widget_paragraph_home` INT(50) DEFAULT NULL,
                     PRIMARY KEY (`id`)
                 )" . $charset_collate . ";";
                 

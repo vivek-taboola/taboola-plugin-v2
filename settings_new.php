@@ -2,140 +2,35 @@
     .taboola-container {
         padding: 20px;
         padding-left: 0;
-        width: 50%;
+        width: 475px;
         font-size: 14px;
     }
     table {
-        width: 73%;
-        margin-left: 10px;
+        width: 475px;
+        margin-left: 20px;
     }
 
-    .table3{
-        width: 58%;
+    table td{
+        padding: 10px 0px 10px 0px;
     }
-
-    .publisher_id_style, .below_article_style, .mid_article_style, .home_article_style{
-        background: #fff;
-        border: 1px solid #999;
-        border-radius: 8px;
-        margin-top: 10px;
-    }
-
-    .below_article_style, .mid_article_style, .home_article_style{
-        padding-bottom: 15px;
-    }
-
-    .switch_style{
-        margin : 10px;
-    }
-
-    .style_box1{
-        padding: 12px 0px 5px 12px;
-    }
-
-    .pub_id{
-        margin: 10px;
-        width: 400px;
-    }
-
-    .widget_below, .widget_below_mid, .widget_below_mid_selector, .widget_below_home, .widget_below_home_selector{
-        width: 50%;
-        float: left;
-        padding: 0px 0px 0px 10px;
-    }
-
-    .statement{
-        margin: 10px;
-    }
-    
-    .mode_style, .mode_style_mid, .mode_style_mid_selector, .mode_style_home, .mode_style_home_selector{
-        width: 50%;
-        padding: 0px 0px 3px 10px;
-        float:left;
-    }
-
-    .placement_style, .placement_style_mid, .placement_style_mid_occurrence, .placement_style_home_occurrence {
-        padding: 0px 0px 8px 10px;
-    }
-
-    .mid_occurrence, .mid_placement{
-        width: 100%;
-    }
-
-    /* slider button CSS */
-
-    .switch {
-        position: relative;
-        display: inline-block;
-        width: 45px;
-        height: 20px;
-        float: right;
-    }
-
-    .switch input { 
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
-
-    .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #ccc;
-        -webkit-transition: .4s;
-        transition: .4s;
-    }
-
-    .slider:before {
-        position: absolute;
-        content: "";
-        height: 18px;
-        width: 18px;
-        left: 1px;
-        bottom: 1px;
-        background-color: white;
-        -webkit-transition: .4s;
-        transition: .4s;
-    }
-
-    input:checked + .slider {
-        background-color: #0f4c81;
-    }
-
-    input:focus + .slider {
-        box-shadow: 0 0 1px #0f4c81;
-    }
-
-    input:checked + .slider:before {
-        -webkit-transform: translateX(26px);
-        -ms-transform: translateX(26px);
-        transform: translateX(26px);
-    }
-
-    /* Rounded sliders */
-
-    .slider.round {
-        border-radius: 34px;
-    }
-
-    .slider.round:before {
-        border-radius: 50%;
-    }
-
-    /* slider button CSS */
 
     table td img {
         position: relative;
         top: 3px;
         margin-left: 5px;
     }
-
+        /*    table {
+                padding: 12px;
+                border: 3px solid #467FD7;
+                border-radius: 5px;
+                margin-top: 10px;
+                width: 100%;
+            }*/
+    table tr td:first-child {
+        width: 220px;
+    }
     table input {
-        width: 180px;
+        width: 100%;
     }
     input[type='text'] {
         border-radius: 3px;
@@ -149,7 +44,9 @@
     input[type='submit']{
         float: right;
     }
-
+    .checkbox {
+        margin-bottom: 10px;
+    }
     .request_link {
         float: right;
         margin-right: 10px;
@@ -187,9 +84,9 @@
         opacity: 1;
     }
 
-    /* p.heading_mid, p.heading_mid_home{
+    p.heading_mid, p.heading_mid_home{
         width: 440px !important;
-    } */
+    }
 
     .label-success {
         font-size: 17px;
@@ -220,72 +117,70 @@
     }
     .apply_button{
         margin-top: 20px !important;
-        background-color: blue !important;
-        color: #fff !important;
     }
 
 </style>
 
 <div class="taboola-container">
-    <img src='<?php echo $this->plugin_url.'img/taboola.png' ?>' style='width:150px;'/>
-    <h2>General Settings</h2>
+    <img src='<?php echo $this->plugin_url.'img/taboola.png' ?>' style='width:200px;'/>
+    <hr>
 
     <form method="POST">
-        <div class="publisher_id_style">
-            <div class="style_box1">
-                <div class='tooltip'>Publisher ID : 
+        <table>
+            <tr>
+                <td><b>Publisher ID</b></td>
+                <td>
+                    <input type="text" name="publisher_id" placeholder="publisher" value="<?php echo !empty($settings->publisher_id) ? htmlspecialchars($settings->publisher_id) : '' ?>"/>
+                </td>
+                <td class='tooltip'>
                     <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
                     <div>Please contact your Taboola representative to receive the Publisher ID </div>
-                </div>
-            </div>
-            <div class="pub_id">
-                <input type="text" name="publisher_id" placeholder="publisher" value="<?php echo !empty($settings->publisher_id) ? htmlspecialchars($settings->publisher_id) : '' ?>"/>
-            </div>
-            <div class="statement">
-                Don't have an account with taboola?
-                <a style='float: inherit; margin-left:5px;' class='request_link' href='http://taboola.com/contact' target='_blank'>Contact us</a>to get started
-            </div>
-        </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan='2' style='line-height: 26px; font-size: 13px;'>
+                    Don't have a Publisher ID?
+                    <a style='float: inherit; margin-left:5px;' class='request_link' href='http://taboola.com/contact' target='_blank'>Contact Taboola</a>
+                </td>
+            </tr>
+        </table>
+
 <!-- Below Article Widget -->
-    <h2>Widget Settings</h2>
-        <div class="below_article_style">
-            <div class="switch_style">
-                <label class="switch">
-                    <input id="first_bc_enabled" type="checkbox" <?php echo !empty($settings->first_bc_enabled) ? "checked='checked'" : "" ?> name="first_bc_enabled"/>
-                    <span class="slider round"></span>
-                </label>
-                <b>Below Article Widget</b>
-            </div>
-            <div class="label_below">
-                <div class="mode_style">
-                    <div class='tooltip'> Mode (Widget ID):
-                        <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
-                        <div>Please contact your Taboola representative to receive the Widget ID</div>
-                    </div>
-                </div>
 
-                <div class="placement_style"> 
-                    <div class='tooltip'> Placement Name:
-                        <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
-                        <div>The placement name, <b>as provided by taboola</b><br><br>
-                            when upgrading from the old <b>taboola plug-in</b>, use: <br>
-                            <b>below-article</b> <br><br>
-                            For assistance, consult with <b>Taboola Support</b>.  
-                        </div>            
-                    </div>
-                </div>
+        <hr style='margin-bottom: 25px; margin-top: 5px;'></hr>
 
-            </div>
-
-            <div class="input_below">
-                <div class="widget_below">
+        <div class='checkbox'>
+            <input id="first_bc_enabled" type="checkbox" <?php echo !empty($settings->first_bc_enabled) ? "checked='checked'" : "" ?> name="first_bc_enabled"/>
+            <b>Below Article Widget</b>
+        </div>
+        <table>
+            <tr>
+                <td>Mode (Widget ID)</td>
+                <td>
                     <input id ="first_bc_widget_id" type="text" value="<?php echo !empty($settings->first_bc_widget_id) ? htmlspecialchars($settings->first_bc_widget_id) : "" ?>" name="first_bc_widget_id" placeholder="Widget ID" />
-                </div>
-
-                <div class="placement_below">
+                </td>
+                <td class='tooltip'>
+                    <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
+                    <div>Please contact your Taboola representative to receive the Widget ID</div>
+                </td>
+            </tr>
+    
+            <tr>
+                <td>Placement Name</td>
+                <td>
                     <input type="text" id="first_bc_widget_placement" value="<?php echo !empty($settings->first_bc_widget_placement) ? htmlspecialchars($settings->first_bc_widget_placement) : "" ?>" name="first_bc_widget_placement" placeholder="Placement Name" />
+                </td>
+                <td class='tooltip'>
+                    <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
+                    <div>The placement name, <b>as provided by taboola</b><br><br>
+                    when upgrading from the old <b>taboola plug-in</b>, use: <br>
+                    <b>below-article</b> <br><br>
+                    For assistance, consult with <b>Taboola Support</b>.              
                 </div>
-            </div>
+                </td>
+            </tr>
+
+        </table>
 
 <!-- Below Article Widget -->
 
@@ -304,46 +199,44 @@
             </td>
         </tr>
     </table>
-
-    </div>
+   
 <!-- Advanced Settings -->
 
 <!-- Mid Article Widget -->
 
-<div class="mid_article_style">
-            <div class="switch_style">
-                <label class="switch">
-                <input id="second_bc_enabled" type="checkbox" <?php echo !empty($settings->second_bc_enabled) ? "checked='checked'" : "" ?> name="second_bc_enabled"/>
-                    <span class="slider round"></span>
-                </label>
-                <b>Mid Article Widget</b>
-            </div>
+<hr style='margin-bottom: 25px; margin-top: 5px;'></hr>
+        <div class='checkbox'>
+            <input id="second_bc_enabled" type="checkbox" <?php echo !empty($settings->second_bc_enabled) ? "checked='checked'" : "" ?> name="second_bc_enabled"/>
+            <b>Mid Article Widget</b>
+        </div>
 
-            <div>
-                <div class="mode_style_mid">
-                    <div class='tooltip'> Mode (Widget ID):
-                        <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
-                        <div>Please contact your Taboola representative to receive the Widget ID</div>
-                    </div>
-                </div>
-                <div class="placement_style_mid"> 
-                    <div class='tooltip'> Placement Name:
-                        <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
-                        <div>Please contact your Taboola representative to receive placement name e.g. "Mid Article Thumbnails"</div>            
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="widget_below_mid">
+        <table>
+            <tr>
+                <td>Mode (Widget ID)</td>
+                <td>
                     <input id="second_bc_widget_id" type="text" value="<?php echo !empty($settings->second_bc_widget_id) ? htmlspecialchars($settings->second_bc_widget_id) : "" ?>" name="second_bc_widget_id" placeholder="Widget ID" />
-                </div>
-                <div class="placement_below_mid">
+                </td>
+                <td class='tooltip'>
+                    <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
+                    <div>Please contact your Taboola representative to receive the Widget ID</div>
+                </td>
+            </tr>
+          
+            <tr>
+                <td>Placement Name</td>
+                <td>
                     <input id = "second_bc_widget_placement" type="text" value="<?php echo !empty($settings->second_bc_widget_placement) ? htmlspecialchars($settings->second_bc_widget_placement) : "" ?>" name="second_bc_widget_placement" placeholder="Placement Name" />
-                </div>
-            </div>
+                </td>
+                <td class='tooltip'>
+                    <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
+                    <div>Please contact your Taboola representative to receive placement name e.g. "Mid Article Thumbnails"</div>
+                </td>
+            </tr>
 
-            <table class='table3'>
-            <tr><td><p class='heading_mid_home'><b>Position the widget immediately below the element:</b></p></td>
+        </table>
+
+        <table class='table3'>
+            <tr><td><p class='heading_mid'><b>Position the widget immediately below the element:</b></p></td>
             <td class='tooltip_mid'>
                     <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
                     <div>The Widget will be placed just beneath the targeted element. To target an element, enter 2 buts of information: <br><br>
@@ -373,65 +266,65 @@
             </tr>
         </table>
 
-            <div class="mid_occurrence">
-                <div class="mode_style_mid_selector">
-                    <div class='tooltip'> CSS selector :
-                        <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
-                        <div><b>P</b> for <b>paragraph, #my-id</b> for an element with <b>id="my-id"</b>, etc.</div>
-                    </div>
-                </div>
-                <div class="placement_style_mid_occurrence"> 
-                    <div class='tooltip'> Occurrence :
-                        <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
-                        <div><b>5</b> for the <b>5th</b> occurrence, 1 for the 1st occurrence, etc. <br>
-                        (if left blank, default = 1)</div>            
-                    </div>
-                </div>
-            </div>
-            <div class="mid_placement">
-                <div class="widget_below_mid_selector">
-                    <input id = "location_mid_string" type="text" value="<?php echo !empty($settings->location_mid_string) ? htmlspecialchars($settings->location_mid_string) : "" ?>" name="location_mid_string" placeholder="E.g. p for paragraph" />
-                </div>
-                <div class="placement_below_mid_Occurrence">
+        <table>
+            <tr>
+                <td>HTML element / CSS selector: </td>
+                <td class='input_mid'><input id = "location_mid_string" type="text" value="<?php echo !empty($settings->location_mid_string) ? htmlspecialchars($settings->location_mid_string) : "" ?>" name="location_mid_string" placeholder="E.g. p for paragraph" /></td>
+                <td class='tooltip'>
+                    <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
+                    <div><b>P</b> for <b>paragraph, #my-id</b> for an element with <b>id="my-id"</b>, etc.</div>
+                </td>
+            </tr>
+
+            <tr>
+            <td>Occurrence: </td>
+            <td>
                     <input type="number" id="para_num" value="<?php echo !empty($settings->mid_widget_paragraph) ? $settings->mid_widget_paragraph : "1" ?>" name="mid_widget_paragraph" placeholder="" style="width:65px;">
+            </td>
+            <td class='tooltip'>
+                    <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
+                    <div><b>5</b> for the <b>5th</b> occurrence, 1 for the 1st occurrence, etc. <br>
+                    (if left blank, default = 1)
                 </div>
-            </div>
-    </div>
+                </td>
+            </tr>
+
+        </table>
+
 <!-- Mid Article Widget -->
 
 <!-- Homepage mid widget -->
 
-<div class="home_article_style">
-        <div class="switch_style">
-                <label class="switch">
-                <input id="home_widget_enabled" type="checkbox" <?php echo !empty($settings->home_widget_enabled) ? "checked='checked'" : "" ?> name="home_widget_enabled"/>
-                <span class="slider round"></span>
-                </label>
-                <b>Front-page Widget</b>
-            </div>
+<hr style='margin-bottom: 25px; margin-top: 5px;'></hr>
+        <div class='checkbox'>
+            <input id="home_widget_enabled" type="checkbox" <?php echo !empty($settings->home_widget_enabled) ? "checked='checked'" : "" ?> name="home_widget_enabled"/>
+            <b>Homepage Widget</b>
+        </div>
 
-            <div>
-                <div class="mode_style_home">
-                    <div class='tooltip'> Mode (Widget ID):
-                        <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
-                        <div>Please contact your Taboola representative to receive the Widget ID</div>
-                    </div>
-                </div>
-                <div class="placement_style_home"> 
-                    <div class='tooltip'> Placement Name:
-                        <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
-                        <div>Please contact your Taboola representative to receive placement name e.g. "Mid Homepage Thumbnails"</div>            
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="widget_below_home">
+        <table>
+            <tr>
+                <td>Mode (Widget ID)</td>
+                <td>
                     <input id="home_bc_widget_id" type="text" value="<?php echo !empty($settings->home_bc_widget_id) ? htmlspecialchars($settings->home_bc_widget_id) : "" ?>" name="home_bc_widget_id" placeholder="Widget ID" />
-                </div>
-                <div class="placement_below_home">
+                </td>
+                <td class='tooltip'>
+                    <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
+                    <div>Please contact your Taboola representative to receive the Widget ID</div>
+                </td>
+            </tr>
+          
+            <tr>
+                <td>Placement Name</td>
+                <td>
                     <input id = "home_bc_widget_placement" type="text" value="<?php echo !empty($settings->home_bc_widget_placement) ? htmlspecialchars($settings->home_bc_widget_placement) : "" ?>" name="home_bc_widget_placement" placeholder="Placement Name" />
-                </div>
-            </div>
+                </td>
+                <td class='tooltip'>
+                    <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
+                    <div>Please contact your Taboola representative to receive placement name e.g. "Mid Homepage Thumbnails"</div>
+                </td>
+            </tr>
+
+        </table>
 
         <table class='table3'>
             <tr><td><p class='heading_mid_home'><b>Position the widget immediately below the element:</b></p></td>
@@ -464,31 +357,31 @@
             </tr>
         </table>
 
+        <table>
+            <tr>
+                <td>HTML element / CSS selector: </td>
+                <td class='input_mid_home'><input id = "location_mid_string_home" type="text" value="<?php echo !empty($settings->location_mid_string_home) ? htmlspecialchars($settings->location_mid_string_home) : "" ?>" name="location_mid_string_home" placeholder="E.g. p for paragraph" /></td>
+                <td class='tooltip'>
+                    <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
+                    <div><b>P</b> for <b>paragraph, #my-id</b> for an element with <b>id="my-id"</b>, etc.</div>
+                </td>
+            </tr>
 
-        <div class="home_occurrence">
-                <div class="mode_style_home_selector">
-                    <div class='tooltip'> CSS selector :
-                        <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
-                        <div><b>P</b> for <b>paragraph, #my-id</b> for an element with <b>id="my-id"</b>, etc.</div>
-                    </div>
-                </div>
-                <div class="placement_style_home_occurrence"> 
-                    <div class='tooltip'> Occurrence :
-                        <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
-                        <div><b>5</b> for the <b>5th</b> occurrence, 1 for the 1st occurrence, etc. <br>
-                        (if left blank, default = 1)</div>            
-                    </div>
-                </div>
-            </div>
-            <div class="home_placement">
-                <div class="widget_below_home_selector">
-                    <input id = "location_mid_string_home" type="text" value="<?php echo !empty($settings->location_mid_string_home) ? htmlspecialchars($settings->location_mid_string_home) : "" ?>" name="location_mid_string_home" placeholder="E.g. p for paragraph" /></td>
-                </div>
-                <div class="placement_below_home_Occurrence">
+            <tr>
+            <td>Occurrence: </td>
+            <td>
                     <input type="number" id="para_num_home" value="<?php echo !empty($settings->mid_widget_paragraph_home) ? $settings->mid_widget_paragraph_home : "1" ?>" name="mid_widget_paragraph_home" placeholder="" style="width:65px;">
+            </td>
+            <td class='tooltip'>
+                    <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
+                    <div><b>5</b> for the <b>5th</b> occurrence, 1 for the 1st occurrence, etc. <br>
+                    (if left blank, default = 1)
                 </div>
-            </div>
-</div>
+                </td>
+            </tr>
+
+        </table>
+
 <!-- Homepage mid widget -->
 
         <input class='button-secondary apply_button' type="submit" value="Apply Changes ✔"/>
