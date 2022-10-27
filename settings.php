@@ -54,7 +54,7 @@
         float:left;
     }
 
-    .placement_style, .placement_style_mid, .placement_style_mid_occurrence, .placement_style_home_occurrence {
+    .placement_style, .placement_style_mid, .placement_style_mid_occurrence, .placement_style_home_occurrence,.placement_style_home {
         padding: 0px 0px 8px 10px;
     }
 
@@ -192,13 +192,21 @@
     } */
 
     .label-success {
-        font-size: 17px;
+        background: #d2f2d4;
+        border: 1px solid #d2f2d4;
+        border-radius: 10px;
+        padding: 10px 30px 20px 10px;
+        font-size: 14px;
         display: block;
         margin-top: 10px;
         color: green;
     }
     .label-error {
-        font-size: 17px;
+        background: #ffbaba;
+        border: 1px solid #ffbaba;
+        border-radius: 10px;
+        padding: 10px 30px 20px 10px;
+        font-size: 14px;
         display: block;
         margin-top: 10px;
         color: red;
@@ -228,6 +236,30 @@
 
 <div class="taboola-container">
     <img src='<?php echo $this->plugin_url.'img/taboola.png' ?>' style='width:150px;'/>
+
+<!-- errors/success message -->
+
+    <?php
+    if($_SERVER['REQUEST_METHOD'] == 'POST' && count($taboola_errors) == 0){
+        echo "<div class='label-success'>";
+        echo "<span class='label-success'>Your changes have been made! You can now see them on your site</span>";
+        echo "</div>";
+    }
+    
+    if(count($taboola_errors) > 0){
+        echo "<div class='label-error'>";
+            echo "<h3 style='color:red;'>Missing or incorrect information</h3>";
+            echo "<p>The following fields are missing information.</p>";
+            for($i = 0; $i < count($taboola_errors); $i++){
+                echo "<span>".$taboola_errors[$i]."</span>"."<br>";
+            }
+        echo "</div>";
+    }
+
+    ?>
+
+<!-- errors/success message -->
+
     <h2>General Settings</h2>
 
     <form method="POST">
@@ -507,18 +539,6 @@
         <input name="pub" type="hidden" value="<?=$logPublisher?>">
         <input name="data" type="hideen" value="WORDPRESS_PLUGIN_INSTALL|<?="//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}|{$detailsString}"?>">
     </form> -->
-
-    <?php
-    if($_SERVER['REQUEST_METHOD'] == 'POST' && count($taboola_errors) == 0){
-        echo "<span class='label-success'>Your changes have been made! You can now see them on your site</span>";
-    }
-
-    if(count($taboola_errors) > 0){
-        for($i = 0; $i < count($taboola_errors); $i++){
-            echo "<span class='label-error'>".$taboola_errors[$i]."</span>";
-        }
-    }
-    ?>
 </div>
 <script>
 

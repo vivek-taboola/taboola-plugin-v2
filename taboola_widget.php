@@ -441,19 +441,19 @@ if (!class_exists('TaboolaWP')) {
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
                 if(trim($_POST['publisher_id']) == ''){
-                    $taboola_errors[] = "Please add a 'Publisher ID' in order to apply changes to your widgets";
+                    $taboola_errors[] = "Publisher ID";
                 }
                 if((isset($_POST['first_bc_enabled']) && trim($_POST['first_bc_widget_id']) == '') ||
                     (isset($_POST['second_bc_enabled']) && trim($_POST['second_bc_widget_id']) == '') ||
                     (isset($_POST['home_widget_enabled']) && trim($_POST['home_bc_widget_id']) == '')
                 ){
-                    $taboola_errors[] = "Please add a 'Widget ID' in order to apply changes to your widgets";
+                    $taboola_errors[] = "Widget ID";
                 }
                 if((isset($_POST['first_bc_enabled']) && trim($_POST['first_bc_widget_placement']) == '') ||
                     (isset($_POST['second_bc_enabled']) && trim($_POST['second_bc_widget_placement']) == '') ||
                     (isset($_POST['home_widget_enabled']) && trim($_POST['home_bc_widget_placement']) == '')
                 ){
-                    $taboola_errors[] = "Please add a 'Placement' in order to apply changes to your widgets";
+                    $taboola_errors[] = "Placement";
                 }
                 if (!empty($_POST['location_mid_string']) && !$this->is_location_string_valid1($_POST['location_mid_string']) || 
                     (!empty($_POST['location_mid_string_home']) && !$this->is_location_string_valid_home($_POST['location_mid_string_home']))
