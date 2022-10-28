@@ -156,15 +156,26 @@
         line-height: 26px;
     }
 
-    .tooltip div { /* hide and position tooltip */
+    .tooltip div, .tooltip_placement div, .tooltip_occurrence div{ /* hide and position tooltip */
         background-color: black;
         color: white;
         border-radius: 5px;
         opacity: 0;
         position: absolute;
-        width: 300px;
+        /* width: 300px; */
         padding: 10px;
+        /* margin-left: 130px; */
+    }
+
+    .tooltip div {
+        margin-top: 40px;
+        width: 300px;
         margin-left: 30px;
+    }
+
+    .tooltip_placement div, .tooltip_occurrence div {
+        width: 300px;
+        margin-left: 530px;
     }
 
     .tooltip_mid div{
@@ -183,13 +194,9 @@
         opacity: 1;
     }
 
-    .tooltip:hover div { /* display tooltip on hover */
+    .tooltip:hover div, .tooltip_placement:hover div, .tooltip_occurrence:hover div { /* display tooltip on hover */
         opacity: 1;
     }
-
-    /* p.heading_mid, p.heading_mid_home{
-        width: 440px !important;
-    } */
 
     .label-success {
         background: #d2f2d4;
@@ -242,7 +249,8 @@
     <?php
     if($_SERVER['REQUEST_METHOD'] == 'POST' && count($taboola_errors) == 0){
         echo "<div class='label-success'>";
-        echo "<span class='label-success'>Your changes have been made! You can now see them on your site</span>";
+        echo "<h3 style='color:green;'>Changes applied!</h3>";
+        echo "<span>Your changes have been made! You can now see them on your site</span>";
         echo "</div>";
     }
     
@@ -297,7 +305,7 @@
                 </div>
 
                 <div class="placement_style"> 
-                    <div class='tooltip'> Placement Name:
+                    <div class='tooltip_placement'> Placement Name:
                         <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
                         <div>The placement name, <b>as provided by taboola</b><br><br>
                             when upgrading from the old <b>taboola plug-in</b>, use: <br>
@@ -359,7 +367,7 @@
                     </div>
                 </div>
                 <div class="placement_style_mid"> 
-                    <div class='tooltip'> Placement Name:
+                    <div class='tooltip_placement'> Placement Name:
                         <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
                         <div>Please contact your Taboola representative to receive placement name e.g. "Mid Article Thumbnails"</div>            
                     </div>
@@ -413,7 +421,7 @@
                     </div>
                 </div>
                 <div class="placement_style_mid_occurrence"> 
-                    <div class='tooltip'> Occurrence :
+                    <div class='tooltip_occurrence'> Occurrence :
                         <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
                         <div><b>5</b> for the <b>5th</b> occurrence, 1 for the 1st occurrence, etc. <br>
                         (if left blank, default = 1)</div>            
@@ -450,7 +458,7 @@
                     </div>
                 </div>
                 <div class="placement_style_home"> 
-                    <div class='tooltip'> Placement Name:
+                    <div class='tooltip_placement'> Placement Name:
                         <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
                         <div>Please contact your Taboola representative to receive placement name e.g. "Mid Homepage Thumbnails"</div>            
                     </div>
@@ -505,7 +513,7 @@
                     </div>
                 </div>
                 <div class="placement_style_home_occurrence"> 
-                    <div class='tooltip'> Occurrence :
+                    <div class='tooltip_occurrence'> Occurrence :
                         <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
                         <div><b>5</b> for the <b>5th</b> occurrence, 1 for the 1st occurrence, etc. <br>
                         (if left blank, default = 1)</div>            
