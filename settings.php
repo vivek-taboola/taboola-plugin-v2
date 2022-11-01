@@ -5,14 +5,6 @@
         width: 50%;
         font-size: 14px;
     }
-    table {
-        width: 73%;
-        margin-left: 10px;
-    }
-
-    .table3{
-        width: 58%;
-    }
 
     .publisher_id_style, .below_article_style, .mid_article_style, .home_article_style{
         background: #fff;
@@ -26,36 +18,35 @@
     }
 
     .switch_style{
-        margin : 10px;
+        margin : 10px 10px 20px 10px;
     }
 
-    .style_box1{
-        padding: 12px 0px 5px 12px;
+    .style_box1, .pub_id{
+        padding: 10px 10px 0px 20px;
     }
 
-    .pub_id{
-        margin: 10px;
-        width: 400px;
+    .statement{
+        padding: 10px 10px 10px 20px;
     }
 
     .widget_below, .widget_below_mid, .widget_below_mid_selector, .widget_below_home, .widget_below_home_selector{
         width: 50%;
         float: left;
-        padding: 0px 0px 0px 10px;
-    }
-
-    .statement{
-        margin: 10px;
+        padding: 0px 0px 0px 20px;
     }
     
     .mode_style, .mode_style_mid, .mode_style_mid_selector, .mode_style_home, .mode_style_home_selector{
         width: 50%;
-        padding: 0px 0px 3px 10px;
+        padding: 0px 0px 3px 20px;
         float:left;
     }
 
     .placement_style, .placement_style_mid, .placement_style_mid_occurrence, .placement_style_home_occurrence,.placement_style_home {
-        padding: 0px 0px 8px 10px;
+        padding: 0px 0px 8px 20px;
+    }
+
+    .heading_mid_home{
+        padding: 20px 0px 8px 20px;
     }
 
     .mid_occurrence, .mid_placement{
@@ -83,7 +74,7 @@
         cursor: pointer;
         top: 0;
         left: 0;
-        right: 0;
+        right: -1px;
         bottom: 0;
         background-color: #ccc;
         -webkit-transition: .4s;
@@ -156,46 +147,33 @@
         line-height: 26px;
     }
 
-    .tooltip div, .tooltip_placement div, .tooltip_occurrence div{ /* hide and position tooltip */
-        background-color: black;
-        color: white;
-        border-radius: 5px;
-        opacity: 0;
+    .tooltip_placement div, .tooltip div, .tooltip_occurrence div, .tooltip_mid div{ /* hide and position tooltip */
+        visibility: hidden;
+        width: auto;
+        display: inline-block;
+        background: #000000;
+        color: #fff;
+        font-weight: bold;
+        font-size: 11px;
+        border-radius: 6px;
+        padding: 5px;
+        margin-left: 5px;
         position: absolute;
-        /* width: 300px; */
-        padding: 10px;
-        /* margin-left: 130px; */
-    }
-
-    .tooltip div {
-        margin-top: 40px;
-        width: 300px;
-        margin-left: 30px;
+        z-index: 1;
     }
 
     .tooltip_placement div, .tooltip_occurrence div {
-        width: 300px;
-        margin-left: 530px;
+        margin-left: 10px;
     }
 
     .tooltip_mid div{
-        background-color: black;
-        color: white;
-        border-radius: 5px;
-        opacity: 0;
-        position: absolute;
         width: 400px;
-        padding: 10px;
-        margin-left: 270px;
+        margin-left: 260px;
     }
 
-    .tooltip_mid:hover div{
+    .tooltip_mid:hover div, .tooltip:hover div, .tooltip_placement:hover div, .tooltip_occurrence:hover div{
         visibility: visible;
-        opacity: 1;
-    }
-
-    .tooltip:hover div, .tooltip_placement:hover div, .tooltip_occurrence:hover div { /* display tooltip on hover */
-        opacity: 1;
+        transition-delay: 0.25s;
     }
 
     .label-success {
@@ -239,7 +217,26 @@
         color: #fff !important;
     }
 
+    .apply_button:hover {
+        background-color: #0052FF !important;
+    }
+
+    .helpTooltip__icon___1XWGN{
+        color: #b8c1ca;
+        width: 1em;
+        height: 1em;
+        margin: 3px;
+    }
+
+    .checkbox_read{
+        padding: 0px 0px 5px 20px;
+        float: left;
+    }
+
 </style>
+
+<!-- Latest font-awesome include-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <div class="taboola-container">
     <img src='<?php echo $this->plugin_url.'img/taboola.png' ?>' style='width:150px;'/>
@@ -250,7 +247,7 @@
     if($_SERVER['REQUEST_METHOD'] == 'POST' && count($taboola_errors) == 0){
         echo "<div class='label-success'>";
         echo "<h3 style='color:green;'>Changes applied!</h3>";
-        echo "<span>Your changes have been made! You can now see them on your site</span>";
+        echo "<span>Verify the new changes by browsing to your site</span>";
         echo "</div>";
     }
     
@@ -272,18 +269,25 @@
 
     <form method="POST">
         <div class="publisher_id_style">
-            <div class="style_box1">
-                <div class='tooltip'>Publisher ID : 
-                    <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
-                    <div>Please contact your Taboola representative to receive the Publisher ID </div>
+            <div class="style_box1"><label style="color:#000000; float:left;">Publisher ID :</label>
+             <div class="tooltip">
+                    <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
+                    <!-- <img class="helpTooltip__icon___1XWGN" src='<?php echo $this->plugin_url.'img/tooltip_image.svg' ?>'/> -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
+                            <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
+                        </g>
+                    </svg>
+                    <!-- <div id="arrow" ></div> -->
+                    <div>Please contact your Taboola representative to receive the Publisher ID</div>
                 </div>
             </div>
             <div class="pub_id">
                 <input type="text" name="publisher_id" placeholder="publisher" value="<?php echo !empty($settings->publisher_id) ? htmlspecialchars($settings->publisher_id) : '' ?>"/>
             </div>
             <div class="statement">
-                Don't have an account with taboola?
-                <a style='float: inherit; margin-left:5px;' class='request_link' href='http://taboola.com/contact' target='_blank'>Contact us</a>to get started
+                <label>Don't have an account with taboola?</label>
+                <a style='float: inherit;' class='request_link' href='http://taboola.com/contact' target='_blank'>Contact us</a>
+                <label style="margin-left: -9px;">to get started</label>
             </div>
         </div>
 <!-- Below Article Widget -->
@@ -294,19 +298,27 @@
                     <input id="first_bc_enabled" type="checkbox" <?php echo !empty($settings->first_bc_enabled) ? "checked='checked'" : "" ?> name="first_bc_enabled"/>
                     <span class="slider round"></span>
                 </label>
-                <b>Below Article Widget</b>
+                <b style="font-size:15px;">Below Article Widget</b>
             </div>
             <div class="label_below">
-                <div class="mode_style">
-                    <div class='tooltip'> Mode (Widget ID):
-                        <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
+                <div class="mode_style"><label style="color:#000000; float:left;">Mode (Widget ID):</label>
+                    <div class='tooltip'>
+                        <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
+                                <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
+                             </g>
+                         </svg>
                         <div>Please contact your Taboola representative to receive the Widget ID</div>
                     </div>
                 </div>
 
-                <div class="placement_style"> 
-                    <div class='tooltip_placement'> Placement Name:
-                        <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
+                <div class="placement_style"><label style="color:#000000; float:left;">Placement Name:</label>
+                    <div class='tooltip_placement'>
+                        <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
+                                <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
+                             </g>
+                         </svg>
                         <div>The placement name, <b>as provided by taboola</b><br><br>
                             when upgrading from the old <b>taboola plug-in</b>, use: <br>
                             <b>below-article</b> <br><br>
@@ -332,20 +344,20 @@
 <!-- Advanced Settings -->
 <br/>
 
-    <table class='location_section'>
-        <tr>
-            <td colspan="2"> <div class='checkbox'>
-                    <input id="out_of_content_enabled" type="checkbox" <?php echo !empty($settings->out_of_content_enabled) ? "checked='checked'" : "" ?> name="out_of_content_enabled"/>
-                    Place the widget just after the article (required for Read More)
-                </div></td>
-            <td class='tooltip'>
-                <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
+        <div class='location_section'>
+            <div class='checkbox_read'>
+                <input id="out_of_content_enabled" type="checkbox"<?php echo !empty($settings->out_of_content_enabled) ? "checked='checked'" : "" ?> name="out_of_content_enabled"/>
+                <label style="color:#000000;">Place the widget just after the article (required for Read More)</label>
+            </div>
+            <div class='tooltip'>
+                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
+                                <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
+                             </g>
+                         </svg>
                 <div>This may be disabled if your website doesn't use Taboola's "Read more" feature, or if the widget is not placed correctly. DO NOT disable it if your widget includes "Read More"</div>
-            </td>
-        </tr>
-    </table>
-
-    </div>
+            </div>
+        </div>
+</div>
 <!-- Advanced Settings -->
 
 <!-- Mid Article Widget -->
@@ -356,19 +368,27 @@
                 <input id="second_bc_enabled" type="checkbox" <?php echo !empty($settings->second_bc_enabled) ? "checked='checked'" : "" ?> name="second_bc_enabled"/>
                     <span class="slider round"></span>
                 </label>
-                <b>Mid Article Widget</b>
+                <b style="font-size:15px;">Mid Article Widget</b>
             </div>
 
             <div>
-                <div class="mode_style_mid">
-                    <div class='tooltip'> Mode (Widget ID):
-                        <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
+                <div class="mode_style_mid"><label style="color:#000000; float:left;">Mode (Widget ID):</label>
+                    <div class='tooltip'>
+                        <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
+                                <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
+                             </g>
+                         </svg>
                         <div>Please contact your Taboola representative to receive the Widget ID</div>
                     </div>
                 </div>
-                <div class="placement_style_mid"> 
-                    <div class='tooltip_placement'> Placement Name:
-                        <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
+                <div class="placement_style_mid"><label style="color:#000000; float:left;">Placement Name:</label>
+                    <div class='tooltip_placement'>
+                        <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
+                                <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
+                             </g>
+                         </svg>
                         <div>Please contact your Taboola representative to receive placement name e.g. "Mid Article Thumbnails"</div>            
                     </div>
                 </div>
@@ -382,10 +402,13 @@
                 </div>
             </div>
 
-            <table class='table3'>
-            <tr><td><p class='heading_mid_home'><b>Position the widget immediately below the element:</b></p></td>
-            <td class='tooltip_mid'>
-                    <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
+            <div class='heading_mid_home'><label style="color:#000; float:left;">Position the widget immediately below the element:</label>
+            <div class='tooltip_mid'>
+                    <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
+                            <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
+                            </g>
+                    </svg>
                     <div>The Widget will be placed just beneath the targeted element. To target an element, enter 2 buts of information: <br><br>
                     
                     i) A CSS Selector. <br>
@@ -409,20 +432,27 @@
                     For assistance, reach out via our <a href="https://developers.taboola.com/web-integrations/discuss" target="_blank">Community page.</a>
 
                 </div>
-                </td>
-            </tr>
-        </table>
+            </div>
+        </div>
 
             <div class="mid_occurrence">
-                <div class="mode_style_mid_selector">
-                    <div class='tooltip'> CSS selector :
-                        <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
+                <div class="mode_style_mid_selector"><label style="color:#000000; float:left;">CSS selector :</label>
+                    <div class='tooltip'>
+                        <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
+                                <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
+                                </g>
+                         </svg>
                         <div><b>P</b> for <b>paragraph, #my-id</b> for an element with <b>id="my-id"</b>, etc.</div>
                     </div>
                 </div>
-                <div class="placement_style_mid_occurrence"> 
-                    <div class='tooltip_occurrence'> Occurrence :
-                        <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
+                <div class="placement_style_mid_occurrence"><label style="color:#000000; float:left;">Occurrence :</label>
+                    <div class='tooltip_occurrence'>
+                        <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
+                                <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
+                                </g>
+                         </svg>
                         <div><b>5</b> for the <b>5th</b> occurrence, 1 for the 1st occurrence, etc. <br>
                         (if left blank, default = 1)</div>            
                     </div>
@@ -447,19 +477,27 @@
                 <input id="home_widget_enabled" type="checkbox" <?php echo !empty($settings->home_widget_enabled) ? "checked='checked'" : "" ?> name="home_widget_enabled"/>
                 <span class="slider round"></span>
                 </label>
-                <b>Front-page Widget</b>
+                <b style="font-size:15px;">Front-page Widget</b>
             </div>
 
             <div>
-                <div class="mode_style_home">
-                    <div class='tooltip'> Mode (Widget ID):
-                        <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
+                <div class="mode_style_home"><label style="color:#000000; float:left;">Mode (Widget ID):</label>
+                    <div class='tooltip'>
+                        <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
+                                <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
+                                </g>
+                         </svg>
                         <div>Please contact your Taboola representative to receive the Widget ID</div>
                     </div>
                 </div>
-                <div class="placement_style_home"> 
-                    <div class='tooltip_placement'> Placement Name:
-                        <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
+                <div class="placement_style_home"><label style="color:#000000; float:left;">Placement Name:</label>
+                    <div class='tooltip_placement'>
+                        <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
+                                <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
+                                </g>
+                         </svg>
                         <div>Please contact your Taboola representative to receive placement name e.g. "Mid Homepage Thumbnails"</div>            
                     </div>
                 </div>
@@ -473,10 +511,13 @@
                 </div>
             </div>
 
-        <table class='table3'>
-            <tr><td><p class='heading_mid_home'><b>Position the widget immediately below the element:</b></p></td>
-            <td class='tooltip_mid'>
-                    <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
+            <div class='heading_mid_home'><label style="color:#000; float:left;">Position the widget immediately below the element:</label>
+            <div class='tooltip_mid'>
+                    <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
+                            <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
+                            </g>
+                    </svg>
                     <div>The Widget will be placed just beneath the targeted element. To target an element, enter 2 buts of information: <br><br>
                     
                     i) A CSS Selector. <br>
@@ -500,21 +541,28 @@
                     For assistance, reach out via our <a href="https://developers.taboola.com/web-integrations/discuss" target="_blank">Community page.</a>
 
                 </div>
-                </td>
-            </tr>
-        </table>
+            </div>
+        </div>
 
 
         <div class="home_occurrence">
-                <div class="mode_style_home_selector">
-                    <div class='tooltip'> CSS selector :
-                        <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
+                <div class="mode_style_home_selector"><label style="color:#000000; float:left;">CSS selector :</label>
+                    <div class='tooltip'>
+                        <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
+                                <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
+                                </g>
+                         </svg>
                         <div><b>P</b> for <b>paragraph, #my-id</b> for an element with <b>id="my-id"</b>, etc.</div>
                     </div>
                 </div>
-                <div class="placement_style_home_occurrence"> 
-                    <div class='tooltip_occurrence'> Occurrence :
-                        <img src='<?php echo $this->plugin_url.'img/question-mark.png' ?>'/>
+                <div class="placement_style_home_occurrence"><label style="color:#000000; float:left;">Occurrence :</label>
+                    <div class='tooltip_occurrence'>
+                        <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
+                                <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
+                                </g>
+                         </svg>
                         <div><b>5</b> for the <b>5th</b> occurrence, 1 for the 1st occurrence, etc. <br>
                         (if left blank, default = 1)</div>            
                     </div>
@@ -548,17 +596,8 @@
         <input name="data" type="hideen" value="WORDPRESS_PLUGIN_INSTALL|<?="//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}|{$detailsString}"?>">
     </form> -->
 </div>
+
 <script>
-
-    // function sync_checkboxes(){
-    //         if(jQuery('#first_bc_enabled').attr("checked")){
-    //             jQuery('#second_bc_enabled').attr('disabled',false)
-    //         } else {
-    //             jQuery('#second_bc_enabled').attr('checked', false);
-    //             jQuery('#second_bc_enabled').attr('disabled',true)
-    //         }
-    //     }
-
 
     function sync_checkboxes(){
         if(document.getElementById("first_bc_enabled").checked){
