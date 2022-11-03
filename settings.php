@@ -151,8 +151,8 @@
         visibility: hidden;
         width: auto;
         display: inline-block;
-        background: #000000;
-        color: #fff;
+        background: #0f4c81;
+        color: #ffffff;
         font-weight: bold;
         font-size: 11px;
         border-radius: 6px;
@@ -164,6 +164,7 @@
 
     .tooltip_placement div, .tooltip_occurrence div {
         margin-left: 10px;
+        width: 200px
     }
 
     .tooltip_mid div{
@@ -212,13 +213,17 @@
         transform: rotate(90deg);
     }
     .apply_button{
-        margin-top: 20px !important;
-        background-color: blue !important;
-        color: #fff !important;
+        margin-top: 20px;
+        background-color: #0f4c81;
+        color: #fff;
+        padding: 0 0.8rem;
+        height: 2.3rem;
+        border-radius: 7px;
+        border: transparent;
     }
 
     .apply_button:hover {
-        background-color: #0052FF !important;
+        background-color: #1261A0;
     }
 
     .helpTooltip__icon___1XWGN{
@@ -295,13 +300,13 @@
         <div class="below_article_style">
             <div class="switch_style">
                 <label class="switch">
-                    <input id="first_bc_enabled" type="checkbox" <?php echo !empty($settings->first_bc_enabled) ? "checked='checked'" : "" ?> name="first_bc_enabled"/>
+                    <input id="first_bc_enabled" type="checkbox" <?php echo !empty($settings->first_bc_enabled) ? "checked='checked'" : "" ?> onclick="ChangeCheckboxLabel(this)" name="first_bc_enabled"/>
                     <span class="slider round"></span>
                 </label>
                 <b style="font-size:15px;">Below Article Widget</b>
             </div>
             <div class="label_below">
-                <div class="mode_style"><label style="color:#000000; float:left;">Mode (Widget ID):</label>
+                <div class="mode_style"><label id="first_bc_enabled-unchecked" style="float:left;">Mode (Widget ID):</label>
                     <div class='tooltip'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -312,16 +317,16 @@
                     </div>
                 </div>
 
-                <div class="placement_style"><label style="color:#000000; float:left;">Placement Name:</label>
+                <div class="placement_style"><label id="first_bc_enabled-checked" style="float:left;">Placement Name:</label>
                     <div class='tooltip_placement'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
                                 <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
                              </g>
                          </svg>
-                        <div>The placement name, <b>as provided by taboola</b><br><br>
+                        <div>The placement name, <b>as provided by taboola</b><br>
                             when upgrading from the old <b>taboola plug-in</b>, use: <br>
-                            <b>below-article</b> <br><br>
+                            <b>below-article</b><br>
                             For assistance, consult with <b>Taboola Support</b>.  
                         </div>            
                     </div>
@@ -347,14 +352,15 @@
         <div class='location_section'>
             <div class='checkbox_read'>
                 <input id="out_of_content_enabled" type="checkbox"<?php echo !empty($settings->out_of_content_enabled) ? "checked='checked'" : "" ?> name="out_of_content_enabled"/>
-                <label style="color:#000000;">Place the widget just after the article (required for Read More)</label>
+                <label style="color:#333">Place the widget just after the article (required for Read More)</label>
             </div>
             <div class='tooltip'>
                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
                                 <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
                              </g>
                          </svg>
-                <div>This may be disabled if your website doesn't use Taboola's "Read more" feature, or if the widget is not placed correctly. DO NOT disable it if your widget includes "Read More"</div>
+                <div>This may be disabled if your website doesn't use <br> Taboola's "Read more" feature. </div>  
+                <!-- or if the widget is not placed correctly. DO NOT disable it if your widget includes "Read More" -->
             </div>
         </div>
 </div>
@@ -365,14 +371,14 @@
 <div class="mid_article_style">
             <div class="switch_style">
                 <label class="switch">
-                <input id="second_bc_enabled" type="checkbox" <?php echo !empty($settings->second_bc_enabled) ? "checked='checked'" : "" ?> name="second_bc_enabled"/>
+                <input id="second_bc_enabled" type="checkbox" <?php echo !empty($settings->second_bc_enabled) ? "checked='checked'" : "" ?> onclick="ChangeCheckboxLabel(this)" name="second_bc_enabled"/>
                     <span class="slider round"></span>
                 </label>
                 <b style="font-size:15px;">Mid Article Widget</b>
             </div>
 
             <div>
-                <div class="mode_style_mid"><label style="color:#000000; float:left;">Mode (Widget ID):</label>
+                <div class="mode_style_mid"><label id="second_bc_enabled-checked" style="float:left;">Mode (Widget ID):</label>
                     <div class='tooltip'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -382,7 +388,7 @@
                         <div>Please contact your Taboola representative to receive the Widget ID</div>
                     </div>
                 </div>
-                <div class="placement_style_mid"><label style="color:#000000; float:left;">Placement Name:</label>
+                <div class="placement_style_mid"><label id="second_bc_enabled-unchecked" style="float:left;">Placement Name:</label>
                     <div class='tooltip_placement'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -436,7 +442,7 @@
         </div>
 
             <div class="mid_occurrence">
-                <div class="mode_style_mid_selector"><label style="color:#000000; float:left;">CSS selector :</label>
+                <div class="mode_style_mid_selector"><label id="second_bc_enabled-checked1" style="float:left;">CSS selector :</label>
                     <div class='tooltip'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -446,7 +452,7 @@
                         <div><b>P</b> for <b>paragraph, #my-id</b> for an element with <b>id="my-id"</b>, etc.</div>
                     </div>
                 </div>
-                <div class="placement_style_mid_occurrence"><label style="color:#000000; float:left;">Occurrence :</label>
+                <div class="placement_style_mid_occurrence"><label id="second_bc_enabled-unchecked1" style="float:left;">Occurrence :</label>
                     <div class='tooltip_occurrence'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -474,14 +480,14 @@
 <div class="home_article_style">
         <div class="switch_style">
                 <label class="switch">
-                <input id="home_widget_enabled" type="checkbox" <?php echo !empty($settings->home_widget_enabled) ? "checked='checked'" : "" ?> name="home_widget_enabled"/>
+                <input id="home_widget_enabled" type="checkbox" <?php echo !empty($settings->home_widget_enabled) ? "checked='checked'" : "" ?> onclick="ChangeCheckboxLabel(this)" name="home_widget_enabled"/>
                 <span class="slider round"></span>
                 </label>
                 <b style="font-size:15px;">Front-page Widget</b>
             </div>
 
             <div>
-                <div class="mode_style_home"><label style="color:#000000; float:left;">Mode (Widget ID):</label>
+                <div class="mode_style_home"><label id="home_widget_enabled-checked" style="float:left;">Mode (Widget ID):</label>
                     <div class='tooltip'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -491,7 +497,7 @@
                         <div>Please contact your Taboola representative to receive the Widget ID</div>
                     </div>
                 </div>
-                <div class="placement_style_home"><label style="color:#000000; float:left;">Placement Name:</label>
+                <div class="placement_style_home"><label id="home_widget_enabled-unchecked" style="float:left;">Placement Name:</label>
                     <div class='tooltip_placement'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -546,7 +552,7 @@
 
 
         <div class="home_occurrence">
-                <div class="mode_style_home_selector"><label style="color:#000000; float:left;">CSS selector :</label>
+                <div class="mode_style_home_selector"><label id="home_widget_enabled-checked1" style="float:left;">CSS selector :</label>
                     <div class='tooltip'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -556,7 +562,7 @@
                         <div><b>P</b> for <b>paragraph, #my-id</b> for an element with <b>id="my-id"</b>, etc.</div>
                     </div>
                 </div>
-                <div class="placement_style_home_occurrence"><label style="color:#000000; float:left;">Occurrence :</label>
+                <div class="placement_style_home_occurrence"><label id="home_widget_enabled-unchecked1" style="float:left;">Occurrence :</label>
                     <div class='tooltip_occurrence'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -579,7 +585,7 @@
 </div>
 <!-- Homepage mid widget -->
 
-        <input class='button-secondary apply_button' type="submit" value="Apply Changes ✔"/>
+        <input class='apply_button' type="submit" value="Apply Changes ✔"/>
         <!--         <a class='request_link' href=' http://taboola.com/contact' target='_blank'>Request Widget</a> -->
     </form>
     <div style='clear:both'></div>
@@ -596,6 +602,34 @@
         <input name="data" type="hideen" value="WORDPRESS_PLUGIN_INSTALL|<?="//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}|{$detailsString}"?>">
     </form> -->
 </div>
+
+
+<script>
+function ChangeCheckboxLabel(ckbx)
+    {
+        var d = ckbx.id;
+        if( ckbx.checked )
+        {
+            document.getElementById(d+"-checked").style.color = "#000000";
+            document.getElementById(d+"-unchecked").style.color = "#000000";
+            document.getElementById(d+"-checked1").style.color = "#000000";
+            document.getElementById(d+"-unchecked1").style.color = "#000000";
+        }
+        else
+        {
+            document.getElementById(d+"-checked").style.color = "#666666";
+            document.getElementById(d+"-unchecked").style.color = "#666666";
+            document.getElementById(d+"-checked1").style.color = "#666666";
+            document.getElementById(d+"-unchecked1").style.color = "#666666";
+        }
+    }
+</script>
+
+<script>
+    ChangeCheckboxLabel(document.getElementById("first_bc_enabled"));
+    ChangeCheckboxLabel(document.getElementById("second_bc_enabled"));
+    ChangeCheckboxLabel(document.getElementById("home_widget_enabled"));
+</script>
 
 <script>
 
@@ -671,3 +705,4 @@
     }
 
 </script>
+
