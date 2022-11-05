@@ -158,17 +158,18 @@
         border-radius: 6px;
         padding: 5px;
         margin-left: 5px;
+        max-width: 350px;
         position: absolute;
         z-index: 1;
     }
 
     .tooltip_placement div, .tooltip_occurrence div {
         margin-left: 10px;
-        width: 200px
+        /* width: 200px */
     }
 
     .tooltip_mid div{
-        width: 400px;
+        /* width: 350px; */
         margin-left: 260px;
     }
 
@@ -224,6 +225,7 @@
 
     .apply_button:hover {
         background-color: #1261A0;
+        cursor: pointer;
     }
 
     .helpTooltip__icon___1XWGN{
@@ -236,6 +238,14 @@
     .checkbox_read{
         padding: 0px 0px 5px 20px;
         float: left;
+    }
+
+    label:hover{
+        cursor: default;
+    }
+
+    ::placeholder{
+        color: #DEDEDE;
     }
 
 </style>
@@ -265,7 +275,6 @@
             }
         echo "</div>";
     }
-
     ?>
 
 <!-- errors/success message -->
@@ -306,7 +315,7 @@
                 <b style="font-size:15px;">Below Article Widget</b>
             </div>
             <div class="label_below">
-                <div class="mode_style"><label id="first_bc_enabled-unchecked" style="float:left;">Mode (Widget ID):</label>
+                <div class="mode_style"><label class="label" id="first_bc_enabled-unchecked" style="float:left;">Mode (Widget ID):</label>
                     <div class='tooltip'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -585,7 +594,7 @@
 </div>
 <!-- Homepage mid widget -->
 
-        <input class='apply_button' type="submit" value="Apply Changes ✔"/>
+        <input class='apply_button' type="submit" value="Apply Changes"/>
         <!--         <a class='request_link' href=' http://taboola.com/contact' target='_blank'>Request Widget</a> -->
     </form>
     <div style='clear:both'></div>
