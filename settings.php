@@ -199,6 +199,16 @@
         color: red;
     }
 
+    .label-error ul {
+        list-style-position: inside;
+        list-style-type: disc;
+        text-indent: 2em;
+    }
+
+    .label-error p {
+        font-size: 14px;
+    }
+
     .toggle_icon{
         background: url(<?php echo $this->plugin_url.'img/arrow_right_32.png' ?>) no-repeat;
         background-size:contain;
@@ -262,19 +272,23 @@
     if($_SERVER['REQUEST_METHOD'] == 'POST' && count($taboola_errors) == 0){
         echo "<div class='label-success'>";
         echo "<h3 style='color:green;'>Changes applied!</h3>";
-        echo "<span>Verify the new changes by browsing to your site</span>";
+        echo "<span>Verify the new changes by browsing to your site.</span>";
         echo "</div>";
     }
     
     if(count($taboola_errors) > 0){
         echo "<div class='label-error'>";
-            echo "<h3 style='color:red;'>Missing or incorrect information</h3>";
-            echo "<p>The following fields are missing information.</p>";
+            echo "<h3 style='color:red;'>Missing or incorrect values</h3>";
+            echo "<p>The following fields contained missing or incorrect values:</p>";
+            echo "<ul>";
             for($i = 0; $i < count($taboola_errors); $i++){
-                echo "<span>".$taboola_errors[$i]."</span>"."<br>";
+                echo "<li>".$taboola_errors[$i]."</li>";
             }
+            echo "</ul>";
+            echo "<p><b>All values</b> have been reverted to the last successful save.</p>";
         echo "</div>";
     }
+
     ?>
 
 <!-- errors/success message -->
@@ -685,18 +699,18 @@ function ChangeCheckboxLabel(ckbx)
 
 
     jQuery('#first_bc_enabled').change(sync_checkboxes);
-    setTimeout(function(){jQuery('.label-success').fadeOut()}, 6000);
-    setTimeout(function(){jQuery('.label-error').fadeOut()}, 6000);
+    setTimeout(function(){jQuery('.label-success').fadeOut()}, 5000);
+    setTimeout(function(){jQuery('.label-error').fadeOut()}, 8000);
     sync_checkboxes();
 
     jQuery('#second_bc_enabled').change(sync_checkboxes1);
-    setTimeout(function(){jQuery('.label-success').fadeOut()}, 6000);
-    setTimeout(function(){jQuery('.label-error').fadeOut()}, 6000);
+    setTimeout(function(){jQuery('.label-success').fadeOut()}, 5000);
+    setTimeout(function(){jQuery('.label-error').fadeOut()}, 8000);
     sync_checkboxes1();
 
     jQuery('#home_widget_enabled').change(sync_checkboxes_home);
-    setTimeout(function(){jQuery('.label-success').fadeOut()}, 6000);
-    setTimeout(function(){jQuery('.label-error').fadeOut()}, 6000);
+    setTimeout(function(){jQuery('.label-success').fadeOut()}, 5000);
+    setTimeout(function(){jQuery('.label-error').fadeOut()}, 8000);
     sync_checkboxes_home();
 
     jQuery('.toggle_intercept').click(function(){
