@@ -200,21 +200,6 @@
         font-size: 14px;
     }
 
-    .toggle_icon{
-        background: url(<?php echo $this->plugin_url.'img/arrow_right_32.png' ?>) no-repeat;
-        background-size:contain;
-        width:24px;
-        height:24px;
-        display:inline-block;
-        vertical-align: middle;
-    }
-
-    .toggle_icon_on{
-        -ms-transform: rotate(90deg); /* IE 9 */
-        -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
-        transform: rotate(90deg);
-    }
-
     .change_button{
         width: 50%;
         float: left;

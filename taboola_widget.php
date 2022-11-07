@@ -3,7 +3,7 @@
  * Plugin Name: Taboola
  * Plugin URI: https://developers.taboola.com/web-integrations/discuss
  * Description: Taboola
- * Version: 2.0.0
+ * Version: 2.1.0
  * Author: Taboola
  */
 
