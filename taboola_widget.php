@@ -300,7 +300,7 @@ if (!class_exists('TaboolaWP')) {
         
     }
 
-        // Homepage widget start
+        // Homepage widget end
 
         // Do the actual logic of choosing where to place the taboola content based on the "location" attribute
         function embed_taboola_content_location($content, $taboola_content){

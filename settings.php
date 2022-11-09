@@ -16,12 +16,12 @@
 
     .publisher_welcome_massage{
         float: right;
-        width: 40%;
-        padding: 20px 10px 20px 40px;
-        margin: 5% 1% 0 0;
+        width: 36%;
+        padding: 20px 10px 10px 0px;
+        margin: 47px 6% 0 0;
         background: #FFFACD;
         border: 1px solid #999;
-        border-radius: 15px;
+        border-radius: 20px;
     }
 
     .below_article_style, .mid_article_style, .home_article_style{
@@ -244,15 +244,26 @@
     .widget_h2,.general_h2{
         width: 50%;
         float: left;
+        margin-bottom: 1px;
     }
 
     .list_l1{
-        border-top: 1px solid #333;
+        border-top: 1px solid #DEDEDE;
         margin: 30px 20px 0px 0px;
+        margin-left: 17%;
     }
 
     .theme_image{
         width: 50%;
+    }
+
+    .welcome_heading{
+        margin-left: 14%;
+    }
+
+    .first_p,
+    .second_p{
+        margin-left: 17%;
     }
 
 </style>
@@ -296,22 +307,19 @@
 <!-- Welcome Massage -->
 
 <div class="publisher_welcome_massage">
-        <p>Welcome to <b>taboola WordPress Plugin V2!</b></p>
-        <p>For detailed instructions, see the <a href="#" target='_blank'>Taboola Dev Center.</a></p>
-        <p><b>Stuck? Need a hand?</b>Feel free to reach out via our <a href="#" target='_blank'>Online Community</a></p>
+        <h2 class="welcome_heading">Welcome to taboola WordPress Plugin 2.0!</h2>
+        <p class="first_p">For detailed instructions, see the <a href="#" target='_blank'>Taboola Dev Center.</a></p>
+        <p class="second_p"><b>Stuck? Need a hand?</b> Feel free to reach out via our <a href="#" target='_blank'>Online Community</a></p>
         <div class="list_l1">
-            <li style="text-align:center; margin-top:10px;">Usage of this plugin is subject to <b>Taboola's</b> <a href="#" target='_blank'>terms of services.</a></li>
+            <p>Usage of this plugin is subject to <b>Taboola's</b> <a href="#" target='_blank'>terms of services.</a></p>
         </div>
     </div>
 
 <!--  Welcome Massage-->
 
     <form method="POST">
-    <div class="change_button">
         <h2 class="general_h2">General Settings</h2>
-        <input class='apply_button' type="submit" value="Apply Changes"/>
-    </div>
-
+    
         <div class="publisher_id_style">
             <div class="style_box1"><label style="color:#000000; float:left;">Publisher ID :</label>
              <div class="tooltip">
