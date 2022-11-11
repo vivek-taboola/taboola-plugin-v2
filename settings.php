@@ -389,7 +389,7 @@
                 </div>
 
                 <div class="placement_below">
-                    <input type="text" id="first_bc_widget_placement" value="<?php echo !empty($settings->first_bc_widget_placement) ? htmlspecialchars($settings->first_bc_widget_placement) : "" ?>" name="first_bc_widget_placement" placeholder="Placement Name" />
+                    <input type="text" id="first_bc_placement" value="<?php echo !empty($settings->first_bc_placement) ? htmlspecialchars($settings->first_bc_placement) : "" ?>" name="first_bc_placement" placeholder="Placement Name" />
                 </div>
             </div>
 
@@ -420,14 +420,14 @@
 <div class="mid_article_style">
             <div class="switch_style">
                 <label class="switch">
-                <input id="second_bc_enabled" type="checkbox" <?php echo !empty($settings->second_bc_enabled) ? "checked='checked'" : "" ?> onclick="ChangeCheckboxLabel(this)" name="second_bc_enabled"/>
+                <input id="mid_enabled" type="checkbox" <?php echo !empty($settings->mid_enabled) ? "checked='checked'" : "" ?> onclick="ChangeCheckboxLabel(this)" name="mid_enabled"/>
                     <span class="slider round"></span>
                 </label>
                 <b style="font-size:15px;">Mid Article Widget</b>
             </div>
 
             <div>
-                <div class="mode_style_mid"><label id="second_bc_enabled-checked" style="float:left;">Mode (Widget ID):</label>
+                <div class="mode_style_mid"><label id="mid_enabled-checked" style="float:left;">Mode (Widget ID):</label>
                     <div class='tooltip'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -437,7 +437,7 @@
                         <div>Please contact your Taboola representative to receive the Widget ID</div>
                     </div>
                 </div>
-                <div class="placement_style_mid"><label id="second_bc_enabled-unchecked" style="float:left;">Placement Name:</label>
+                <div class="placement_style_mid"><label id="mid_enabled-unchecked" style="float:left;">Placement Name:</label>
                     <div class='tooltip_placement'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -450,10 +450,10 @@
             </div>
             <div>
                 <div class="widget_below_mid">
-                    <input id="second_bc_widget_id" type="text" value="<?php echo !empty($settings->second_bc_widget_id) ? htmlspecialchars($settings->second_bc_widget_id) : "" ?>" name="second_bc_widget_id" placeholder="Widget ID" />
+                    <input id="mid_widget_id" type="text" value="<?php echo !empty($settings->mid_widget_id) ? htmlspecialchars($settings->mid_widget_id) : "" ?>" name="mid_widget_id" placeholder="Widget ID" />
                 </div>
                 <div class="placement_below_mid">
-                    <input id = "second_bc_widget_placement" type="text" value="<?php echo !empty($settings->second_bc_widget_placement) ? htmlspecialchars($settings->second_bc_widget_placement) : "" ?>" name="second_bc_widget_placement" placeholder="Placement Name" />
+                    <input id = "mid_placement" type="text" value="<?php echo !empty($settings->mid_placement) ? htmlspecialchars($settings->mid_placement) : "" ?>" name="mid_placement" placeholder="Placement Name" />
                 </div>
             </div>
 
@@ -491,7 +491,7 @@
         </div>
 
             <div class="mid_occurrence">
-                <div class="mode_style_mid_selector"><label id="second_bc_enabled-checked1" style="float:left;">CSS selector :</label>
+                <div class="mode_style_mid_selector"><label id="mid_enabled-checked1" style="float:left;">CSS selector :</label>
                     <div class='tooltip'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -501,7 +501,7 @@
                         <div><b>P</b> for <b>paragraph, #my-id</b> for an element with <b>id="my-id"</b>, etc.</div>
                     </div>
                 </div>
-                <div class="placement_style_mid_occurrence"><label id="second_bc_enabled-unchecked1" style="float:left;">Occurrence :</label>
+                <div class="placement_style_mid_occurrence"><label id="mid_enabled-unchecked1" style="float:left;">Occurrence :</label>
                     <div class='tooltip_occurrence'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -515,10 +515,10 @@
             </div>
             <div class="mid_placement">
                 <div class="widget_below_mid_selector">
-                    <input id = "location_mid_string" type="text" value="<?php echo !empty($settings->location_mid_string) ? htmlspecialchars($settings->location_mid_string) : "" ?>" name="location_mid_string" placeholder="E.g. p for paragraph" />
+                    <input id = "mid_location_string" type="text" value="<?php echo !empty($settings->mid_location_string) ? htmlspecialchars($settings->mid_location_string) : "" ?>" name="mid_location_string" placeholder="E.g. p for paragraph" />
                 </div>
                 <div class="placement_below_mid_Occurrence">
-                    <input type="number" id="para_num" value="<?php echo !empty($settings->mid_widget_paragraph) ? $settings->mid_widget_paragraph : "1" ?>" name="mid_widget_paragraph" placeholder="" style="width:65px;">
+                    <input type="number" id="para_num" value="<?php echo !empty($settings->mid_location_string_occurrence) ? $settings->mid_location_string_occurrence : "1" ?>" name="mid_location_string_occurrence" placeholder="" style="width:65px;">
                 </div>
             </div>
     </div>
@@ -529,14 +529,14 @@
 <div class="home_article_style">
         <div class="switch_style">
                 <label class="switch">
-                <input id="home_widget_enabled" type="checkbox" <?php echo !empty($settings->home_widget_enabled) ? "checked='checked'" : "" ?> onclick="ChangeCheckboxLabel(this)" name="home_widget_enabled"/>
+                <input id="home_enabled" type="checkbox" <?php echo !empty($settings->home_enabled) ? "checked='checked'" : "" ?> onclick="ChangeCheckboxLabel(this)" name="home_enabled"/>
                 <span class="slider round"></span>
                 </label>
                 <b style="font-size:15px;">Homepage (Front page) Widget</b>
             </div>
 
             <div>
-                <div class="mode_style_home"><label id="home_widget_enabled-checked" style="float:left;">Mode (Widget ID):</label>
+                <div class="mode_style_home"><label id="home_enabled-checked" style="float:left;">Mode (Widget ID):</label>
                     <div class='tooltip'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -546,7 +546,7 @@
                         <div>Please contact your Taboola representative to receive the Widget ID</div>
                     </div>
                 </div>
-                <div class="placement_style_home"><label id="home_widget_enabled-unchecked" style="float:left;">Placement Name:</label>
+                <div class="placement_style_home"><label id="home_enabled-unchecked" style="float:left;">Placement Name:</label>
                     <div class='tooltip_placement'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -559,10 +559,10 @@
             </div>
             <div>
                 <div class="widget_below_home">
-                    <input id="home_bc_widget_id" type="text" value="<?php echo !empty($settings->home_bc_widget_id) ? htmlspecialchars($settings->home_bc_widget_id) : "" ?>" name="home_bc_widget_id" placeholder="Widget ID" />
+                    <input id="home_widget_id" type="text" value="<?php echo !empty($settings->home_widget_id) ? htmlspecialchars($settings->home_widget_id) : "" ?>" name="home_widget_id" placeholder="Widget ID" />
                 </div>
                 <div class="placement_below_home">
-                    <input id = "home_bc_widget_placement" type="text" value="<?php echo !empty($settings->home_bc_widget_placement) ? htmlspecialchars($settings->home_bc_widget_placement) : "" ?>" name="home_bc_widget_placement" placeholder="Placement Name" />
+                    <input id = "home_placement" type="text" value="<?php echo !empty($settings->home_placement) ? htmlspecialchars($settings->home_placement) : "" ?>" name="home_placement" placeholder="Placement Name" />
                 </div>
             </div>
 
@@ -601,7 +601,7 @@
 
 
         <div class="home_occurrence">
-                <div class="mode_style_home_selector"><label id="home_widget_enabled-checked1" style="float:left;">CSS selector :</label>
+                <div class="mode_style_home_selector"><label id="home_enabled-checked1" style="float:left;">CSS selector :</label>
                     <div class='tooltip'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -611,7 +611,7 @@
                         <div><b>P</b> for <b>paragraph, #my-id</b> for an element with <b>id="my-id"</b>, etc.</div>
                     </div>
                 </div>
-                <div class="placement_style_home_occurrence"><label id="home_widget_enabled-unchecked1" style="float:left;">Occurrence :</label>
+                <div class="placement_style_home_occurrence"><label id="home_enabled-unchecked1" style="float:left;">Occurrence :</label>
                     <div class='tooltip_occurrence'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -625,10 +625,10 @@
             </div>
             <div class="home_placement">
                 <div class="widget_below_home_selector">
-                    <input id = "location_mid_string_home" type="text" value="<?php echo !empty($settings->location_mid_string_home) ? htmlspecialchars($settings->location_mid_string_home) : "" ?>" name="location_mid_string_home" placeholder="E.g. p for paragraph" /></td>
+                    <input id = "home_location_string" type="text" value="<?php echo !empty($settings->home_location_string) ? htmlspecialchars($settings->home_location_string) : "" ?>" name="home_location_string" placeholder="E.g. p for paragraph" /></td>
                 </div>
                 <div class="placement_below_home_Occurrence">
-                    <input type="number" id="para_num_home" value="<?php echo !empty($settings->mid_widget_paragraph_home) ? $settings->mid_widget_paragraph_home : "1" ?>" name="mid_widget_paragraph_home" placeholder="" style="width:65px;">
+                    <input type="number" id="para_num_home" value="<?php echo !empty($settings->home_location_string_occurrence) ? $settings->home_location_string_occurrence : "1" ?>" name="home_location_string_occurrence" placeholder="" style="width:65px;">
                 </div>
             </div>
 </div>
@@ -679,8 +679,8 @@ function ChangeCheckboxLabel(ckbx)
 
 <script>
     ChangeCheckboxLabel(document.getElementById("first_bc_enabled"));
-    ChangeCheckboxLabel(document.getElementById("second_bc_enabled"));
-    ChangeCheckboxLabel(document.getElementById("home_widget_enabled"));
+    ChangeCheckboxLabel(document.getElementById("mid_enabled"));
+    ChangeCheckboxLabel(document.getElementById("home_enabled"));
 </script>
 
 <script>
@@ -688,40 +688,40 @@ function ChangeCheckboxLabel(ckbx)
     function sync_checkboxes(){
         if(document.getElementById("first_bc_enabled").checked){
             document.getElementById("first_bc_widget_id").disabled = false;
-            document.getElementById("first_bc_widget_placement").disabled = false;
+            document.getElementById("first_bc_placement").disabled = false;
             document.getElementById("out_of_content_enabled").disabled = false;
         }
         else{
             document.getElementById("first_bc_widget_id").disabled = true;
-            document.getElementById("first_bc_widget_placement").disabled = true;
+            document.getElementById("first_bc_placement").disabled = true;
             document.getElementById("out_of_content_enabled").disabled = true;
         }
     }
 
     function sync_checkboxes1(){ 
-        if(document.getElementById("second_bc_enabled").checked){
-            document.getElementById("second_bc_widget_id").disabled = false;
-            document.getElementById("second_bc_widget_placement").disabled = false;
-            document.getElementById("location_mid_string").disabled = false;
+        if(document.getElementById("mid_enabled").checked){
+            document.getElementById("mid_widget_id").disabled = false;
+            document.getElementById("mid_placement").disabled = false;
+            document.getElementById("mid_location_string").disabled = false;
             document.getElementById("para_num").disabled = false;
         }else{
-            document.getElementById("second_bc_widget_id").disabled = true;
-            document.getElementById("second_bc_widget_placement").disabled = true;
-            document.getElementById("location_mid_string").disabled = true;
+            document.getElementById("mid_widget_id").disabled = true;
+            document.getElementById("mid_placement").disabled = true;
+            document.getElementById("mid_location_string").disabled = true;
             document.getElementById("para_num").disabled = true;
         }
     }
 
     function sync_checkboxes_home(){
-        if(document.getElementById("home_widget_enabled").checked){
-            document.getElementById("home_bc_widget_id").disabled = false;
-            document.getElementById("home_bc_widget_placement").disabled = false;
-            document.getElementById("location_mid_string_home").disabled = false;
+        if(document.getElementById("home_enabled").checked){
+            document.getElementById("home_widget_id").disabled = false;
+            document.getElementById("home_placement").disabled = false;
+            document.getElementById("home_location_string").disabled = false;
             document.getElementById("para_num_home").disabled = false;
         }else{
-            document.getElementById("home_bc_widget_id").disabled = true;
-            document.getElementById("home_bc_widget_placement").disabled = true;
-            document.getElementById("location_mid_string_home").disabled = true;
+            document.getElementById("home_widget_id").disabled = true;
+            document.getElementById("home_placement").disabled = true;
+            document.getElementById("home_location_string").disabled = true;
             document.getElementById("para_num_home").disabled = true;
         }
     }
@@ -732,12 +732,12 @@ function ChangeCheckboxLabel(ckbx)
     setTimeout(function(){jQuery('.label-error').fadeOut()}, 8000);
     sync_checkboxes();
 
-    jQuery('#second_bc_enabled').change(sync_checkboxes1);
+    jQuery('#mid_enabled').change(sync_checkboxes1);
     setTimeout(function(){jQuery('.label-success').fadeOut()}, 5000);
     setTimeout(function(){jQuery('.label-error').fadeOut()}, 8000);
     sync_checkboxes1();
 
-    jQuery('#home_widget_enabled').change(sync_checkboxes_home);
+    jQuery('#home_enabled').change(sync_checkboxes_home);
     setTimeout(function(){jQuery('.label-success').fadeOut()}, 5000);
     setTimeout(function(){jQuery('.label-error').fadeOut()}, 8000);
     sync_checkboxes_home();
