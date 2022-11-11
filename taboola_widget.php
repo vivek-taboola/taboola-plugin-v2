@@ -215,11 +215,11 @@ if (!class_exists('TaboolaWP')) {
                 if ($this->should_show_content_widget_home()){
 
                         $homeWidgetParams = array('{{WIDGET_ID}}' => $this->settings->home_widget_id,
-                            '{{CONTAINER}}' => 'taboola-mid-homepage-thumbnails',
+                            '{{CONTAINER}}' => 'taboola-homepage-thumbnails',
                             '{{PLACEMENT}}' =>  $this->settings->home_placement);
                                                 
                         $homeWidgetScript = new JavaScriptWrapper("widgetInjectionScript.js",$homeWidgetParams);
-                        $taboola_content_home[TABOOLA_CONTENT_FORMAT_HTML][] = "<div id='taboola-mid-homepage-thumbnails'></div>";
+                        $taboola_content_home[TABOOLA_CONTENT_FORMAT_HTML][] = "<div id='taboola-homepage-thumbnails'></div>";
                         $taboola_content_home[TABOOLA_CONTENT_FORMAT_SCRIPT][] = $homeWidgetScript;
 
                     $content = $this->embed_taboola_content_location_home($content,$taboola_content_home,trim($this->settings->home_location_string));
