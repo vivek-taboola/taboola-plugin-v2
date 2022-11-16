@@ -173,7 +173,7 @@
     }
 
     .label-success {
-        background: #d2f2d4;
+        background: #a4fba6 !important;
         border: 1px solid #d2f2d4;
         border-radius: 10px;
         padding: 10px 30px 20px 10px;
@@ -181,7 +181,7 @@
         display: block;
         margin-top: 10px;
         color: green;
-        width: 48%;
+        width: 50%;
     }
     .label-error {
         background: #ffbaba;
@@ -192,7 +192,7 @@
         display: block;
         margin-top: 10px;
         color: red;
-        width: 48%;
+        width: 50%;
     }
 
     .label-error ul {
