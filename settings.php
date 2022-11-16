@@ -444,12 +444,10 @@
           </div>
           <div class="input_below">
             <div class="widget_below">
-              <input id="first_bc_widget_id" type="text" value="
-									<?php echo !empty($settings->first_bc_widget_id) ? htmlspecialchars($settings->first_bc_widget_id) : "" ?>" name="first_bc_widget_id" placeholder="Widget ID" />
+              <input id="first_bc_widget_id" type="text" value="<?php echo !empty($settings->first_bc_widget_id) ? htmlspecialchars($settings->first_bc_widget_id) : "" ?>" name="first_bc_widget_id" placeholder="Widget ID" />
             </div>
             <div class="placement_below">
-              <input type="text" id="first_bc_placement" value="
-										<?php echo !empty($settings->first_bc_placement) ? htmlspecialchars($settings->first_bc_placement) : "" ?>" name="first_bc_placement" placeholder="Placement Name" />
+              <input type="text" id="first_bc_placement" value="<?php echo !empty($settings->first_bc_placement) ? htmlspecialchars($settings->first_bc_placement) : "" ?>" name="first_bc_placement" placeholder="Placement Name" />
             </div>
           </div>
 
