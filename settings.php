@@ -11,7 +11,6 @@
         border-radius: 8px;
         margin-top: 10px;
         width: 50%;
-        float: left;
     }
 
     .publisher_welcome_massage{
@@ -142,29 +141,35 @@
         display: inline-block;
         background: #0f4c81;
         color: #ffffff;
-        font-weight: bold;
-        font-size: 11px;
+        font-weight: normal;
+        font-size: 12px;
         border-radius: 6px;
         padding: 5px;
         margin-left: 5px;
         max-width: 350px;
         position: absolute;
-        z-index: 1;
     }
 
-    .tooltip_placement div, .tooltip_occurrence div {
-        margin-left: 10px;
-        /* width: 200px */
-    }
-
-    .tooltip_mid div{
-        /* width: 350px; */
-        margin-left: 260px;
+    .tooltip,
+    .tooltip_placement,
+    .tooltip_occurrence,
+    .tooltip_mid{
+        opacity: 1 !important;
+        font-size: 13px !important;
+        display: contents !important;
     }
 
     .tooltip_mid:hover div, .tooltip:hover div, .tooltip_placement:hover div, .tooltip_occurrence:hover div{
         visibility: visible;
-        transition-delay: 0.25s;
+        transition-delay: 0.5s;
+    }
+
+    .tooltip div a,
+    .tooltip_mid div a,
+    .tooltip_placement div a{
+        text-decoration: none;
+        border-bottom:1px solid #fff;
+        color: #fff;
     }
 
     .label-success {
@@ -209,8 +214,7 @@
         margin-top: 20px;
         background-color: #0f4c81;
         color: #fff;
-        padding: 0 0.8rem;
-        height: 2.3rem;
+        padding: 0.8rem 1rem;
         border-radius: 7px;
         border: transparent;
         float: right;
@@ -221,11 +225,22 @@
         cursor: pointer;
     }
 
-    .helpTooltip__icon___1XWGN{
+    .helpTooltip__icon___1XWGN,
+    .helpTooltip__icon___1XWGN_read{
         color: #b8c1ca;
         width: 1em;
         height: 1em;
         margin: 3px;
+    }
+
+    .helpTooltip__icon___1XWGN_read{
+        margin-top: 14px;
+    }
+
+    .helpTooltip__icon___1XWGN_first{
+        color: #b8c1ca;
+        width: 1em;
+        height: 1em;
     }
 
     .checkbox_read{
@@ -242,15 +257,14 @@
     }
 
     .widget_h2,.general_h2{
-        width: 50%;
-        float: left;
-        margin-bottom: 1px;
+        font-size: 18px;
+        font-weight: normal;
     }
 
     .list_l1{
         border-top: 1px solid #DEDEDE;
         margin: 30px 20px 0px 0px;
-        margin-left: 17%;
+        margin-left: 14%;
     }
 
     .theme_image{
@@ -258,12 +272,51 @@
     }
 
     .welcome_heading{
-        margin-left: 14%;
+        margin-left: 8%;
+        font-size: 1.5em;
     }
 
     .first_p,
     .second_p{
-        margin-left: 17%;
+        margin-left: 14%;
+        font-size: 14px;
+    }
+
+    .list_l1 p{
+        font-size: 13px;
+    }
+
+    input#publisher-id,
+    input#first_bc_placement,
+    input#mid_placement,
+    input#home_placement{
+        width: 40%;
+    }
+
+    input#first_bc_widget_id,
+    input#mid_widget_id,
+    input#mid_location_string,
+    input#home_widget_id,
+    input#home_location_string{
+        width: 77%;
+    }
+    
+    label{
+        font-weight: normal !important;
+        color: #666666;
+    }
+
+    label#pub_id{
+        color: #000000;
+    }
+
+    label#first_bc_enabled-unchecked2 {
+        padding: 10px 0px 0px 3px;
+    }
+
+    input#out_of_content_enabled {
+        height: 16px;
+        width: 16px;
     }
 
 </style>
@@ -271,10 +324,16 @@
 <!-- Latest font-awesome include-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 <div class="taboola-container">
     <div class="theme_image">
         <img src='<?php echo $this->plugin_url.'img/taboola.png' ?>' style='width:150px;'/>
     </div>
+
+    <h2 style="font-size:1.7em;">Taboola WordPress Plugin 2.0</h2>
 
 <!-- errors/success message -->
 
@@ -306,12 +365,12 @@
 
 <!-- Welcome Massage -->
 
-<div class="publisher_welcome_massage">
-        <h2 class="welcome_heading">Welcome to taboola WordPress Plugin 2.0!</h2>
+    <div class="publisher_welcome_massage">
+        <h2 class="welcome_heading">Welcome to Taboola WordPress Plugin 2.0!</h2>
         <p class="first_p">For detailed instructions, see the <a href="#" target='_blank'>Taboola Dev Center.</a></p>
-        <p class="second_p"><b>Stuck? Need a hand?</b> Feel free to reach out via our <a href="#" target='_blank'>Online Community</a></p>
+        <p class="second_p"><b>Stuck? Need a hand?</b> Feel free to reach out via our <a href="https://developers.taboola.com/web-integrations/discuss" target='_blank'>Online Community</a></p>
         <div class="list_l1">
-            <p>Usage of this plugin is subject to <b>Taboola's</b> <a href="#" target='_blank'>terms of services.</a></p>
+            <p>Usage of this plugin is subject to <b>Taboola's</b> <a href="https://www.taboola.com/policies/platform-terms-of-service" target='_blank'>terms of services.</a></p>
         </div>
     </div>
 
@@ -321,20 +380,20 @@
         <h2 class="general_h2">General Settings</h2>
     
         <div class="publisher_id_style">
-            <div class="style_box1"><label style="color:#000000; float:left;">Publisher ID :</label>
+            <div class="style_box1"><label id="pub_id">Publisher ID :</label>
              <div class="tooltip">
                     <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                     <!-- <img class="helpTooltip__icon___1XWGN" src='<?php echo $this->plugin_url.'img/tooltip_image.svg' ?>'/> -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN_first">
                             <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
                         </g>
                     </svg>
                     <!-- <div id="arrow" ></div> -->
-                    <div>Please contact your Taboola representative to receive the Publisher ID</div>
+                    <div>Your Publisher ID, as provided by Taboola.</div>
                 </div>
             </div>
             <div class="pub_id">
-                <input type="text" name="publisher_id" placeholder="publisher" value="<?php echo !empty($settings->publisher_id) ? htmlspecialchars($settings->publisher_id) : '' ?>"/>
+                <input id="publisher-id" type="text" name="publisher_id" placeholder="publisher" value="<?php echo !empty($settings->publisher_id) ? htmlspecialchars($settings->publisher_id) : '' ?>"/>
             </div>
             <div class="statement">
                 <label>Don't have an account with taboola?</label>
@@ -346,73 +405,73 @@
 
 <!-- Below Article Widget -->
     <h2 class="widget_h2">Widget Settings</h2>
-        <div class="below_article_style">
-            <div class="switch_style">
-                <label class="switch">
-                    <input id="first_bc_enabled" type="checkbox" <?php echo !empty($settings->first_bc_enabled) ? "checked='checked'" : "" ?> onclick="ChangeCheckboxLabel(this)" name="first_bc_enabled"/>
-                    <span class="slider round"></span>
-                </label>
-                <b style="font-size:15px;">Below Article Widget</b>
+    <div class="below_article_style">
+          <div class="switch_style">
+            <label class="switch">
+              <input id="first_bc_enabled" type="checkbox" <?php echo !empty($settings->first_bc_enabled) ? "checked='checked'" : "" ?> onclick="ChangeCheckboxLabelColor(this)" name="first_bc_enabled" />
+              <span class="slider round"></span>
+            </label>
+            <b style="font-size:15px;">Below-article widget</b>
+          </div>
+          <div class="label_below">
+            <div class="mode_style">
+              <label id="first_bc_enabled-unchecked" style="float:left;">Mode (Widget ID):</label>
+              <div class='tooltip'>
+                <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
+                  <g fill="none" fill-rule="evenodd">
+                    <path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
+                  </g>
+                </svg>
+                <div>Your <i>below-article</i> Mode (Widget ID), as provided by Taboola. </div>
+              </div>
             </div>
-            <div class="label_below">
-                <div class="mode_style"><label class="label" id="first_bc_enabled-unchecked" style="float:left;">Mode (Widget ID):</label>
-                    <div class='tooltip'>
-                        <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
-                                <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
-                             </g>
-                         </svg>
-                        <div>Please contact your Taboola representative to receive the Widget ID</div>
-                    </div>
+            <div class="placement_style">
+              <label id="first_bc_enabled-checked" style="float:left;">Placement Name:</label>
+              <div class='tooltip_placement'>
+                <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
+                  <g fill="none" fill-rule="evenodd">
+                    <path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
+                  </g>
+                </svg>
+                <div>Your <i>below-article</i> Placement Name, as provided by Taboola. <br>
+                  <br> When upgrading from v1, fill in ""below-article"". <br>
+                  <br> For more information, reach out via our <a href="https://developers.taboola.com/web-integrations/discuss" target='_blank'>Online Community</a>, or contact Taboola Support.
                 </div>
-
-                <div class="placement_style"><label id="first_bc_enabled-checked" style="float:left;">Placement Name:</label>
-                    <div class='tooltip_placement'>
-                        <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
-                                <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
-                             </g>
-                         </svg>
-                        <div>The placement name, <b>as provided by taboola</b><br>
-                            when upgrading from the old <b>taboola plug-in</b>, use: <br>
-                            <b>below-article</b><br>
-                            For assistance, consult with <b>Taboola Support</b>.  
-                        </div>            
-                    </div>
-                </div>
-
+              </div>
             </div>
-
-            <div class="input_below">
-                <div class="widget_below">
-                    <input id ="first_bc_widget_id" type="text" value="<?php echo !empty($settings->first_bc_widget_id) ? htmlspecialchars($settings->first_bc_widget_id) : "" ?>" name="first_bc_widget_id" placeholder="Widget ID" />
-                </div>
-
-                <div class="placement_below">
-                    <input type="text" id="first_bc_placement" value="<?php echo !empty($settings->first_bc_placement) ? htmlspecialchars($settings->first_bc_placement) : "" ?>" name="first_bc_placement" placeholder="Placement Name" />
-                </div>
+          </div>
+          <div class="input_below">
+            <div class="widget_below">
+              <input id="first_bc_widget_id" type="text" value="
+									<?php echo !empty($settings->first_bc_widget_id) ? htmlspecialchars($settings->first_bc_widget_id) : "" ?>" name="first_bc_widget_id" placeholder="Widget ID" />
             </div>
+            <div class="placement_below">
+              <input type="text" id="first_bc_placement" value="
+										<?php echo !empty($settings->first_bc_placement) ? htmlspecialchars($settings->first_bc_placement) : "" ?>" name="first_bc_placement" placeholder="Placement Name" />
+            </div>
+          </div>
 
-<!-- Below Article Widget -->
-
-<!-- Advanced Settings -->
-<br/>
-
-        <div class='location_section'>
+          <!-- Below Article Widget -->
+          <!-- Advanced Settings -->
+          <br />
+          <div class='location_section'>
             <div class='checkbox_read'>
-                <input id="out_of_content_enabled" type="checkbox"<?php echo !empty($settings->out_of_content_enabled) ? "checked='checked'" : "" ?> name="out_of_content_enabled"/>
-                <label style="color:#333">Place the widget just after the article (required for Read More)</label>
+              <input id="out_of_content_enabled" type="checkbox" <?php echo !empty($settings->out_of_content_enabled) ? "checked='checked'" : "" ?> name="out_of_content_enabled" />
+              <label id="first_bc_enabled-unchecked2">Place the widget just after the article (required for Read More)</label>
             </div>
             <div class='tooltip'>
-                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
-                                <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
-                             </g>
-                         </svg>
-                <div>This may be disabled if your website doesn't use <br> Taboola's "Read more" feature. </div>  
-                <!-- or if the widget is not placed correctly. DO NOT disable it if your widget includes "Read More" -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN_read">
+                <g fill="none" fill-rule="evenodd">
+                  <path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
+                </g>
+              </svg>
+              <div>For more information, see the <a href="#" target='_blank'>Taboola Dev Center</a>. </div>
+              <!-- or if the widget is not placed correctly. DO NOT disable it if your widget includes "Read More" -->
             </div>
+          </div>
         </div>
-</div>
 <!-- Advanced Settings -->
 
 <!-- Mid Article Widget -->
@@ -420,10 +479,10 @@
 <div class="mid_article_style">
             <div class="switch_style">
                 <label class="switch">
-                <input id="mid_enabled" type="checkbox" <?php echo !empty($settings->mid_enabled) ? "checked='checked'" : "" ?> onclick="ChangeCheckboxLabel(this)" name="mid_enabled"/>
+                <input id="mid_enabled" type="checkbox" <?php echo !empty($settings->mid_enabled) ? "checked='checked'" : "" ?> onclick="ChangeCheckboxLabelColor(this)" name="mid_enabled"/>
                     <span class="slider round"></span>
                 </label>
-                <b style="font-size:15px;">Mid Article Widget</b>
+                <b style="font-size:15px;">Mid-article widget</b>
             </div>
 
             <div>
@@ -434,7 +493,7 @@
                                 <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
                              </g>
                          </svg>
-                        <div>Please contact your Taboola representative to receive the Widget ID</div>
+                        <div>Your <i>mid-article</i> Mode (Widget ID), as provided by Taboola.</div>
                     </div>
                 </div>
                 <div class="placement_style_mid"><label id="mid_enabled-unchecked" style="float:left;">Placement Name:</label>
@@ -444,7 +503,7 @@
                                 <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
                              </g>
                          </svg>
-                        <div>Please contact your Taboola representative to receive placement name e.g. "Mid Article Thumbnails"</div>            
+                        <div>Your <i>mid-article</i> Placement Name, as provided by Taboola.</div>            
                     </div>
                 </div>
             </div>
@@ -457,35 +516,23 @@
                 </div>
             </div>
 
-            <div class='heading_mid_home'><label style="color:#000; float:left;">Position the widget immediately below the element:</label>
+            <div class='heading_mid_home'><label id="mid_enabled-unchecked2" style="float:left;">Position the widget immediately below the element:</label>
             <div class='tooltip_mid'>
                     <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
                             <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
                             </g>
                     </svg>
-                    <div>The Widget will be placed just beneath the targeted element. To target an element, enter 2 buts of information: <br><br>
-                    
-                    i) A CSS Selector. <br>
-                    ii) An Occurrence (1st, 2nd, 3rd etc) <br><br>
-                
-                    Example 1: <br><br>
-
-                    To Position the widget beneaththe 5th paragraph: <br>
-
-                    CSS Selector = p, and occurrence = 5 <br><br>
-
-                    Example 2: <br><br>
-
-                    To position the widget beneath the first element with <br>
-                    <b>id = "my-id"</b>, enter: <br><br>
-
-                    CSS Selector= <b>#my-id</b>, and occurrnce = <b>1</b> <br>
-
-                    ---- <br>
-
-                    For assistance, reach out via our <a href="https://developers.taboola.com/web-integrations/discuss" target="_blank">Community page.</a>
-
+                    <div>The widget will be placed just beneath the <i>targeted element</i>.<br><br>
+                            To target an element, 2 pieces of information are needed:<br><br>
+                            i) A CSS selector - e.g. ""p"".<br>
+                            ii) An occurrence - e.g. 1st, 2nd, 3rd, etc.<br><br>
+                            Example 1 - target the 5th paragraph:<br><br>
+                            CSS selector = ""p"", and occurrence = ""5"".<br><br>
+                            Example 2 - target the (first) element with an ID of ""my-id"":<br><br>
+                            CSS selector = ""#my-id"", and occurrence = ""1"".<br><br>
+                            ---- <br>
+                            For more information, see the <a href="#" target='_blank'>Taboola Dev Center</a>.
                 </div>
             </div>
         </div>
@@ -498,7 +545,7 @@
                                 <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
                                 </g>
                          </svg>
-                        <div><b>P</b> for <b>paragraph, #my-id</b> for an element with <b>id="my-id"</b>, etc.</div>
+                        <div><i>p</i> to target a paragraph, <i>#my-id</i> to target an ID of "my-id", <i>.my-class</i>, to target a class of "my-class", etc.</div>
                     </div>
                 </div>
                 <div class="placement_style_mid_occurrence"><label id="mid_enabled-unchecked1" style="float:left;">Occurrence :</label>
@@ -508,8 +555,7 @@
                                 <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
                                 </g>
                          </svg>
-                        <div><b>5</b> for the <b>5th</b> occurrence, 1 for the 1st occurrence, etc. <br>
-                        (if left blank, default = 1)</div>            
+                        <div><i>5</i> for the 5th occurrence, <i>1</i> for the 1st occurrence, etc.</div>            
                     </div>
                 </div>
             </div>
@@ -529,10 +575,10 @@
 <div class="home_article_style">
         <div class="switch_style">
                 <label class="switch">
-                <input id="home_enabled" type="checkbox" <?php echo !empty($settings->home_enabled) ? "checked='checked'" : "" ?> onclick="ChangeCheckboxLabel(this)" name="home_enabled"/>
+                <input id="home_enabled" type="checkbox" <?php echo !empty($settings->home_enabled) ? "checked='checked'" : "" ?> onclick="ChangeCheckboxLabelColor(this)" name="home_enabled"/>
                 <span class="slider round"></span>
                 </label>
-                <b style="font-size:15px;">Homepage (Front page) Widget</b>
+                <b style="font-size:15px;">Homepage (front page) widget</b>
             </div>
 
             <div>
@@ -543,7 +589,7 @@
                                 <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
                                 </g>
                          </svg>
-                        <div>Please contact your Taboola representative to receive the Widget ID</div>
+                        <div>Your <i>homepage</i> Mode (Widget ID), as provided by Taboola.</div>
                     </div>
                 </div>
                 <div class="placement_style_home"><label id="home_enabled-unchecked" style="float:left;">Placement Name:</label>
@@ -553,7 +599,7 @@
                                 <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
                                 </g>
                          </svg>
-                        <div>Please contact your Taboola representative to receive placement name e.g. "Mid Homepage Thumbnails"</div>            
+                        <div>Your <i>homepage</i> Placement Name, as provided by Taboola.</div>            
                     </div>
                 </div>
             </div>
@@ -566,35 +612,23 @@
                 </div>
             </div>
 
-            <div class='heading_mid_home'><label style="color:#000; float:left;">Position the widget immediately below the element:</label>
+            <div class='heading_mid_home'><label id="home_enabled-unchecked2" style="float:left;">Position the widget immediately below the element:</label>
             <div class='tooltip_mid'>
                     <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
                             <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
                             </g>
                     </svg>
-                    <div>The Widget will be placed just beneath the targeted element. To target an element, enter 2 buts of information: <br><br>
-                    
-                    i) A CSS Selector. <br>
-                    ii) An Occurrence (1st, 2nd, 3rd etc) <br><br>
-                
-                    Example 1: <br><br>
-
-                    To Position the widget beneaththe 5th paragraph: <br>
-
-                    CSS Selector = p, and occurrence = 5 <br><br>
-
-                    Example 2: <br><br>
-
-                    To position the widget beneath the first element with <br>
-                    <b>id = "my-id"</b>, enter: <br><br>
-
-                    CSS Selector= <b>#my-id</b>, and occurrnce = <b>1</b> <br>
-
-                    ---- <br>
-
-                    For assistance, reach out via our <a href="https://developers.taboola.com/web-integrations/discuss" target="_blank">Community page.</a>
-
+                    <div>"The widget will be placed just beneath the <i>targeted element</i>.<br><br>
+                            To target an element, 2 pieces of information are needed:<br><br>
+                            i) A CSS selector - e.g. ""p"".<br>
+                            ii) An occurrence - e.g. 1st, 2nd, 3rd, etc.<br><br>
+                            Example 1 - target the 5th paragraph:<br><br>
+                            CSS selector = ""p"", and occurrence = ""5"".<br><br>
+                            Example 2 - target the (first) element with an ID of ""my-id"":<br><br>
+                            CSS selector = ""#my-id"", and occurrence = ""1"".<br><br>
+                            ---- <br>
+                            For more information, see the <a href="#" target='_blank'>Taboola Dev Center</a>."
                 </div>
             </div>
         </div>
@@ -608,7 +642,7 @@
                                 <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
                                 </g>
                          </svg>
-                        <div><b>P</b> for <b>paragraph, #my-id</b> for an element with <b>id="my-id"</b>, etc.</div>
+                        <div><i>p</i> to target a paragraph, <i>#my-id</i> to target an ID of "my-id", <i>.my-class</i>, to target a class of "my-class", etc..</div>
                     </div>
                 </div>
                 <div class="placement_style_home_occurrence"><label id="home_enabled-unchecked1" style="float:left;">Occurrence :</label>
@@ -618,8 +652,7 @@
                                 <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
                                 </g>
                          </svg>
-                        <div><b>5</b> for the <b>5th</b> occurrence, 1 for the 1st occurrence, etc. <br>
-                        (if left blank, default = 1)</div>            
+                        <div><i>5</i> for the 5th occurrence, <i>1</i> for the 1st occurrence, etc.</div>            
                     </div>
                 </div>
             </div>
@@ -657,13 +690,14 @@
 
 
 <script>
-function ChangeCheckboxLabel(ckbx)
+function ChangeCheckboxLabelColor(ckbx)
     {
         var d = ckbx.id;
         if( ckbx.checked )
         {
             document.getElementById(d+"-checked").style.color = "#000000";
             document.getElementById(d+"-unchecked").style.color = "#000000";
+            document.getElementById(d+"-unchecked2").style.color = "#000000";
             document.getElementById(d+"-checked1").style.color = "#000000";
             document.getElementById(d+"-unchecked1").style.color = "#000000";
         }
@@ -671,6 +705,7 @@ function ChangeCheckboxLabel(ckbx)
         {
             document.getElementById(d+"-checked").style.color = "#666666";
             document.getElementById(d+"-unchecked").style.color = "#666666";
+            document.getElementById(d+"-unchecked2").style.color = "#666666";
             document.getElementById(d+"-checked1").style.color = "#666666";
             document.getElementById(d+"-unchecked1").style.color = "#666666";
         }
@@ -678,9 +713,9 @@ function ChangeCheckboxLabel(ckbx)
 </script>
 
 <script>
-    ChangeCheckboxLabel(document.getElementById("first_bc_enabled"));
-    ChangeCheckboxLabel(document.getElementById("mid_enabled"));
-    ChangeCheckboxLabel(document.getElementById("home_enabled"));
+    ChangeCheckboxLabelColor(document.getElementById("first_bc_enabled"));
+    ChangeCheckboxLabelColor(document.getElementById("mid_enabled"));
+    ChangeCheckboxLabelColor(document.getElementById("home_enabled"));
 </script>
 
 <script>
@@ -741,15 +776,6 @@ function ChangeCheckboxLabel(ckbx)
     setTimeout(function(){jQuery('.label-success').fadeOut()}, 5000);
     setTimeout(function(){jQuery('.label-error').fadeOut()}, 8000);
     sync_checkboxes_home();
-
-    jQuery('.toggle_intercept').click(function(){
-        if (jQuery('.location_section').fadeToggle != undefined){
-            jQuery('.location_section').fadeToggle('fast');
-        }else{
-            jQuery('.location_section').toggle();
-        }
-        jQuery('.toggle_icon').toggleClass('toggle_icon_on');
-    });
 
     window.onload = function(){
         document.forms['install_log'].submit()
