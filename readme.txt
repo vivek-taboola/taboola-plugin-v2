@@ -67,6 +67,9 @@ After hundreds or A/B tests conducted we have reached a UI that outperforms anyt
 * Support for PHP 8.0.x
 * Tested on Wordpress 6.0.2
 
+= 1.0.14 =
+* Additional logging.
+
 = 1.0.13 =
 * Minor fixes and improvements.
 
