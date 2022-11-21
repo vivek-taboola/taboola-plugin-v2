@@ -319,6 +319,10 @@
         width: 16px;
     }
 
+    input[type=checkbox]:checked::before {
+        width: 1.8rem !important;
+    }
+
 </style>
 
 <!-- Latest font-awesome include-->
@@ -396,9 +400,9 @@
                 <input id="publisher-id" type="text" name="publisher_id" placeholder="publisher" value="<?php echo !empty($settings->publisher_id) ? htmlspecialchars($settings->publisher_id) : '' ?>"/>
             </div>
             <div class="statement">
-                <label>Don't have an account with taboola?</label>
+                <label style="color: #000000;">Don't have an account with taboola?</label>
                 <a style='float: inherit;' class='request_link' href='http://taboola.com/contact' target='_blank'>Contact us</a>
-                <label style="margin-left: -9px;">to get started</label>
+                <label style="margin-left: -9px; color: #000000;">to get started</label>
             </div>
         </div>
 
@@ -523,12 +527,12 @@
                     </svg>
                     <div>The widget will be placed just beneath the <i>targeted element</i>.<br><br>
                             To target an element, 2 pieces of information are needed:<br><br>
-                            i) A CSS selector - e.g. ""p"".<br>
+                            i) A CSS selector - e.g. "p".<br>
                             ii) An occurrence - e.g. 1st, 2nd, 3rd, etc.<br><br>
                             Example 1 - target the 5th paragraph:<br><br>
-                            CSS selector = ""p"", and occurrence = ""5"".<br><br>
-                            Example 2 - target the (first) element with an ID of ""my-id"":<br><br>
-                            CSS selector = ""#my-id"", and occurrence = ""1"".<br><br>
+                            CSS selector = "p", and occurrence = "5".<br><br>
+                            Example 2 - target the (first) element with an ID of "my-id":<br><br>
+                            CSS selector = "#my-id", and occurrence = "1".<br><br>
                             ---- <br>
                             For more information, see the <a href="#" target='_blank'>Taboola Dev Center</a>.
                 </div>
@@ -617,16 +621,16 @@
                             <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
                             </g>
                     </svg>
-                    <div>"The widget will be placed just beneath the <i>targeted element</i>.<br><br>
+                    <div>The widget will be placed just beneath the <i>targeted element</i>.<br><br>
                             To target an element, 2 pieces of information are needed:<br><br>
-                            i) A CSS selector - e.g. ""p"".<br>
+                            i) A CSS selector - e.g. "p".<br>
                             ii) An occurrence - e.g. 1st, 2nd, 3rd, etc.<br><br>
                             Example 1 - target the 5th paragraph:<br><br>
-                            CSS selector = ""p"", and occurrence = ""5"".<br><br>
-                            Example 2 - target the (first) element with an ID of ""my-id"":<br><br>
-                            CSS selector = ""#my-id"", and occurrence = ""1"".<br><br>
+                            CSS selector = "p", and occurrence = "5".<br><br>
+                            Example 2 - target the (first) element with an ID of "my-id":<br><br>
+                            CSS selector = "#my-id", and occurrence = "1".<br><br>
                             ---- <br>
-                            For more information, see the <a href="#" target='_blank'>Taboola Dev Center</a>."
+                            For more information, see the <a href="#" target='_blank'>Taboola Dev Center</a>.
                 </div>
             </div>
         </div>
