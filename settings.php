@@ -230,7 +230,7 @@
         color: #b8c1ca;
         width: 1em;
         height: 1em;
-        margin: 3px;
+        margin: 4px;
     }
 
     .helpTooltip__icon___1XWGN_read{
@@ -303,7 +303,7 @@
     
     label{
         font-weight: normal !important;
-        color: #666666;
+        /* color: #666666; */
     }
 
     label#pub_id{
@@ -321,6 +321,11 @@
 
     input[type=checkbox]:checked::before {
         width: 1.8rem !important;
+    }
+
+    input[type=checkbox]:focus {
+        outline: none !important;
+        outline-offset: 0px !important;
     }
 
 </style>
@@ -419,7 +424,7 @@
           </div>
           <div class="label_below">
             <div class="mode_style">
-              <label id="first_bc_enabled-unchecked" style="float:left;">Mode (Widget ID):</label>
+              <label id="first_bc_enabled-checked" style="float:left;">Mode (Widget ID):</label>
               <div class='tooltip'>
                 <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -431,7 +436,7 @@
               </div>
             </div>
             <div class="placement_style">
-              <label id="first_bc_enabled-checked" style="float:left;">Placement Name:</label>
+              <label id="first_bc_enabled-unchecked" style="float:left;">Placement Name:</label>
               <div class='tooltip_placement'>
                 <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -481,7 +486,7 @@
 <div class="mid_article_style">
             <div class="switch_style">
                 <label class="switch">
-                <input id="mid_enabled" type="checkbox" <?php echo !empty($settings->mid_enabled) ? "checked='checked'" : "" ?> onclick="ChangeCheckboxLabelColor(this)" name="mid_enabled"/>
+                <input id="mid_enabled" type="checkbox" <?php echo !empty($settings->mid_enabled) ? "checked='checked'" : "" ?> onclick="ChangeCheckboxLabelColorMid(this)" name="mid_enabled"/>
                     <span class="slider round"></span>
                 </label>
                 <b style="font-size:15px;">Mid-article widget</b>
@@ -577,11 +582,21 @@
 <div class="home_article_style">
         <div class="switch_style">
                 <label class="switch">
-                <input id="home_enabled" type="checkbox" <?php echo !empty($settings->home_enabled) ? "checked='checked'" : "" ?> onclick="ChangeCheckboxLabelColor(this)" name="home_enabled"/>
+                <input id="home_enabled" type="checkbox" <?php echo !empty($settings->home_enabled) ? "checked='checked'" : "" ?> onclick="ChangeCheckboxLabelColorHome(this)" name="home_enabled"/>
                 <span class="slider round"></span>
                 </label>
-                <b style="font-size:15px;">Homepage (front page) widget</b>
-            </div>
+                <div>
+                    <b style="font-size:15px;float: left;">Homepage (front page) widget</b>
+                    <div class='tooltip'>
+                            <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
+                                    <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
+                                    </g>
+                            </svg>
+                            <div>Settings will be applied to the page that you marked as your 'front page'.</div>
+                        </div>
+                    </div>
+                </div>
 
             <div>
                 <div class="mode_style_home"><label id="home_enabled-checked" style="float:left;">Mode (Widget ID):</label>
@@ -700,24 +715,66 @@ function ChangeCheckboxLabelColor(ckbx)
             document.getElementById(d+"-checked").style.color = "#000000";
             document.getElementById(d+"-unchecked").style.color = "#000000";
             document.getElementById(d+"-unchecked2").style.color = "#000000";
-            document.getElementById(d+"-checked1").style.color = "#000000";
-            document.getElementById(d+"-unchecked1").style.color = "#000000";
         }
         else
         {
             document.getElementById(d+"-checked").style.color = "#666666";
             document.getElementById(d+"-unchecked").style.color = "#666666";
             document.getElementById(d+"-unchecked2").style.color = "#666666";
-            document.getElementById(d+"-checked1").style.color = "#666666";
-            document.getElementById(d+"-unchecked1").style.color = "#666666";
+        }
+    }
+</script>
+
+<script>
+function ChangeCheckboxLabelColorMid(ckbx)
+    {
+        var b = ckbx.id;
+        if( ckbx.checked )
+        {
+            document.getElementById(b+"-checked").style.color = "#000000";
+            document.getElementById(b+"-unchecked").style.color = "#000000";
+            document.getElementById(b+"-unchecked2").style.color = "#000000";
+            document.getElementById(b+"-checked1").style.color = "#000000";
+            document.getElementById(b+"-unchecked1").style.color = "#000000";
+        }
+        else
+        {
+            document.getElementById(b+"-checked").style.color = "#666666";
+            document.getElementById(b+"-unchecked").style.color = "#666666";
+            document.getElementById(b+"-unchecked2").style.color = "#666666";
+            document.getElementById(b+"-checked1").style.color = "#666666";
+            document.getElementById(b+"-unchecked1").style.color = "#666666";
+        }
+    }
+</script>
+
+<script>
+function ChangeCheckboxLabelColorHome(ckbx)
+    {
+        var b = ckbx.id;
+        if( ckbx.checked )
+        {
+            document.getElementById(b+"-checked").style.color = "#000000";
+            document.getElementById(b+"-unchecked").style.color = "#000000";
+            document.getElementById(b+"-unchecked2").style.color = "#000000";
+            document.getElementById(b+"-checked1").style.color = "#000000";
+            document.getElementById(b+"-unchecked1").style.color = "#000000";
+        }
+        else
+        {
+            document.getElementById(b+"-checked").style.color = "#666666";
+            document.getElementById(b+"-unchecked").style.color = "#666666";
+            document.getElementById(b+"-unchecked2").style.color = "#666666";
+            document.getElementById(b+"-checked1").style.color = "#666666";
+            document.getElementById(b+"-unchecked1").style.color = "#666666";
         }
     }
 </script>
 
 <script>
     ChangeCheckboxLabelColor(document.getElementById("first_bc_enabled"));
-    ChangeCheckboxLabelColor(document.getElementById("mid_enabled"));
-    ChangeCheckboxLabelColor(document.getElementById("home_enabled"));
+    ChangeCheckboxLabelColorMid(document.getElementById("mid_enabled"));
+    ChangeCheckboxLabelColorHome(document.getElementById("home_enabled"));
 </script>
 
 <script>
