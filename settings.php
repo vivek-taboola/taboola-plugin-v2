@@ -258,7 +258,7 @@
 
     .widget_h2,.general_h2{
         font-size: 18px;
-        font-weight: normal;
+        font-weight: 500;
     }
 
     .list_l1{
@@ -377,7 +377,7 @@
     <div class="publisher_welcome_massage">
         <h2 class="welcome_heading">Welcome to Taboola WordPress Plugin 2.0!</h2>
         <p class="first_p">For detailed instructions, see the <a href="#" target='_blank'>Taboola Dev Center.</a></p>
-        <p class="second_p"><b>Stuck? Need a hand?</b> Feel free to reach out via our <a href="https://developers.taboola.com/web-integrations/discuss" target='_blank'>Online Community</a></p>
+        <p class="second_p"><b>Stuck? Need a hand?</b> Feel free to reach out via our <a href="https://developers.taboola.com/web-integrations/discuss" target='_blank'>Online Community</a>.</p>
         <div class="list_l1">
             <p>Usage of this plugin is subject to <b>Taboola's</b> <a href="https://www.taboola.com/policies/platform-terms-of-service" target='_blank'>terms of services.</a></p>
         </div>
@@ -407,7 +407,7 @@
             <div class="statement">
                 <label style="color: #000000;">Don't have an account with taboola?</label>
                 <a style='float: inherit;' class='request_link' href='http://taboola.com/contact' target='_blank'>Contact us</a>
-                <label style="margin-left: -9px; color: #000000;">to get started</label>
+                <label style="margin-left: -9px; color: #000000;">to get started.</label>
             </div>
         </div>
 
@@ -445,7 +445,7 @@
                   </g>
                 </svg>
                 <div>Your <i>below-article</i> Placement Name, as provided by Taboola. <br>
-                  <br> When upgrading from v1, fill in ""below-article"". <br>
+                  <br> When upgrading from v1, fill in 'below-article'. <br>
                   <br> For more information, reach out via our <a href="https://developers.taboola.com/web-integrations/discuss" target='_blank'>Online Community</a>, or contact Taboola Support.
                 </div>
               </div>
@@ -530,17 +530,12 @@
                             <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
                             </g>
                     </svg>
-                    <div>The widget will be placed just beneath the <i>targeted element</i>.<br><br>
+                    <div>The widget will be placed <i>just beneath</i> this element.<br><br>
                             To target an element, 2 pieces of information are needed:<br><br>
                             i) A CSS selector - e.g. "p".<br>
                             ii) An occurrence - e.g. 1st, 2nd, 3rd, etc.<br><br>
-                            Example 1 - target the 5th paragraph:<br><br>
-                            CSS selector = "p", and occurrence = "5".<br><br>
-                            Example 2 - target the (first) element with an ID of "my-id":<br><br>
-                            CSS selector = "#my-id", and occurrence = "1".<br><br>
-                            ---- <br>
                             For more information, see the <a href="#" target='_blank'>Taboola Dev Center</a>.
-                </div>
+                    </div>
             </div>
         </div>
 
@@ -552,7 +547,12 @@
                                 <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
                                 </g>
                          </svg>
-                        <div><i>p</i> to target a paragraph, <i>#my-id</i> to target an ID of "my-id", <i>.my-class</i>, to target a class of "my-class", etc.</div>
+                        <div>
+                            Examples:<br>
+                            <i>p</i> - to target a <i>paragraph</i><br>
+                            <i>#my-id</i> - to target an <i>ID</i> of "my-id"
+                            <br><i>.my-class</i> - to target a <i>class</i> of "my-class"
+                        </div>
                     </div>
                 </div>
                 <div class="placement_style_mid_occurrence"><label id="mid_enabled-unchecked1" style="float:left;">Occurrence :</label>
@@ -640,11 +640,6 @@
                             To target an element, 2 pieces of information are needed:<br><br>
                             i) A CSS selector - e.g. "p".<br>
                             ii) An occurrence - e.g. 1st, 2nd, 3rd, etc.<br><br>
-                            Example 1 - target the 5th paragraph:<br><br>
-                            CSS selector = "p", and occurrence = "5".<br><br>
-                            Example 2 - target the (first) element with an ID of "my-id":<br><br>
-                            CSS selector = "#my-id", and occurrence = "1".<br><br>
-                            ---- <br>
                             For more information, see the <a href="#" target='_blank'>Taboola Dev Center</a>.
                 </div>
             </div>
@@ -659,7 +654,12 @@
                                 <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
                                 </g>
                          </svg>
-                        <div><i>p</i> to target a paragraph, <i>#my-id</i> to target an ID of "my-id", <i>.my-class</i>, to target a class of "my-class", etc..</div>
+                         <div>
+                            Examples:<br>
+                            <i>p</i> - to target a <i>paragraph</i><br>
+                            <i>#my-id</i> - to target an <i>ID</i> of "my-id"
+                            <br><i>.my-class</i> - to target a <i>class</i> of "my-class"
+                        </div>
                     </div>
                 </div>
                 <div class="placement_style_home_occurrence"><label id="home_enabled-unchecked1" style="float:left;">Occurrence :</label>
