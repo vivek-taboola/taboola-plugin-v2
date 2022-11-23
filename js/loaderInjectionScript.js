@@ -4,7 +4,7 @@ _taboola.push({listenTo:'render',handler:function(p){TRC.modDebug.logMessageToSe
 _taboola.push({additional_data:{sdkd:{
             "os": "Wordpress",
             "osv": "{{WORDPRESS_VERSION}}",
-            "php_ver" : "{{PHP_VERSION}}",
+            "php_ver": "{{PHP_VERSION}}",
             "sdkt": "Taboola Wordpress Plugin",
             "sdkv": "{{PLUGIN_VERSION}}",
             "loc_mid": "{{LOC_MID}}",
