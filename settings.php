@@ -3,11 +3,13 @@
         padding: 20px;
         padding-left: 0;
         font-size: 14px;
+        background-color: #FAF9F6;
+        font-family: Roboto,Lato,Hind -apple-system,Helvetica Neue,sans-serif;
     }
 
     .publisher_id_style, .below_article_style, .mid_article_style, .home_article_style{
-        background: #fff;
-        border: 1px solid #999;
+        background-color: #fff;
+        border: 1px solid #d4d9df;
         border-radius: 8px;
         margin-top: 10px;
         width: 50%;
@@ -17,9 +19,9 @@
         float: right;
         width: 36%;
         padding: 20px 10px 10px 0px;
-        margin: 47px 6% 0 0;
+        margin: 40px 6% 0 0;
         background: #FFFACD;
-        border: 1px solid #999;
+        border: 1px solid #d4d9df;
         border-radius: 20px;
     }
 
@@ -303,7 +305,6 @@
     
     label{
         font-weight: normal !important;
-        /* color: #666666; */
     }
 
     label#pub_id{
