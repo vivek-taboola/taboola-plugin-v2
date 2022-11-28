@@ -331,6 +331,12 @@
 
 </style>
 
+<?php
+
+// $short_version =strlen(TABOOLA_PLUGIN_VERSION) == 5 ? substr(TABOOLA_PLUGIN_VERSION,0,3) : ""; // E.g. '2.1.0' => '2.1' (else '')
+
+?>
+
 <!-- Latest font-awesome include-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -343,7 +349,7 @@
         <img src='<?php echo $this->plugin_url.'img/taboola.png' ?>' style='width:150px;'/>
     </div>
 
-    <h2 style="font-size:1.7em;">Taboola WordPress Plugin 2.0</h2>
+    <h2 style="font-size:1.7em;">Taboola WordPress Plugin 2</h2>
 
 <!-- errors/success message -->
 
@@ -376,7 +382,7 @@
 <!-- Welcome Massage -->
 
     <div class="publisher_welcome_massage">
-        <h2 class="welcome_heading">Welcome to Taboola WordPress Plugin 2.0!</h2>
+        <h2 class="welcome_heading">Welcome to Taboola WordPress Plugin 2!</h2>
         <p class="first_p">For detailed instructions, see the <a href="#" target='_blank'>Taboola Dev Center.</a></p>
         <p class="second_p"><b>Stuck? Need a hand?</b> Feel free to reach out via our <a href="https://developers.taboola.com/web-integrations/discuss" target='_blank'>Online Community</a>.</p>
         <div class="list_l1">

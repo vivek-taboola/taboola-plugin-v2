@@ -48,7 +48,6 @@ if (!class_exists('TaboolaWP')) {
             //activation function
             register_activation_hook($this->plugin_name, array(&$this, 'activate'));
             add_action('admin_init', array(&$this, 'activate'));
-           // add_action( 'plugin_loaded', array(&$this, 'activate')); // PC
 
             // Enable sidebar widgets
             if ($this->settings != NULL && !empty($this->settings->publisher_id)){
@@ -171,9 +170,11 @@ if (!class_exists('TaboolaWP')) {
             $taboola_content = array();
             if ($this->should_show_content_widget()){
 
-            	$firstWidgetParams = array('{{WIDGET_ID}}' => $this->settings->first_bc_widget_id,
+            	$firstWidgetParams = array(
+                    '{{WIDGET_ID}}' => $this->settings->first_bc_widget_id,
 		            '{{CONTAINER}}' => 'taboola-below-article-thumbnails',
-		            '{{PLACEMENT}}' =>  $this->settings->first_bc_placement);
+		            '{{PLACEMENT}}' =>  ($this->settings->first_bc_placement != '') ? $this->settings->first_bc_placement : 'below-article' // In case v1 upgrade has not run yet
+                );
 
             	$firstWidgetScript = new JavaScriptWrapper("widgetInjectionScript.js",$firstWidgetParams);
                 $taboola_content[TABOOLA_CONTENT_FORMAT_HTML][] = "<div id='taboola-below-article-thumbnails'></div>";
@@ -662,12 +663,12 @@ if (!class_exists('TaboolaWP')) {
                     `mid_placement` VARCHAR(255) DEFAULT NULL,
                     `out_of_content_enabled` TINYINT(1) NOT NULL DEFAULT TRUE,
                     `mid_location_string` TEXT DEFAULT NULL,
-                    `mid_location_string_occurrence` INT(50) DEFAULT NULL,
+                    `mid_location_string_occurrence` SMALLINT DEFAULT NULL,
                     `home_enabled` TINYINT(1) NOT NULL DEFAULT FALSE,
                     `home_widget_id` VARCHAR(255) DEFAULT NULL,
                     `home_placement` VARCHAR(255) DEFAULT NULL,
                     `home_location_string` TEXT DEFAULT NULL,
-                    `home_location_string_occurrence` INT(50) DEFAULT NULL,
+                    `home_location_string_occurrence` SMALLINT DEFAULT NULL,
                     PRIMARY KEY (`id`)
                 )" . $charset_collate . ";";
                 
