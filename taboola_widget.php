@@ -48,7 +48,6 @@ if (!class_exists('TaboolaWP')) {
             //activation function
             register_activation_hook($this->plugin_name, array(&$this, 'activate'));
             add_action('admin_init', array(&$this, 'activate'));
-           // add_action( 'plugin_loaded', array(&$this, 'activate')); // PC
 
             // Enable sidebar widgets
             if ($this->settings != NULL && !empty($this->settings->publisher_id)){
@@ -174,7 +173,7 @@ if (!class_exists('TaboolaWP')) {
             	$firstWidgetParams = array(
                     '{{WIDGET_ID}}' => $this->settings->first_bc_widget_id,
 		            '{{CONTAINER}}' => 'taboola-below-article-thumbnails',
-		            '{{PLACEMENT}}' =>  ($this->settings->first_bc_placement != '') ? $this->settings->first_bc_placement : 'below-article' // In case v1 pgrade has not run yet
+		            '{{PLACEMENT}}' =>  ($this->settings->first_bc_placement != '') ? $this->settings->first_bc_placement : 'below-article' // In case v1 upgrade has not run yet
                 );
 
             	$firstWidgetScript = new JavaScriptWrapper("widgetInjectionScript.js",$firstWidgetParams);
