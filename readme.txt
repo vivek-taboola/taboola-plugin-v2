@@ -63,15 +63,15 @@ After hundreds or A/B tests conducted we have reached a UI that outperforms anyt
 == Changelog ==
 
 = 2.0.0 =
-* UI change and added more functionality.
-* Support for PHP 8.0.x
-* Tested on Wordpress 6.0.2
+* Enhanced UI and functionality
+* Support for below-article, mid-article and homepage widgets
+* Tested on Wordpress 6.0.3
 
 = 1.0.14 =
-* Additional logging.
+* Additional logging
 
 = 1.0.13 =
-* Minor fixes and improvements.
+* Minor fixes and improvements
 
 = 1.0.12 =
 * Minor Fix for PHP 8.0.x
