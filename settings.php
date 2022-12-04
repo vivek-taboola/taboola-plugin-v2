@@ -383,7 +383,7 @@
 
     <div class="publisher_welcome_massage">
         <h2 class="welcome_heading">Welcome to Taboola WordPress Plugin 2!</h2>
-        <p class="first_p">For detailed instructions, see the <a href="#" target='_blank'>Taboola Dev Center.</a></p>
+        <p class="first_p">For detailed instructions, see the <a href="https://developers.taboola.com/web-integrations/docs/wordpress-plugin-managing-placements" target='_blank'>Taboola Dev Center.</a></p>
         <p class="second_p"><b>Stuck? Need a hand?</b> Feel free to reach out via our <a href="https://developers.taboola.com/web-integrations/discuss" target='_blank'>Online Community</a>.</p>
         <div class="list_l1">
             <p>Usage of this plugin is subject to <b>Taboola's</b> <a href="https://www.taboola.com/policies/platform-terms-of-service" target='_blank'>terms of services.</a></p>
@@ -473,7 +473,7 @@
           <div class='location_section'>
             <div class='checkbox_read'>
               <input id="out_of_content_enabled" type="checkbox" <?php echo !empty($settings->out_of_content_enabled) ? "checked='checked'" : "" ?> name="out_of_content_enabled" />
-              <label id="first_bc_enabled-unchecked2">Place the widget just after the article (required for Read More)</label>
+              <label id="first_bc_enabled-unchecked2">Place the widget just after the article container (required for <b>Read More</b>)</label>
             </div>
             <div class='tooltip'>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN_read">
@@ -481,8 +481,9 @@
                   <path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
                 </g>
               </svg>
-              <div>For more information, see the <a href="#" target='_blank'>Taboola Dev Center</a>. </div>
-              <!-- or if the widget is not placed correctly. DO NOT disable it if your widget includes "Read More" -->
+              <div>
+                In order for Taboola to activate 'Read More', select this option.<br><br>
+                For more information, see the <a href="https://developers.taboola.com/web-integrations/docs/wordpress-plugin-managing-placements#below-article-widget" target='_blank'>Taboola Dev Center</a>. </div>
             </div>
           </div>
         </div>
