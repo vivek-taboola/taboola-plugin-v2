@@ -137,7 +137,9 @@
         line-height: 26px;
     }
 
-    .tooltip_placement div, .tooltip div, .tooltip_occurrence div, .tooltip_mid div{ /* hide and position tooltip */
+/* hide and position tooltip */
+
+    .tooltip div{ 
         visibility: hidden;
         width: auto;
         display: inline-block;
@@ -150,27 +152,28 @@
         margin-left: 5px;
         max-width: 350px;
         position: absolute;
+        z-index: 999;
+        transition-delay: 0.25s;
     }
 
-    .tooltip,
-    .tooltip_placement,
-    .tooltip_occurrence,
-    .tooltip_mid{
+    .tooltip div a:hover{
+        text-decoration: underline;
+    }
+
+    .tooltip{
         opacity: 1 !important;
         font-size: 13px !important;
         display: contents !important;
     }
 
-    .tooltip_mid:hover div, .tooltip:hover div, .tooltip_placement:hover div, .tooltip_occurrence:hover div{
+    .tooltip:hover div{
         visibility: visible;
         transition-delay: 0.5s;
     }
 
-    .tooltip div a,
-    .tooltip_mid div a,
-    .tooltip_placement div a{
+    .tooltip div a{
         text-decoration: none;
-        border-bottom:1px solid #fff;
+        font-weight: bold;
         color: #fff;
     }
 
@@ -344,6 +347,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+
 <div class="taboola-container">
     <div class="theme_image">
         <img src='<?php echo $this->plugin_url.'img/taboola.png' ?>' style='width:150px;'/>
@@ -432,7 +439,7 @@
           <div class="label_below">
             <div class="mode_style">
               <label id="first_bc_enabled-checked" style="float:left;">Mode (Widget ID):</label>
-              <div class='tooltip'>
+              <div class="tooltip">
                 <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
                   <g fill="none" fill-rule="evenodd">
@@ -444,7 +451,7 @@
             </div>
             <div class="placement_style">
               <label id="first_bc_enabled-unchecked" style="float:left;">Placement Name:</label>
-              <div class='tooltip_placement'>
+              <div class='tooltip'>
                 <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
                   <g fill="none" fill-rule="evenodd">
@@ -483,7 +490,7 @@
               </svg>
               <div>
                 In order for Taboola to activate 'Read More', select this option.<br><br>
-                For more information, see the <a href="https://developers.taboola.com/web-integrations/docs/wordpress-plugin-managing-placements#below-article-widget" target='_blank'>Taboola Dev Center</a>. </div>
+                For more information, see the <a href="https://developers.taboola.com/web-integrations/docs/wordpress-plugin-managing-placements#below-article-widget" target='_blank'>Taboola Dev Center</a>.</div>
             </div>
           </div>
         </div>
@@ -512,7 +519,7 @@
                     </div>
                 </div>
                 <div class="placement_style_mid"><label id="mid_enabled-unchecked" style="float:left;">Placement Name:</label>
-                    <div class='tooltip_placement'>
+                    <div class='tooltip'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
                                 <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
@@ -532,7 +539,7 @@
             </div>
 
             <div class='heading_mid_home'><label id="mid_enabled-unchecked2" style="float:left;">Position the widget immediately below the element:</label>
-            <div class='tooltip_mid'>
+            <div class='tooltip'>
                     <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
                             <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
@@ -542,7 +549,7 @@
                             To target an element, 2 pieces of information are needed:<br><br>
                             i) A CSS selector - e.g. "p".<br>
                             ii) An occurrence - e.g. 1st, 2nd, 3rd, etc.<br><br>
-                            For more information, see the <a href="#" target='_blank'>Taboola Dev Center</a>.
+                            For more information, see the <a href="https://developers.taboola.com/web-integrations/docs/wordpress-plugin-managing-placements" target='_blank'>Taboola Dev Center</a>.
                     </div>
             </div>
         </div>
@@ -564,7 +571,7 @@
                     </div>
                 </div>
                 <div class="placement_style_mid_occurrence"><label id="mid_enabled-unchecked1" style="float:left;">Occurrence :</label>
-                    <div class='tooltip_occurrence'>
+                    <div class='tooltip'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
                                 <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
@@ -618,7 +625,7 @@
                     </div>
                 </div>
                 <div class="placement_style_home"><label id="home_enabled-unchecked" style="float:left;">Placement Name:</label>
-                    <div class='tooltip_placement'>
+                    <div class='tooltip'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
                                 <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
@@ -638,7 +645,7 @@
             </div>
 
             <div class='heading_mid_home'><label id="home_enabled-unchecked2" style="float:left;">Position the widget immediately below the element:</label>
-            <div class='tooltip_mid'>
+            <div class='tooltip'>
                     <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
                             <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
@@ -648,7 +655,7 @@
                             To target an element, 2 pieces of information are needed:<br><br>
                             i) A CSS selector - e.g. "p".<br>
                             ii) An occurrence - e.g. 1st, 2nd, 3rd, etc.<br><br>
-                            For more information, see the <a href="#" target='_blank'>Taboola Dev Center</a>.
+                            For more information, see the <a href="https://developers.taboola.com/web-integrations/docs/wordpress-plugin-managing-placements" target='_blank'>Taboola Dev Center</a>.
                 </div>
             </div>
         </div>
@@ -671,7 +678,7 @@
                     </div>
                 </div>
                 <div class="placement_style_home_occurrence"><label id="home_enabled-unchecked1" style="float:left;">Occurrence :</label>
-                    <div class='tooltip_occurrence'>
+                    <div class='tooltip'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
                                 <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
