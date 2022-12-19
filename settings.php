@@ -688,7 +688,7 @@
                                 </g>
                          </svg>
                          <div>For a <b>non-unique</b> selector - e.g. <i>section</i> - fill in the <b>occurrence</b> to target.<br><br>
-                        E.g. To target the <b>2nd</b> section, fill in <i>5</i>. <br><br>
+                        E.g. To target the <b>2nd</b> section, fill in <i>2</i>. <br><br>
                         For a <b>unique</b> selector - e.g. <i>#my-id</i> - you can ignore this field.</div>           
                     </div>
                 </div>
