@@ -489,7 +489,8 @@
                 </g>
               </svg>
               <div>
-                In order for Taboola to activate 'Read More', select this option.<br><br>
+                Required in order for Taboola to activate <i>Read More</i>.<br><br>
+                Read More buttons can boost audience engagement significantly, especially on mobile devices.<br><br>
                 For more information, see the <a href="https://developers.taboola.com/web-integrations/docs/wordpress-plugin-managing-placements#below-article-widget" target='_blank'>Taboola Dev Center</a>.</div>
             </div>
           </div>
@@ -563,10 +564,10 @@
                                 </g>
                          </svg>
                         <div>
-                            Examples:<br>
-                            <i>p</i> - to target a <i>paragraph</i><br>
-                            <i>#my-id</i> - to target an <i>ID</i> of "my-id"
-                            <br><i>.my-class</i> - to target a <i>class</i> of "my-class"
+                            The element to target - e.g.:<br><br>
+                            <i>p</i> - to target a <i>paragraph</i>.<br>
+                            <i>#my-id</i> - to target an <i>ID</i> of "my-id".<br>
+                            <i>.my-class</i> - to target a <i>class</i> of "my-class".
                         </div>
                     </div>
                 </div>
@@ -577,7 +578,9 @@
                                 <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
                                 </g>
                          </svg>
-                        <div><i>5</i> for the 5th occurrence, <i>1</i> for the 1st occurrence, etc.</div>            
+                         <div>For a <b>non-unique</b> selector - e.g. <i>p</i> (paragraph) - fill in the <b>occurrence</b> to target.<br><br>
+                        E.g. To target the <b>5th</b> paragraph, fill in <i>5</i>. <br><br>
+                        For a <b>unique</b> selector - e.g. <i>#my-id</i> - you can ignore this field.</div>              
                     </div>
                 </div>
             </div>
@@ -670,10 +673,10 @@
                                 </g>
                          </svg>
                          <div>
-                            Examples:<br>
-                            <i>p</i> - to target a <i>paragraph</i><br>
-                            <i>#my-id</i> - to target an <i>ID</i> of "my-id"
-                            <br><i>.my-class</i> - to target a <i>class</i> of "my-class"
+                            The element to target - e.g.:<br><br>
+                            <i>section</i> - to target a <i>section</i>.<br>
+                            <i>#my-id</i> - to target an <i>ID</i> of "my-id".<br>
+                            <i>.my-class</i> - to target a <i>class</i> of "my-class".
                         </div>
                     </div>
                 </div>
@@ -684,7 +687,9 @@
                                 <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
                                 </g>
                          </svg>
-                        <div><i>5</i> for the 5th occurrence, <i>1</i> for the 1st occurrence, etc.</div>            
+                         <div>For a <b>non-unique</b> selector - e.g. <i>section</i> - fill in the <b>occurrence</b> to target.<br><br>
+                        E.g. To target the <b>2nd</b> section, fill in <i>2</i>. <br><br>
+                        For a <b>unique</b> selector - e.g. <i>#my-id</i> - you can ignore this field.</div>           
                     </div>
                 </div>
             </div>
