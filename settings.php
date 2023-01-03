@@ -763,7 +763,7 @@
     setTimeout(function(){jQuery('.label-success').fadeOut()}, 5000);
     setTimeout(function(){jQuery('.label-error').fadeOut()}, 8000);
 
-    // PC - check if this is still needed
+    // PC
     // window.onload = function(){
     //     document.forms['install_log'].submit()
     // }
