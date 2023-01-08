@@ -1,4 +1,12 @@
+<!-- Latest font-awesome include-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 <style>
+
     .taboola-container {
         padding: 20px;
         padding-left: 0;
@@ -7,12 +15,20 @@
         font-family: Roboto,Lato,Hind -apple-system,Helvetica Neue,sans-serif;
     }
 
-    .publisher_id_style, .below_article_style, .mid_article_style, .home_article_style{
+    .settings_block {
         background-color: #fff;
         border: 1px solid #d4d9df;
         border-radius: 8px;
         margin-top: 10px;
         width: 50%;
+    }
+
+    .settings_block.widget_settings_block { /* Give the widget settings block some extra space at the end */
+        padding-bottom: 15px;
+    }
+
+    .settings_block input {
+        border-color: #ccc; /* Most of the inputs are styled via jQuery. This is for any others - e.g. #publisher-id */
     }
 
     .publisher_welcome_massage{
@@ -23,10 +39,6 @@
         background: #FFFACD;
         border: 1px solid #d4d9df;
         border-radius: 20px;
-    }
-
-    .below_article_style, .mid_article_style, .home_article_style{
-        padding-bottom: 15px;
     }
 
     .switch_style{
@@ -239,7 +251,7 @@
     }
 
     .helpTooltip__icon___1XWGN_read{
-        margin-top: 14px;
+        margin-top: 4px;
     }
 
     .helpTooltip__icon___1XWGN_first{
@@ -332,6 +344,10 @@
         outline-offset: 0px !important;
     }
 
+    input[type=checkbox]{
+        margin: -5px 0 0;
+    }
+
 </style>
 
 <?php
@@ -340,15 +356,8 @@
 
 ?>
 
-<!-- Latest font-awesome include-->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
 
 
 <div class="taboola-container">
@@ -383,7 +392,24 @@
 
     ?>
 
-<!-- errors/success message -->
+<script>
+    function setEnabledAppearance(divID, chkToggle) {
+        /*
+            JS function for form.
+            Sets 'enabled/disabled' appearance for given section ('divID'), depending on whether 'chkToggle' is checked.
+        */
+
+        var applyColor = (chkToggle.checked ? "#000" : "#666");
+
+        // Set all labels in that section ('divID') to the relevant color.
+        $(divID).find("label").css("color", applyColor);
+
+        // Disable (/enable) all input fields in that section ('divID'), except for 'chkToggle'.
+        // Once done, apply a gray border color.
+        $(divID).find("input").not("#" + chkToggle.id).prop("disabled", !chkToggle.checked).css("borderColor", "#ccc");
+
+    }
+</script>
 
 
 <!-- Welcome Massage -->
@@ -402,7 +428,7 @@
     <form method="POST">
         <h2 class="general_h2">General Settings</h2>
     
-        <div class="publisher_id_style">
+        <div class="settings_block">
             <div class="style_box1"><label id="pub_id">Publisher ID :</label>
              <div class="tooltip">
                     <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
@@ -428,17 +454,17 @@
 
 <!-- Below Article Widget -->
     <h2 class="widget_h2">Widget Settings</h2>
-    <div class="below_article_style">
+    <div id="below_article" class="settings_block widget_settings_block">
           <div class="switch_style">
             <label class="switch">
-              <input id="first_bc_enabled" type="checkbox" <?php echo !empty($settings->first_bc_enabled) ? "checked='checked'" : "" ?> onclick="ChangeCheckboxLabelColor(this)" name="first_bc_enabled" />
+              <input id="first_bc_enabled" type="checkbox" <?php echo !empty($settings->first_bc_enabled) ? "checked='checked'" : "" ?> onclick="setEnabledAppearance('#below_article', this)" name="first_bc_enabled" />
               <span class="slider round"></span>
             </label>
             <b style="font-size:15px;">Below-article widget</b>
           </div>
           <div class="label_below">
             <div class="mode_style">
-              <label id="first_bc_enabled-checked" style="float:left;">Mode (Widget ID):</label>
+              <label id="first_bc_widget_id_label" style="float:left;">Mode (Widget ID):</label>
               <div class="tooltip">
                 <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -450,7 +476,7 @@
               </div>
             </div>
             <div class="placement_style">
-              <label id="first_bc_enabled-unchecked" style="float:left;">Placement Name:</label>
+              <label id="first_bc_placement_label" style="float:left;">Placement Name:</label>
               <div class='tooltip'>
                 <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -480,7 +506,7 @@
           <div class='location_section'>
             <div class='checkbox_read'>
               <input id="out_of_content_enabled" type="checkbox" <?php echo !empty($settings->out_of_content_enabled) ? "checked='checked'" : "" ?> name="out_of_content_enabled" />
-              <label id="first_bc_enabled-unchecked2">Place the widget just after the article container (required for <b>Read More</b>)</label>
+              <label id="out_of_content_enabled_label">Place the widget just after the article container (required for <b>Read More</b>)</label>
             </div>
             <div class='tooltip'>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN_read">
@@ -499,17 +525,17 @@
 
 <!-- Mid Article Widget -->
 
-<div class="mid_article_style">
+<div id="mid_article" class="settings_block widget_settings_block">
             <div class="switch_style">
                 <label class="switch">
-                <input id="mid_enabled" type="checkbox" <?php echo !empty($settings->mid_enabled) ? "checked='checked'" : "" ?> onclick="ChangeCheckboxLabelColorMid(this)" name="mid_enabled"/>
+                <input id="mid_enabled" type="checkbox" <?php echo !empty($settings->mid_enabled) ? "checked='checked'" : "" ?> onclick="setEnabledAppearance('#mid_article', this)" name="mid_enabled"/>
                     <span class="slider round"></span>
                 </label>
                 <b style="font-size:15px;">Mid-article widget</b>
             </div>
 
             <div>
-                <div class="mode_style_mid"><label id="mid_enabled-checked" style="float:left;">Mode (Widget ID):</label>
+                <div class="mode_style_mid"><label id="mid_widget_id_label" style="float:left;">Mode (Widget ID):</label>
                     <div class='tooltip'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -519,7 +545,7 @@
                         <div>Your <i>mid-article</i> Mode (Widget ID), as provided by Taboola.</div>
                     </div>
                 </div>
-                <div class="placement_style_mid"><label id="mid_enabled-unchecked" style="float:left;">Placement Name:</label>
+                <div class="placement_style_mid"><label id="mid_placement_label" style="float:left;">Placement Name:</label>
                     <div class='tooltip'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -548,7 +574,7 @@
                     </svg>
                     <div>The widget will be placed <i>just beneath</i> this element.<br><br>
                             To target an element, 2 pieces of information are needed:<br><br>
-                            i) A CSS selector - e.g. "p".<br>
+                            i) A CSS selector - e.g. <i>p</i> (for paragraph).<br>
                             ii) An occurrence - e.g. 1st, 2nd, 3rd, etc.<br><br>
                             For more information, see the <a href="https://developers.taboola.com/web-integrations/docs/wordpress-plugin-managing-placements" target='_blank'>Taboola Dev Center</a>.
                     </div>
@@ -556,7 +582,7 @@
         </div>
 
             <div class="mid_occurrence">
-                <div class="mode_style_mid_selector"><label id="mid_enabled-checked1" style="float:left;">CSS selector :</label>
+                <div class="mode_style_mid_selector"><label id="mid_location_string_label" style="float:left;">CSS selector :</label>
                     <div class='tooltip'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -571,7 +597,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="placement_style_mid_occurrence"><label id="mid_enabled-unchecked1" style="float:left;">Occurrence :</label>
+                <div class="placement_style_mid_occurrence"><label id="mid_occurrence_label" style="float:left;">Occurrence :</label>
                     <div class='tooltip'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -580,7 +606,7 @@
                          </svg>
                          <div>For a <b>non-unique</b> selector - e.g. <i>p</i> (paragraph) - fill in the <b>occurrence</b> to target.<br><br>
                         E.g. To target the <b>5th</b> paragraph, fill in <i>5</i>. <br><br>
-                        For a <b>unique</b> selector - e.g. <i>#my-id</i> - you can ignore this field.</div>              
+                        For a <b>unique</b> selector - e.g. <i>#my-id</i> - leave the default value of '1'.</div>
                     </div>
                 </div>
             </div>
@@ -589,7 +615,7 @@
                     <input id = "mid_location_string" type="text" value="<?php echo !empty($settings->mid_location_string) ? htmlspecialchars($settings->mid_location_string) : "" ?>" name="mid_location_string" placeholder="E.g. p for paragraph" />
                 </div>
                 <div class="placement_below_mid_Occurrence">
-                    <input type="number" id="para_num" value="<?php echo !empty($settings->mid_location_string_occurrence) ? $settings->mid_location_string_occurrence : "1" ?>" name="mid_location_string_occurrence" placeholder="" style="width:65px;">
+                    <input type="number" id="mid_occurrence" value="<?php echo !empty($settings->mid_location_string_occurrence) ? $settings->mid_location_string_occurrence : "1" ?>" name="mid_location_string_occurrence" placeholder="" style="width:65px;">
                 </div>
             </div>
     </div>
@@ -597,10 +623,10 @@
 
 <!-- Homepage mid widget -->
 
-<div class="home_article_style">
+<div id="homepage" class="settings_block widget_settings_block">
         <div class="switch_style">
                 <label class="switch">
-                <input id="home_enabled" type="checkbox" <?php echo !empty($settings->home_enabled) ? "checked='checked'" : "" ?> onclick="ChangeCheckboxLabelColorHome(this)" name="home_enabled"/>
+                <input id="home_enabled" type="checkbox" <?php echo !empty($settings->home_enabled) ? "checked='checked'" : "" ?> onclick="setEnabledAppearance('#homepage', this)" name="home_enabled"/>
                 <span class="slider round"></span>
                 </label>
                 <div>
@@ -617,7 +643,7 @@
                 </div>
 
             <div>
-                <div class="mode_style_home"><label id="home_enabled-checked" style="float:left;">Mode (Widget ID):</label>
+                <div class="mode_style_home"><label id="home_widget_id_label" style="float:left;">Mode (Widget ID):</label>
                     <div class='tooltip'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -627,7 +653,7 @@
                         <div>Your <i>homepage</i> Mode (Widget ID), as provided by Taboola.</div>
                     </div>
                 </div>
-                <div class="placement_style_home"><label id="home_enabled-unchecked" style="float:left;">Placement Name:</label>
+                <div class="placement_style_home"><label id="home_placement_label" style="float:left;">Placement Name:</label>
                     <div class='tooltip'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -656,7 +682,7 @@
                     </svg>
                     <div>The widget will be placed <i>just beneath</i> this element.<br><br>
                             To target an element, 2 pieces of information are needed:<br><br>
-                            i) A CSS selector - e.g. "p".<br>
+                            i) A CSS selector - e.g. <i>p</i> (for paragraph).<br>
                             ii) An occurrence - e.g. 1st, 2nd, 3rd, etc.<br><br>
                             For more information, see the <a href="https://developers.taboola.com/web-integrations/docs/wordpress-plugin-managing-placements" target='_blank'>Taboola Dev Center</a>.
                 </div>
@@ -665,7 +691,7 @@
 
 
         <div class="home_occurrence">
-                <div class="mode_style_home_selector"><label id="home_enabled-checked1" style="float:left;">CSS selector :</label>
+                <div class="mode_style_home_selector"><label id="home_location_string_label" style="float:left;">CSS selector :</label>
                     <div class='tooltip'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -680,7 +706,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="placement_style_home_occurrence"><label id="home_enabled-unchecked1" style="float:left;">Occurrence :</label>
+                <div class="placement_style_home_occurrence"><label id="home_occurrence_label" style="float:left;">Occurrence :</label>
                     <div class='tooltip'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -689,7 +715,7 @@
                          </svg>
                          <div>For a <b>non-unique</b> selector - e.g. <i>section</i> - fill in the <b>occurrence</b> to target.<br><br>
                         E.g. To target the <b>2nd</b> section, fill in <i>2</i>. <br><br>
-                        For a <b>unique</b> selector - e.g. <i>#my-id</i> - you can ignore this field.</div>           
+                        For a <b>unique</b> selector - e.g. <i>#my-id</i> - leave the default value of '1'.</div>           
                     </div>
                 </div>
             </div>
@@ -698,7 +724,7 @@
                     <input id = "home_location_string" type="text" value="<?php echo !empty($settings->home_location_string) ? htmlspecialchars($settings->home_location_string) : "" ?>" name="home_location_string" placeholder="E.g. p for paragraph" /></td>
                 </div>
                 <div class="placement_below_home_Occurrence">
-                    <input type="number" id="para_num_home" value="<?php echo !empty($settings->home_location_string_occurrence) ? $settings->home_location_string_occurrence : "1" ?>" name="home_location_string_occurrence" placeholder="" style="width:65px;">
+                    <input type="number" id="home_occurrence" value="<?php echo !empty($settings->home_location_string_occurrence) ? $settings->home_location_string_occurrence : "1" ?>" name="home_location_string_occurrence" placeholder="" style="width:65px;">
                 </div>
             </div>
 </div>
@@ -725,140 +751,25 @@
     </form> -->
 </div>
 
-
 <script>
-function ChangeCheckboxLabelColor(ckbx)
-    {
-        var d = ckbx.id;
-        if( ckbx.checked )
-        {
-            document.getElementById(d+"-checked").style.color = "#000000";
-            document.getElementById(d+"-unchecked").style.color = "#000000";
-            document.getElementById(d+"-unchecked2").style.color = "#000000";
-        }
-        else
-        {
-            document.getElementById(d+"-checked").style.color = "#666666";
-            document.getElementById(d+"-unchecked").style.color = "#666666";
-            document.getElementById(d+"-unchecked2").style.color = "#666666";
-        }
-    }
-</script>
 
-<script>
-function ChangeCheckboxLabelColorMid(ckbx)
-    {
-        var b = ckbx.id;
-        if( ckbx.checked )
-        {
-            document.getElementById(b+"-checked").style.color = "#000000";
-            document.getElementById(b+"-unchecked").style.color = "#000000";
-            document.getElementById(b+"-unchecked2").style.color = "#000000";
-            document.getElementById(b+"-checked1").style.color = "#000000";
-            document.getElementById(b+"-unchecked1").style.color = "#000000";
-        }
-        else
-        {
-            document.getElementById(b+"-checked").style.color = "#666666";
-            document.getElementById(b+"-unchecked").style.color = "#666666";
-            document.getElementById(b+"-unchecked2").style.color = "#666666";
-            document.getElementById(b+"-checked1").style.color = "#666666";
-            document.getElementById(b+"-unchecked1").style.color = "#666666";
-        }
-    }
-</script>
+    // Set enabled/disabled appearance upon page load
+    // (Function is defined earlier on the page.)
+    setEnabledAppearance('#below_article', document.getElementById("first_bc_enabled"));
+    setEnabledAppearance('#mid_article', document.getElementById("mid_enabled"));
+    setEnabledAppearance('#homepage', document.getElementById("home_enabled"));
 
-<script>
-function ChangeCheckboxLabelColorHome(ckbx)
-    {
-        var b = ckbx.id;
-        if( ckbx.checked )
-        {
-            document.getElementById(b+"-checked").style.color = "#000000";
-            document.getElementById(b+"-unchecked").style.color = "#000000";
-            document.getElementById(b+"-unchecked2").style.color = "#000000";
-            document.getElementById(b+"-checked1").style.color = "#000000";
-            document.getElementById(b+"-unchecked1").style.color = "#000000";
-        }
-        else
-        {
-            document.getElementById(b+"-checked").style.color = "#666666";
-            document.getElementById(b+"-unchecked").style.color = "#666666";
-            document.getElementById(b+"-unchecked2").style.color = "#666666";
-            document.getElementById(b+"-checked1").style.color = "#666666";
-            document.getElementById(b+"-unchecked1").style.color = "#666666";
-        }
-    }
-</script>
-
-<script>
-    ChangeCheckboxLabelColor(document.getElementById("first_bc_enabled"));
-    ChangeCheckboxLabelColorMid(document.getElementById("mid_enabled"));
-    ChangeCheckboxLabelColorHome(document.getElementById("home_enabled"));
 </script>
 
 <script>
 
-    function sync_checkboxes(){
-        if(document.getElementById("first_bc_enabled").checked){
-            document.getElementById("first_bc_widget_id").disabled = false;
-            document.getElementById("first_bc_placement").disabled = false;
-            document.getElementById("out_of_content_enabled").disabled = false;
-        }
-        else{
-            document.getElementById("first_bc_widget_id").disabled = true;
-            document.getElementById("first_bc_placement").disabled = true;
-            document.getElementById("out_of_content_enabled").disabled = true;
-        }
-    }
-
-    function sync_checkboxes1(){ 
-        if(document.getElementById("mid_enabled").checked){
-            document.getElementById("mid_widget_id").disabled = false;
-            document.getElementById("mid_placement").disabled = false;
-            document.getElementById("mid_location_string").disabled = false;
-            document.getElementById("para_num").disabled = false;
-        }else{
-            document.getElementById("mid_widget_id").disabled = true;
-            document.getElementById("mid_placement").disabled = true;
-            document.getElementById("mid_location_string").disabled = true;
-            document.getElementById("para_num").disabled = true;
-        }
-    }
-
-    function sync_checkboxes_home(){
-        if(document.getElementById("home_enabled").checked){
-            document.getElementById("home_widget_id").disabled = false;
-            document.getElementById("home_placement").disabled = false;
-            document.getElementById("home_location_string").disabled = false;
-            document.getElementById("para_num_home").disabled = false;
-        }else{
-            document.getElementById("home_widget_id").disabled = true;
-            document.getElementById("home_placement").disabled = true;
-            document.getElementById("home_location_string").disabled = true;
-            document.getElementById("para_num_home").disabled = true;
-        }
-    }
-
-
-    jQuery('#first_bc_enabled').change(sync_checkboxes);
+    // Fadeouts for error/success messages
     setTimeout(function(){jQuery('.label-success').fadeOut()}, 5000);
     setTimeout(function(){jQuery('.label-error').fadeOut()}, 8000);
-    sync_checkboxes();
 
-    jQuery('#mid_enabled').change(sync_checkboxes1);
-    setTimeout(function(){jQuery('.label-success').fadeOut()}, 5000);
-    setTimeout(function(){jQuery('.label-error').fadeOut()}, 8000);
-    sync_checkboxes1();
-
-    jQuery('#home_enabled').change(sync_checkboxes_home);
-    setTimeout(function(){jQuery('.label-success').fadeOut()}, 5000);
-    setTimeout(function(){jQuery('.label-error').fadeOut()}, 8000);
-    sync_checkboxes_home();
-
-    window.onload = function(){
-        document.forms['install_log'].submit()
-
-    }
+    // PC
+    // window.onload = function(){
+    //     document.forms['install_log'].submit()
+    // }
 
 </script>
