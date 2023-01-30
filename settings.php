@@ -223,12 +223,11 @@
     }
 
     .change_button{
-        width: 50%;
-        float: left;
+        float: right;
     }
 
     .apply_button{
-        margin-top: 20px;
+        /* margin-top: 20px; */
         background-color: #0f4c81;
         color: #fff;
         padding: 0.8rem 1rem;
@@ -348,6 +347,26 @@
         margin: -5px 0 0;
     }
 
+    #homepage{
+        display: none;
+    }
+
+    #show-advanced-settings{
+        text-decoration: none;
+        color: #666666;
+        margin-top: 5px;
+        cursor: pointer;
+        float: left;
+        width: 50%;
+        font-family: Roboto, Lato, "Hind -apple-system", "Helvetica Neue", sans-serif;
+        font-style: italic;
+    }
+
+    #advanced-settings-main{
+        margin: 10px 0px 0px 10px;
+        width: 49%;
+    }
+
 </style>
 
 <?php
@@ -410,6 +429,20 @@
 
     }
 </script>
+
+<!-- to hide and show homepage setting -->
+
+<script> 
+$(document).ready(function(){
+  $("#show-advanced-settings").click(function(){
+    $("#homepage").slideToggle("fast");
+    var ad = $('#show-advanced-settings');
+    ad.text() == "Show advanced settings >>" ? ad.text("<< Hide advanced settings") : ad.text("Show advanced settings >>");
+  });
+});
+</script>
+
+<!-- to hide and show homepage setting -->
 
 
 <!-- Welcome Massage -->
@@ -623,6 +656,7 @@
 
 <!-- Homepage mid widget -->
 
+
 <div id="homepage" class="settings_block widget_settings_block">
         <div class="switch_style">
                 <label class="switch">
@@ -728,13 +762,15 @@
                 </div>
             </div>
 </div>
+<div id="advanced-settings-main">
+    <a id="show-advanced-settings">Show advanced settings >></a>
+    <div class="change_button">
+        <input class='apply_button' type="submit" value="Apply Changes"/>
+    </div>
+</div>
+
 <!-- Homepage mid widget -->
 
-<div class="change_button">
-    <input class='apply_button' type="submit" value="Apply Changes"/>
-</div>
-        
-        <!--         <a class='request_link' href=' http://taboola.com/contact' target='_blank'>Request Widget</a> -->
     </form>
     <div style='clear:both'></div>
 
