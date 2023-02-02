@@ -3,13 +3,13 @@
  * Plugin Name: Taboola
  * Plugin URI: https://developers.taboola.com/web-integrations/discuss
  * Description: Taboola
- * Version: 2.0.0
+ * Version: 2.0.1
  * Author: Taboola
  */
 
-define ("TABOOLA_PLUGIN_VERSION","2.0.0"); // => UPDATE FOR *EVERY* RELEASE (USED FOR TRACKING)
+define ("TABOOLA_PLUGIN_VERSION","2.0.1"); // => UPDATE FOR *EVERY* RELEASE (USED FOR TRACKING)
 
-define ("MIN_PLUGIN_VERSION","2.0.0"); // => UPDATE *ONLY* IF THIS RELEASE HAS *DB CHANGES*
+define ("MIN_PLUGIN_VERSION","2.0.1"); // => UPDATE *ONLY* IF THIS RELEASE HAS *DB CHANGES*
 define ("XPATH_MARKER","/");
 define ("JS_INDICATOR","{JS}");
 define ("JS_MARKER","{");
@@ -48,8 +48,7 @@ if (!class_exists('TaboolaWP')) {
             $this->tbl_taboola_settings = $wpdb->prefix . '_taboola_settings';
 
             //activation function
-            /// PC - to simulate an auto-update, comment out this line:
-            //register_activation_hook($this->plugin_name, array(&$this, 'activate'));
+            register_activation_hook($this->plugin_name, array(&$this, 'activate'));
             add_action('admin_init', array(&$this, 'activate'));
 
             // Enable sidebar widgets
@@ -527,6 +526,7 @@ if (!class_exists('TaboolaWP')) {
                         "mid_enabled" => isset($_POST['mid_enabled']) ? true : false,
                         "mid_widget_id" => !empty($_POST['mid_widget_id']) ? trim($_POST['mid_widget_id']) : '',
                         "mid_placement" => !empty($_POST['mid_placement']) ? trim($_POST['mid_placement']) : '',
+                        "mid_paragraph_ui_mode" => !empty($_POST['mid_paragraph_ui_mode']) ? trim($_POST['mid_paragraph_ui_mode']) : '',
 
                         "mid_location_string_occurrence" => !empty($_POST['mid_location_string_occurrence']) ? $_POST['mid_location_string_occurrence'] : '',
                         "mid_location_string" => !empty($_POST['mid_location_string']) ? trim($_POST['mid_location_string']) : '',
@@ -696,6 +696,7 @@ if (!class_exists('TaboolaWP')) {
                     `out_of_content_enabled` TINYINT(1) NOT NULL DEFAULT TRUE,
                     `mid_location_string` TEXT DEFAULT NULL,
                     `mid_location_string_occurrence` SMALLINT DEFAULT NULL,
+                    `mid_paragraph_ui_mode` VARCHAR(255) DEFAULT NULL,
                     `home_enabled` TINYINT(1) NOT NULL DEFAULT FALSE,
                     `home_widget_id` VARCHAR(255) DEFAULT NULL,
                     `home_placement` VARCHAR(255) DEFAULT NULL,

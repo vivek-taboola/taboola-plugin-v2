@@ -56,16 +56,26 @@
     .widget_below, .widget_below_mid, .widget_below_mid_selector, .widget_below_home, .widget_below_home_selector{
         width: 50%;
         float: left;
-        padding: 0px 0px 0px 20px;
+        padding: 5px 0px 0px 20px;
     }
     
-    .mode_style, .mode_style_mid, .mode_style_mid_selector, .mode_style_home, .mode_style_home_selector{
+    .mode_style, .mode_style_mid, .mode_style_home, .mode_style_home_selector{
         width: 50%;
         padding: 0px 0px 3px 20px;
         float:left;
     }
 
-    .placement_style, .placement_style_mid, .placement_style_mid_occurrence, .placement_style_home_occurrence,.placement_style_home {
+    .placement_style, .placement_style_mid, .placement_style_home_occurrence,.placement_style_home {
+        padding: 0px 0px 8px 0px;
+        width: 50%;
+        float: right;
+    }
+
+    .widget_below_mid_selector{
+        padding: 8px 0px 0px 0px;
+    }
+
+    .placement_below_mid_occurrence,.mode_style_mid_selector {
         padding: 0px 0px 8px 20px;
     }
 
@@ -73,8 +83,10 @@
         padding: 20px 0px 8px 20px;
     }
 
-    .mid_occurrence, .mid_placement{
-        width: 100%;
+    #mid_occurrence_div, #mid_css_selector_div {
+        width: 50%;
+        float: left;
+        margin: 19px 0px 0px 0px;
     }
 
     /* slider button CSS */
@@ -306,7 +318,7 @@
     input#first_bc_placement,
     input#mid_placement,
     input#home_placement{
-        width: 40%;
+        width: 36%;
     }
 
     input#first_bc_widget_id,
@@ -323,10 +335,6 @@
 
     label#pub_id{
         color: #000000;
-    }
-
-    label#first_bc_enabled-unchecked2 {
-        padding: 10px 0px 0px 3px;
     }
 
     input#out_of_content_enabled {
@@ -365,6 +373,14 @@
     #advanced-settings-main{
         margin: 10px 0px 0px 10px;
         width: 49%;
+    }
+
+    div#mid_article {
+        padding-bottom: 100px;
+    }
+
+    #mid_css_selector_div{
+        display: none;
     }
 
 </style>
@@ -426,14 +442,29 @@
         // Disable (/enable) all input fields in that section ('divID'), except for 'chkToggle'.
         // Once done, apply a gray border color.
         $(divID).find("input").not("#" + chkToggle.id).prop("disabled", !chkToggle.checked).css("borderColor", "#ccc");
+        $(divID).find("select").not("#" + chkToggle.id).prop("disabled", !chkToggle.checked).css("borderColor", "#ccc");
 
     }
 </script>
 
-<!-- to hide and show homepage setting -->
+<script> 
+$(document).ready(function(){
+    // On page load:
+    if ($('#mid_paragraph_ui_mode').val() == 'Other') {
+        $("#mid_css_selector_div").show();
+    }
+
+    if ($('#home_enabled').prop("checked") === true) {
+        $("#homepage").show();
+        var ad = $('#show-advanced-settings');
+        ad.text("<< Hide advanced settings");
+    }       
+});
+</script>
 
 <script> 
 $(document).ready(function(){
+ // On clicking 'Advanced settings'
   $("#show-advanced-settings").click(function(){
     $("#homepage").slideToggle("fast");
     var ad = $('#show-advanced-settings');
@@ -442,7 +473,26 @@ $(document).ready(function(){
 });
 </script>
 
-<!-- to hide and show homepage setting -->
+
+<script>
+$(document).ready(function(){
+
+    // On selecting §an item in the dropdown:
+    $('#mid_paragraph_ui_mode').on('change', function(e){
+        e.preventDefault();
+        if ( this.value == 'Other')
+        {
+            $("#mid_css_selector_div").show();
+        }
+        else
+        {
+            $("#mid_css_selector_div").hide();
+        }
+    });
+
+});
+</script> 
+
 
 
 <!-- Welcome Massage -->
@@ -486,14 +536,14 @@ $(document).ready(function(){
 
 
 <!-- Below Article Widget -->
-    <h2 class="widget_h2">Widget Settings</h2>
+    <h2 class="widget_h2">Taboola Units</h2>
     <div id="below_article" class="settings_block widget_settings_block">
           <div class="switch_style">
             <label class="switch">
               <input id="first_bc_enabled" type="checkbox" <?php echo !empty($settings->first_bc_enabled) ? "checked='checked'" : "" ?> onclick="setEnabledAppearance('#below_article', this)" name="first_bc_enabled" />
               <span class="slider round"></span>
             </label>
-            <b style="font-size:15px;">Below-article widget</b>
+            <b style="font-size:15px;">Below-article</b>
           </div>
           <div class="label_below">
             <div class="mode_style">
@@ -539,7 +589,7 @@ $(document).ready(function(){
           <div class='location_section'>
             <div class='checkbox_read'>
               <input id="out_of_content_enabled" type="checkbox" <?php echo !empty($settings->out_of_content_enabled) ? "checked='checked'" : "" ?> name="out_of_content_enabled" />
-              <label id="out_of_content_enabled_label">Place the widget just after the article container (required for <b>Read More</b>)</label>
+              <label id="out_of_content_enabled_label">Place the feed/widget just after the article container (required for <b>Read More</b>)</label>
             </div>
             <div class='tooltip'>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN_read">
@@ -564,7 +614,7 @@ $(document).ready(function(){
                 <input id="mid_enabled" type="checkbox" <?php echo !empty($settings->mid_enabled) ? "checked='checked'" : "" ?> onclick="setEnabledAppearance('#mid_article', this)" name="mid_enabled"/>
                     <span class="slider round"></span>
                 </label>
-                <b style="font-size:15px;">Mid-article widget</b>
+                <b style="font-size:15px;">Mid-article</b>
             </div>
 
             <div>
@@ -598,57 +648,46 @@ $(document).ready(function(){
                 </div>
             </div>
 
-            <div class='heading_mid_home'><label id="mid_enabled-unchecked2" style="float:left;">Position the widget immediately below the element:</label>
-            <div class='tooltip'>
-                    <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
-                            <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
-                            </g>
-                    </svg>
-                    <div>The widget will be placed <i>just beneath</i> this element.<br><br>
-                            To target an element, 2 pieces of information are needed:<br><br>
-                            i) A CSS selector - e.g. <i>p</i> (for paragraph).<br>
-                            ii) An occurrence - e.g. 1st, 2nd, 3rd, etc.<br><br>
-                            For more information, see the <a href="https://developers.taboola.com/web-integrations/docs/wordpress-plugin-managing-placements" target='_blank'>Taboola Dev Center</a>.
-                    </div>
-            </div>
-        </div>
-
-            <div class="mid_occurrence">
-                <div class="mode_style_mid_selector"><label id="mid_location_string_label" style="float:left;">CSS selector :</label>
+            <div id="mid_occurrence_div">
+                <div class="mode_style_mid_selector"><label id="mid_location_string_label" style="float:left;">Position the widget below:</label>
                     <div class='tooltip'>
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
                                 <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
                                 </g>
                          </svg>
-                        <div>
-                            The element to target - e.g.:<br><br>
-                            <i>p</i> - to target a <i>paragraph</i>.<br>
+                         <div>
+                            Enter the paragraph number to target. <br><br>
+                            E.g. To target the <b>5th</b> paragraph, fill in <i>5</i>. <br><br>
+                            To use a <b>custom</b> selector, choose 'Other'.</div>
+                    </div>
+                </div>
+                <div class="placement_below_mid_occurrence">
+                    <select name="mid_paragraph_ui_mode" id="mid_paragraph_ui_mode">
+                        <option value="Paragraph" <?php echo (!empty($settings->mid_paragraph_ui_mode) && $settings->mid_paragraph_ui_mode == "Paragraph") ? "selected" : ""?> >Paragraph</option>
+                        <option value="Other" <?php echo (!empty($settings->mid_paragraph_ui_mode) && $settings->mid_paragraph_ui_mode == "Other") ? "selected" : ""?>>Other</option>
+                    </select>&nbsp;
+                    <input type="number" id="mid_occurrence" value="<?php echo !empty($settings->mid_location_string_occurrence) ? $settings->mid_location_string_occurrence : "1" ?>" name="mid_location_string_occurrence" placeholder="" style="width:65px;">
+                </div>
+
+            </div>
+            <div id="mid_css_selector_div">
+
+                <div class="placement_style_mid_occurrence"><label id="mid_occurrence_label" style="float:left;">CSS selector :</label>
+                    <div class='tooltip'>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
+                                <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
+                                </g>
+                         </svg>
+                         <div>
+                            The CSS selector to target - e.g.:<br><br>
                             <i>#my-id</i> - to target an <i>ID</i> of "my-id".<br>
                             <i>.my-class</i> - to target a <i>class</i> of "my-class".
                         </div>
                     </div>
                 </div>
-                <div class="placement_style_mid_occurrence"><label id="mid_occurrence_label" style="float:left;">Occurrence :</label>
-                    <div class='tooltip'>
-                        <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
-                                <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
-                                </g>
-                         </svg>
-                         <div>For a <b>non-unique</b> selector - e.g. <i>p</i> (paragraph) - fill in the <b>occurrence</b> to target.<br><br>
-                        E.g. To target the <b>5th</b> paragraph, fill in <i>5</i>. <br><br>
-                        For a <b>unique</b> selector - e.g. <i>#my-id</i> - leave the default value of '1'.</div>
-                    </div>
-                </div>
-            </div>
-            <div class="mid_placement">
                 <div class="widget_below_mid_selector">
-                    <input id = "mid_location_string" type="text" value="<?php echo !empty($settings->mid_location_string) ? htmlspecialchars($settings->mid_location_string) : "" ?>" name="mid_location_string" placeholder="E.g. p for paragraph" />
-                </div>
-                <div class="placement_below_mid_Occurrence">
-                    <input type="number" id="mid_occurrence" value="<?php echo !empty($settings->mid_location_string_occurrence) ? $settings->mid_location_string_occurrence : "1" ?>" name="mid_location_string_occurrence" placeholder="" style="width:65px;">
+                    <input id = "mid_location_string" type="text" value="<?php echo !empty($settings->mid_location_string) ? htmlspecialchars($settings->mid_location_string) : "p" ?>" name="mid_location_string" placeholder="E.g. p for paragraph" />
                 </div>
             </div>
     </div>
@@ -664,7 +703,7 @@ $(document).ready(function(){
                 <span class="slider round"></span>
                 </label>
                 <div>
-                    <b style="font-size:15px;float: left;">Homepage (front page) widget</b>
+                    <b style="font-size:15px;float: left;">Homepage (front page)</b>
                     <div class='tooltip'>
                             <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">
@@ -707,7 +746,7 @@ $(document).ready(function(){
                 </div>
             </div>
 
-            <div class='heading_mid_home'><label id="home_enabled-unchecked2" style="float:left;">Position the widget immediately below the element:</label>
+            <div class='heading_mid_home'><label style="float:left;">Position the widget immediately below the element:</label>
             <div class='tooltip'>
                     <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN">

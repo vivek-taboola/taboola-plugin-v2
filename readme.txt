@@ -62,10 +62,10 @@ After hundreds or A/B tests conducted we have reached a UI that outperforms anyt
 
 == Changelog ==
 
-= 2.0.0 =
+= 2.0.1 =
 * Enhanced UI and functionality
 * Support for below-article, mid-article and homepage widgets
-* Tested on Wordpress 6.0.3
+* Tested on Wordpress 6.1.1
 
 = 1.0.14 =
 * Additional logging
