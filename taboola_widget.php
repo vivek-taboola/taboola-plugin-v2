@@ -7,14 +7,16 @@
  * Author: Taboola
  */
 
-define ("TABOOLA_PLUGIN_VERSION","2.0.0"); // => UPDATE FOR EACH RELEASE (USED FOR SERVER LOGS)
+define ("TABOOLA_PLUGIN_VERSION","2.0.0"); // => UPDATE FOR *EVERY* RELEASE (USED FOR TRACKING)
+
+define ("MIN_PLUGIN_VERSION","2.0.0"); // => UPDATE *ONLY* IF THIS RELEASE HAS *DB CHANGES*
 define ("XPATH_MARKER","/");
 define ("JS_INDICATOR","{JS}");
 define ("JS_MARKER","{");
 define ("TABOOLA_CONTENT_FORMAT_STRING",'string');
 define ("TABOOLA_CONTENT_FORMAT_SCRIPT",'script');
 define ("TABOOLA_CONTENT_FORMAT_HTML",'html');
-define ("OPTION_KEY_TB_PLUGIN_VERSION","taboola_plugin_version");
+define ("OPTION_KEY_TB_PLUGIN_VERSION","taboola_plugin_version"); // *If* this release has DB changes, then the min version will be saved under 'taboola_plugin_version' in 'wp_options'.
 
 
 include_once('widget.php');
@@ -46,7 +48,8 @@ if (!class_exists('TaboolaWP')) {
             $this->tbl_taboola_settings = $wpdb->prefix . '_taboola_settings';
 
             //activation function
-            register_activation_hook($this->plugin_name, array(&$this, 'activate'));
+            /// PC - to simulate an auto-update, comment out this line:
+            //register_activation_hook($this->plugin_name, array(&$this, 'activate'));
             add_action('admin_init', array(&$this, 'activate'));
 
             // Enable sidebar widgets
@@ -95,11 +98,17 @@ if (!class_exists('TaboolaWP')) {
         }
 
         private function should_show_content_widget_mid(){
+            // PC - only if v2 was installed:
+            if ($this->is_db_updated_for_min_ver("2.0.0"))
+                return false;
             $retVal1 = ((trim($this->settings->publisher_id) != '') && is_single() && $this->settings->mid_enabled && trim($this->settings->mid_widget_id) != '');
             return $retVal1;
         }
 
         private function should_show_content_widget_home(){
+            // PC - only if v2 was installed:
+            if ($this->is_db_updated_for_min_ver("2.0.0"))
+                return false;
             $retVal2 = ((trim($this->settings->publisher_id) != '') && is_front_page() && $this->settings->home_enabled && trim($this->settings->home_widget_id) != '');
             return $retVal2;
         }
@@ -173,7 +182,8 @@ if (!class_exists('TaboolaWP')) {
             	$firstWidgetParams = array(
                     '{{WIDGET_ID}}' => $this->settings->first_bc_widget_id,
 		            '{{CONTAINER}}' => 'taboola-below-article-thumbnails',
-		            '{{PLACEMENT}}' =>  ($this->settings->first_bc_placement != '') ? $this->settings->first_bc_placement : 'below-article' // In case v1 upgrade has not run yet
+                    // PC - If v2 was not installed, then use v1 logic
+		            '{{PLACEMENT}}' =>  (!empty($this->settings->first_bc_placement)) ? $this->settings->first_bc_placement : 'below-article' // In case v1 upgrade has not run yet
                 );
 
             	$firstWidgetScript = new JavaScriptWrapper("widgetInjectionScript.js",$firstWidgetParams);
@@ -581,7 +591,26 @@ if (!class_exists('TaboolaWP')) {
             return false;
         }
 
-        function setup_is_up_to_date() {
+        function is_db_updated_for_min_ver($min_ver) {
+            /**
+             * Checks if the DB was *previously* updated for the minimum version specified.
+             * $min_ver should be passed in a format like this: "2.1.0"
+             */
+            global $wpdb;
+
+            // Check the saved version in wp_options. Default to '1.0.0' if the option is not found.
+            $saved_version = get_option(OPTION_KEY_TB_PLUGIN_VERSION, '1.0.0');
+            
+            $db_is_up_to_date = version_compare($saved_version, $min_ver, '>=');
+            //tb_write_log($db_is_up_to_date);
+            return $db_is_up_to_date;
+  
+        }          
+      
+        function is_db_updated_for_current_ver() {
+            /** 
+             * Checks if the DB was *previously* updated for the version currently loaded.
+            */
             global $wpdb;
 
             // Check the saved version in wp_options. Default to '1.0.0' if the option is not found.
@@ -590,11 +619,11 @@ if (!class_exists('TaboolaWP')) {
             // Get the currently loaded plugin version from wp_options.
             $plugin_version = $this->get_loaded_plugin_version();
 
-            $setup_is_up_to_date = version_compare($saved_version, $plugin_version, '>=');
-            //tb_write_log($setup_is_up_to_date); // PC
-            return $setup_is_up_to_date;
+            $db_is_up_to_date = version_compare($saved_version, $plugin_version, '>=');
+            //tb_write_log($db_is_up_to_date);
+            return $db_is_up_to_date;
   
-        }
+        }        
 
         function get_loaded_plugin_version() {
 
@@ -604,28 +633,31 @@ if (!class_exists('TaboolaWP')) {
 
         }
 
-        function save_taboola_version() {
+        function save_taboola_version($min_ver) {
             // Get the currently loaded plugin version
-            $plugin_version = $this->get_loaded_plugin_version();
+            // $plugin_version = $this->get_loaded_plugin_version();
+
+            tb_write_log("SAVING NEW MIN VERSION: " . $min_ver); // PC
 
             // Check the saved version in wp_options. Default to '' if the option is not found.
             $saved_version = get_option(OPTION_KEY_TB_PLUGIN_VERSION, '');
             if ($saved_version == '') {
-                add_option(OPTION_KEY_TB_PLUGIN_VERSION, $plugin_version);
+                add_option(OPTION_KEY_TB_PLUGIN_VERSION, $min_ver);
             }
             else {
-                update_option(OPTION_KEY_TB_PLUGIN_VERSION, $plugin_version);
+                update_option(OPTION_KEY_TB_PLUGIN_VERSION, $min_ver);
             }
         }
 
         function activate(){
 
             // If we are up to date, then skip this method...
-            if ($this->setup_is_up_to_date()) {
+            if ($this->is_db_updated_for_min_ver(MIN_PLUGIN_VERSION)) {
+               //tb_write_log("All up to date!");
                 return;
             }
-
-            $this->save_taboola_version();
+            
+            $this->save_taboola_version(MIN_PLUGIN_VERSION);
             
             global $wpdb;
             require_once(ABSPATH . 'wp-admin/includes/upgrade.php');

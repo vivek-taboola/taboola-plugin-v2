@@ -77,7 +77,7 @@ class WP_Widget_Taboola extends WP_Widget {
         echo $after_widget;
     }
 
-    function form( $instance ) {
+    function form( $instance ) { 
         $instance = wp_parse_args( (array) $instance );
         $widget_id = esc_attr( $instance['widget_id'] );
         ?>

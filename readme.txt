@@ -2,7 +2,7 @@
 Contributors: Taboola
 Tags: content recommendations, taboola, discovery,ad networks, ads, advertising, affiliate, content ads, contextual ads, Contextual Advertising, engagement, income, monetization, monetize, pay per click, popular posts, posts, ppc, related, Related Content, related post thumbnails, related posts, relevant ads, revenue, similar posts, text ads, widgets,recommendations,thumbnails, traffic, widget
 Requires at least: 5.2
-Tested up to: 6.0.2
+Tested up to: 6.1.1
 Stable tag: trunk
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
