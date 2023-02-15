@@ -98,7 +98,7 @@ if (!class_exists('TaboolaWP')) {
 
         private function should_show_content_widget_mid(){
             // PC - only if v2 was installed:
-            if ($this->is_db_updated_for_min_ver("2.0.0"))
+            if (!$this->is_db_updated_for_min_ver("2.0.0"))
                 return false;
             $retVal1 = ((trim($this->settings->publisher_id) != '') && is_single() && $this->settings->mid_enabled && trim($this->settings->mid_widget_id) != '');
             return $retVal1;
@@ -106,7 +106,7 @@ if (!class_exists('TaboolaWP')) {
 
         private function should_show_content_widget_home(){
             // PC - only if v2 was installed:
-            if ($this->is_db_updated_for_min_ver("2.0.0"))
+            if (!$this->is_db_updated_for_min_ver("2.0.0"))
                 return false;
             $retVal2 = ((trim($this->settings->publisher_id) != '') && is_front_page() && $this->settings->home_enabled && trim($this->settings->home_widget_id) != '');
             return $retVal2;

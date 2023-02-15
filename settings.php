@@ -428,10 +428,10 @@
     ?>
 
 <script>
-    function setEnabledAppearance(divID, chkToggle) {
+    function setEnabledDisabled(divID, chkToggle) {
         /*
             JS function for form.
-            Sets 'enabled/disabled' appearance for given section ('divID'), depending on whether 'chkToggle' is checked.
+            Enables/disables fields for the given section ('divID'), depending on whether 'chkToggle' is checked.
         */
 
         var applyColor = (chkToggle.checked ? "#000" : "#666");
@@ -486,6 +486,7 @@ $(document).ready(function(){
         }
         else
         {
+            $("#mid_location_string").val("p"); // Set it back to the default value of 'p'
             $("#mid_css_selector_div").hide();
         }
     });
@@ -540,7 +541,7 @@ $(document).ready(function(){
     <div id="below_article" class="settings_block widget_settings_block">
           <div class="switch_style">
             <label class="switch">
-              <input id="first_bc_enabled" type="checkbox" <?php echo !empty($settings->first_bc_enabled) ? "checked='checked'" : "" ?> onclick="setEnabledAppearance('#below_article', this)" name="first_bc_enabled" />
+              <input id="first_bc_enabled" type="checkbox" <?php echo !empty($settings->first_bc_enabled) ? "checked='checked'" : "" ?> onclick="setEnabledDisabled('#below_article', this)" name="first_bc_enabled" />
               <span class="slider round"></span>
             </label>
             <b style="font-size:15px;">Below-article</b>
@@ -611,7 +612,7 @@ $(document).ready(function(){
 <div id="mid_article" class="settings_block widget_settings_block">
             <div class="switch_style">
                 <label class="switch">
-                <input id="mid_enabled" type="checkbox" <?php echo !empty($settings->mid_enabled) ? "checked='checked'" : "" ?> onclick="setEnabledAppearance('#mid_article', this)" name="mid_enabled"/>
+                <input id="mid_enabled" type="checkbox" <?php echo !empty($settings->mid_enabled) ? "checked='checked'" : "" ?> onclick="setEnabledDisabled('#mid_article', this)" name="mid_enabled"/>
                     <span class="slider round"></span>
                 </label>
                 <b style="font-size:15px;">Mid-article</b>
@@ -699,7 +700,7 @@ $(document).ready(function(){
 <div id="homepage" class="settings_block widget_settings_block">
         <div class="switch_style">
                 <label class="switch">
-                <input id="home_enabled" type="checkbox" <?php echo !empty($settings->home_enabled) ? "checked='checked'" : "" ?> onclick="setEnabledAppearance('#homepage', this)" name="home_enabled"/>
+                <input id="home_enabled" type="checkbox" <?php echo !empty($settings->home_enabled) ? "checked='checked'" : "" ?> onclick="setEnabledDisabled('#homepage', this)" name="home_enabled"/>
                 <span class="slider round"></span>
                 </label>
                 <div>
@@ -830,9 +831,9 @@ $(document).ready(function(){
 
     // Set enabled/disabled appearance upon page load
     // (Function is defined earlier on the page.)
-    setEnabledAppearance('#below_article', document.getElementById("first_bc_enabled"));
-    setEnabledAppearance('#mid_article', document.getElementById("mid_enabled"));
-    setEnabledAppearance('#homepage', document.getElementById("home_enabled"));
+    setEnabledDisabled('#below_article', document.getElementById("first_bc_enabled"));
+    setEnabledDisabled('#mid_article', document.getElementById("mid_enabled"));
+    setEnabledDisabled('#homepage', document.getElementById("home_enabled"));
 
 </script>
 
