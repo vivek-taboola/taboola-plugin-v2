@@ -8,15 +8,17 @@
  */
 
 define ("TABOOLA_PLUGIN_VERSION","2.0.1"); // => UPDATE FOR *EVERY* RELEASE (USED FOR TRACKING)
+define ("TABOOLA_MIN_VER","2.0.1"); // => UPDATE *ONLY* IF THIS RELEASE HAS *DB CHANGES*
+define ("TABOOLA_DEBUG_MODE", false); // => SET TO 'FALSE' FOR *EVERY* RELEASE (USED TO SUPRESS DEBUGGING LOGS)
 
-define ("MIN_PLUGIN_VERSION","2.0.1"); // => UPDATE *ONLY* IF THIS RELEASE HAS *DB CHANGES*
-define ("XPATH_MARKER","/");
-define ("JS_INDICATOR","{JS}");
-define ("JS_MARKER","{");
+define ("TABOOLA_OPTION_NAME","taboola_plugin_version"); // *If* this release has DB changes, then the min version will be saved under 'taboola_plugin_version' in 'wp_options'.
+
+define ("TABOOLA_XPATH_MARKER","/");
+define ("TABOOLA_JS_INDICATOR","{JS}");
+define ("TABOOLA_JS_MARKER","{");
 define ("TABOOLA_CONTENT_FORMAT_STRING",'string');
 define ("TABOOLA_CONTENT_FORMAT_SCRIPT",'script');
 define ("TABOOLA_CONTENT_FORMAT_HTML",'html');
-define ("OPTION_KEY_TB_PLUGIN_VERSION","taboola_plugin_version"); // *If* this release has DB changes, then the min version will be saved under 'taboola_plugin_version' in 'wp_options'.
 
 
 include_once('widget.php');
@@ -48,8 +50,8 @@ if (!class_exists('TaboolaWP')) {
             $this->tbl_taboola_settings = $wpdb->prefix . '_taboola_settings';
 
             //activation function
-            register_activation_hook($this->plugin_name, array(&$this, 'activate'));
-            add_action('admin_init', array(&$this, 'activate'));
+            register_activation_hook($this->plugin_name, array(&$this, 'update_db'));
+            add_action('admin_init', array(&$this, 'update_db'));
 
             // Enable sidebar widgets
             if ($this->settings != NULL && !empty($this->settings->publisher_id)){
@@ -338,12 +340,12 @@ if (!class_exists('TaboolaWP')) {
                 $first_char = substr($location,0,1);
 
                 // DIV/XPATH provided for JS handling
-                if ($first_char == JS_MARKER){
-                    $full_indicator = substr($location,0,strlen(JS_INDICATOR));
+                if ($first_char == TABOOLA_JS_MARKER){
+                    $full_indicator = substr($location,0,strlen(TABOOLA_JS_INDICATOR));
 
-                    if ($full_indicator == JS_INDICATOR){
+                    if ($full_indicator == TABOOLA_JS_INDICATOR){
 
-                        $xpath = substr($location,strlen(JS_INDICATOR));
+                        $xpath = substr($location,strlen(TABOOLA_JS_INDICATOR));
                         $scriptWrapper = new JavaScriptWrapper("js_inject.min.js",array(
                             "{{HTML}}" => $this->format_taboola_content_mid($taboola_content_mid,TABOOLA_CONTENT_FORMAT_HTML),
                             "{{SCRIPT}}" => $this->format_taboola_content_mid($taboola_content_mid,TABOOLA_CONTENT_FORMAT_SCRIPT))
@@ -390,12 +392,12 @@ if (!class_exists('TaboolaWP')) {
                     $first_char = substr($location,0,1);
 
                     // DIV/XPATH provided for JS handling
-                    if ($first_char == JS_MARKER){
-                        $full_indicator = substr($location,0,strlen(JS_INDICATOR));
+                    if ($first_char == TABOOLA_JS_MARKER){
+                        $full_indicator = substr($location,0,strlen(TABOOLA_JS_INDICATOR));
 
-                        if ($full_indicator == JS_INDICATOR){
+                        if ($full_indicator == TABOOLA_JS_INDICATOR){
 
-                            $xpath = substr($location,strlen(JS_INDICATOR));
+                            $xpath = substr($location,strlen(TABOOLA_JS_INDICATOR));
                             $scriptWrapper = new JavaScriptWrapper("js_inject.min.js",array(
                                 "{{HTML}}" => $this->format_taboola_content_home($taboola_content_home,TABOOLA_CONTENT_FORMAT_HTML),
                                 "{{SCRIPT}}" => $this->format_taboola_content_home($taboola_content_home,TABOOLA_CONTENT_FORMAT_SCRIPT))
@@ -577,18 +579,34 @@ if (!class_exists('TaboolaWP')) {
             }
             return false;
         }
-
-        function is_upgrade_from_v1() {
-
+        function columnExists($column_name) {
             global $wpdb;
-            
-            $widget_row = $wpdb->get_results("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '". $wpdb->prefix . "_taboola_settings' AND column_name = 'first_bc_widget_id'");
-            $placement_row = $wpdb->get_results("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '". $wpdb->prefix . "_taboola_settings' AND column_name = 'first_bc_placement'");
-            if(!empty($widget_row) && empty($placement_row)){
+            $table_name = $wpdb->prefix . "_taboola_settings";
+            tb_write_log("table name : " . $table_name);
+            tb_write_log("column name : " . $column_name);
+
+            $column_exists = $wpdb->get_var("SHOW COLUMNS FROM $table_name LIKE '$column_name'") !== null;
+
+            if ($column_exists) {
+                tb_write_log("Yes - column " . $column_name . " DOES exist!"); //PC
                 return true;
+            } else {
+                tb_write_log("No - column " . $column_name . " does NOT exist!"); //PC
+                return false;
+            }
+        }
+
+        function is_upgrade_from_v1() {          
+
+            if($this->columnExists("first_bc_widget_id") && !$this->columnExists("first_bc_placement")){
+                tb_write_log("This IS a v1 upgrade!"); //PC
+                return true;
+            } 
+            else {
+                tb_write_log("This is NOT a v1 upgrade!"); //PC
+                return false;
             }
 
-            return false;
         }
 
         function is_db_updated_for_min_ver($min_ver) {
@@ -599,7 +617,7 @@ if (!class_exists('TaboolaWP')) {
             global $wpdb;
 
             // Check the saved version in wp_options. Default to '1.0.0' if the option is not found.
-            $saved_version = get_option(OPTION_KEY_TB_PLUGIN_VERSION, '1.0.0');
+            $saved_version = get_option(TABOOLA_OPTION_NAME, '1.0.0');
             
             $db_is_up_to_date = version_compare($saved_version, $min_ver, '>=');
             //tb_write_log($db_is_up_to_date);
@@ -614,7 +632,7 @@ if (!class_exists('TaboolaWP')) {
             global $wpdb;
 
             // Check the saved version in wp_options. Default to '1.0.0' if the option is not found.
-            $saved_version = get_option(OPTION_KEY_TB_PLUGIN_VERSION, '1.0.0');
+            $saved_version = get_option(TABOOLA_OPTION_NAME, '1.0.0');
             
             // Get the currently loaded plugin version from wp_options.
             $plugin_version = $this->get_loaded_plugin_version();
@@ -640,24 +658,24 @@ if (!class_exists('TaboolaWP')) {
             tb_write_log("SAVING NEW MIN VERSION: " . $min_ver); // PC
 
             // Check the saved version in wp_options. Default to '' if the option is not found.
-            $saved_version = get_option(OPTION_KEY_TB_PLUGIN_VERSION, '');
+            $saved_version = get_option(TABOOLA_OPTION_NAME, '');
             if ($saved_version == '') {
-                add_option(OPTION_KEY_TB_PLUGIN_VERSION, $min_ver);
+                add_option(TABOOLA_OPTION_NAME, $min_ver);
             }
             else {
-                update_option(OPTION_KEY_TB_PLUGIN_VERSION, $min_ver);
+                update_option(TABOOLA_OPTION_NAME, $min_ver);
             }
         }
 
-        function activate(){
+        function update_db(){
 
             // If we are up to date, then skip this method...
-            if ($this->is_db_updated_for_min_ver(MIN_PLUGIN_VERSION)) {
+            if ($this->is_db_updated_for_min_ver(TABOOLA_MIN_VER)) {
                //tb_write_log("All up to date!");
                 return;
             }
             
-            $this->save_taboola_version(MIN_PLUGIN_VERSION);
+            $this->save_taboola_version(TABOOLA_MIN_VER);
             
             global $wpdb;
             require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -720,10 +738,10 @@ $taboolaWP = new TaboolaWP();
 A few utility methods for logging
 */
 
-// Debug to file
-// File location depends on *where* you trigger the script.
-// In this case, we trigger the script from the dashboard (by clicking 'Activate').
-// So the log file is created under 'wp-admin/logs'.
+// Writes debugging messages to 'logs/debug.log'.
+// The exact file location depends on *where* you trigger the function.
+// In this script, we trigger the function from the admin dashboard.
+// So the log file is located under 'wp-admin/logs'.
 function tb_write_log($log_msg)
 {
     $log_filename = "logs";
@@ -737,8 +755,8 @@ function tb_write_log($log_msg)
      $date = date('Y-m-d H:i:s');
     $log_msg_with_date = $date." : ".$log_msg;
     
-    
-    file_put_contents($log_file_data, $log_msg_with_date . "\n", FILE_APPEND);
+    if (TABOOLA_DEBUG_MODE)
+        file_put_contents($log_file_data, $log_msg_with_date . "\n", FILE_APPEND);
    
 }
 

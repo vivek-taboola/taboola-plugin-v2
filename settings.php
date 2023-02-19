@@ -383,6 +383,10 @@
         display: none;
     }
 
+    input.highlight {
+        border: 1px solid orange !important;
+    }
+
 </style>
 
 <?php
@@ -465,11 +469,11 @@ $(document).ready(function(){
 <script> 
 $(document).ready(function(){
  // On clicking 'Advanced settings'
-  $("#show-advanced-settings").click(function(){
-    $("#homepage").slideToggle("fast");
-    var ad = $('#show-advanced-settings');
-    ad.text() == "Show advanced settings >>" ? ad.text("<< Hide advanced settings") : ad.text("Show advanced settings >>");
-  });
+    $("#show-advanced-settings").click(function() {
+        $("#homepage").slideToggle("fast");
+        var ad = $('#show-advanced-settings');
+        ad.text() == "Show advanced settings >>" ? ad.text("<< Hide advanced settings") : ad.text("Show advanced settings >>");
+    });
 });
 </script>
 
@@ -477,17 +481,25 @@ $(document).ready(function(){
 <script>
 $(document).ready(function(){
 
-    // On selecting §an item in the dropdown:
+    // On selecting an item in the dropdown:
     $('#mid_paragraph_ui_mode').on('change', function(e){
         e.preventDefault();
         if ( this.value == 'Other')
         {
             $("#mid_css_selector_div").show();
+
+            // Highlight the 'occurrence' field for 2 secs:
+            $("#mid_occurrence").addClass('highlight');
+            setTimeout(() => $("#mid_occurrence").removeClass('highlight'), 2000);
         }
         else
         {
             $("#mid_location_string").val("p"); // Set it back to the default value of 'p'
             $("#mid_css_selector_div").hide();
+
+            // Highlight the 'occurrence' field for 2 secs:
+            $("#mid_occurrence").addClass('highlight');
+            setTimeout(() => $("#mid_occurrence").removeClass('highlight'), 2000);            
         }
     });
 
@@ -658,9 +670,14 @@ $(document).ready(function(){
                                 </g>
                          </svg>
                          <div>
-                            Enter the paragraph number to target. <br><br>
-                            E.g. To target the <b>5th</b> paragraph, fill in <i>5</i>. <br><br>
-                            To use a <b>custom</b> selector, choose 'Other'.</div>
+                            Enter the paragraph number to target. <br>
+                            E.g. To target the <b>5th</b> paragraph, fill in <i>5</i>.<br><br>
+                            ----<br>
+                            <i>Advanced</i> - to use a <b>custom</b> selector:<br><br>
+                            1) Choose 'Other'. <br>
+                            2) Fill in a selector (<i>right</i>), and an occurrence (<i>here</i>).<br><br>
+                            <b>Note</b>: for a unique selector, set 'occurrence' to '1'.
+                        </div>
                     </div>
                 </div>
                 <div class="placement_below_mid_occurrence">
@@ -681,7 +698,7 @@ $(document).ready(function(){
                                 </g>
                          </svg>
                          <div>
-                            The CSS selector to target - e.g.:<br><br>
+                            <i>Advanced</i> - fill in a selector to target - e.g.:<br><br>
                             <i>#my-id</i> - to target an <i>ID</i> of "my-id".<br>
                             <i>.my-class</i> - to target a <i>class</i> of "my-class".
                         </div>
