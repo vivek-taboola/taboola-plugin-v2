@@ -488,18 +488,19 @@ $(document).ready(function(){
         {
             $("#mid_css_selector_div").show();
 
-            // Highlight the 'occurrence' field for 2 secs:
-            $("#mid_occurrence").addClass('highlight');
-            setTimeout(() => $("#mid_occurrence").removeClass('highlight'), 2000);
+            // Highlight relevant fields:
+            $("#mid_location_string, #mid_occurrence").addClass('highlight');
+            setTimeout(() => $("#mid_occurrence, #mid_location_string").removeClass('highlight'), 1500);
+            
         }
         else
         {
             $("#mid_location_string").val("p"); // Set it back to the default value of 'p'
             $("#mid_css_selector_div").hide();
 
-            // Highlight the 'occurrence' field for 2 secs:
+            // Highlight the 'occurrence' field:
             $("#mid_occurrence").addClass('highlight');
-            setTimeout(() => $("#mid_occurrence").removeClass('highlight'), 2000);            
+            setTimeout(() => $("#mid_occurrence").removeClass('highlight'), 1000);            
         }
     });
 
@@ -675,8 +676,7 @@ $(document).ready(function(){
                             ----<br>
                             <i>Advanced</i> - to use a <b>custom</b> selector:<br><br>
                             1) Choose 'Other'. <br>
-                            2) Fill in a selector (<i>right</i>), and an occurrence (<i>here</i>).<br><br>
-                            <b>Note</b>: for a unique selector, set 'occurrence' to '1'.
+                            2) Fill in a selector (<i>right</i>), and an occurrence (<i>left</i>).
                         </div>
                     </div>
                 </div>
