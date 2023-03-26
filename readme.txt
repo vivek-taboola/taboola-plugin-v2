@@ -7,17 +7,18 @@ Stable tag: trunk
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 
-Use the Taboola widget to generate revenue from 3rd-party content and increase engagement.
+Use the Taboola plugin to generate revenue from native ads and drive engagement with editorial content.
 
 == Description ==
-This plugin enables WordPress users to easily integrate Taboola's content recommendation widgets on their site.
-Generate direct revenue by surfacing Taboola's high quality sponsored content recommendations.
+This plugin provides an easy way to integrate Taboola content into your WordPress pages.
+Using Taboola’s mix of sponsored and editorial content, you can generate revenue and drive engagement.
+(Requires an account with Taboola. For more detail, see the <a href="https://developers.taboola.com/web-integrations/docs/wordpress-plugin/" target='_blank'>Taboola Dev Center</a>.)
 
 == Installation ==
 
 = Requirements =
 * PHP 5.x, 7.x or 8.x
-* WordPress v5.0.x or higher
+* WordPress 5.x or 6.x
 
 = Installation Process =
 * Log into the WordPress admin for your site
@@ -25,37 +26,29 @@ Generate direct revenue by surfacing Taboola's high quality sponsored content re
 * Search for Taboola. Once found click on 'Install Now'
 * Select 'Activate Plugin' from the download page or go to 'Plugins' -> 'Installed Plugins' -> 'Activate Plugin'
 
-= Below Article widgets =
-* Select 'Settings' -> which will navigate to Taboola's setting page. Or click on the left rail menu item 'Taboola'
-* Taboola will set up your account and send you the following required information - 'Publisher ID', 'Widget ID'
-* Enter the 'Publisher ID' and 'Widget ID' received from Taboola
-* Check the boxes of the relevant widget's you would like to be displayed
-* Click 'Apply Changes'
-* Go take a look at your site, the widget is live!
+= Your Taboola widgets =
+* Find Taboola in the ‘Installed Plugins’ section
+* Select ‘Settings’ - this will take you to the plugin dashboard.
+* If you have not already done so, contact Taboola to obtain your specific settings.
+* Fill in your specific settings, as provided by Taboola.
+* Your below-article unit will appear directly below your article. Your mid-article unit will appear directly below your chosen paragraph number.
+* Click ‘Apply Changes’.
+* The Taboola units should now appear on your article pages. 
 
-= All other widgets =
-* Go to Appearance -> Widgets
-* Drag the 'Taboola' widget to where you would like it to be located
-* Taboola will send you the following required information - 'Widget ID'
-* Enter the 'Widget ID' you received from Taboola
-* Click on 'Save'
-* Go take a look at your site, the widget is live!
+For more detail, see the <a href="https://developers.taboola.com/web-integrations/docs/wordpress-plugin/" target='_blank'>Taboola Dev Center</a>.
 
 == Frequently Asked Questions ==
 = How do I use Taboola's Plugin? =
-You must first contact us here at Taboola and we will get you started by setting up your account and providing you with your 'Publisher ID' and your 'Widgets ID'. After that all you need to do is download the plugin and get started.
+Once you have a Taboola account, reach out to us to obtain your specific Taboola settings. You can contact us through Backstage or reach out to your Taboola representative.
 
-= How quickly does it start working? =
-Right away!
+= Where do the units appear on my pages? =
+Taboola works best on article pages - this is where your users are most engaged. Our below-article units appear directly after your content. The plugin manages this for you automatically. For your mid-article widget, choose a paragraph number - the unit will display beneath your chosen location.
 
-= To generate the highest revenue where should I place widgets on my site? =
-Directly below articles is the best place to integrate our widget. Once the user has finished reading an article and is looking for something to do next our widget will recommend content that the user is most likely to click on.
+= Can I have additional features, such as video or sticky ads? =
+Yes, once you have added Taboola to your pages, you can request any other Taboola solution. You can do this in your Backstage account, or by contacting your Taboola representative. These additional solutions are activated by Taboola - no work required from you!
 
-= Will the widget slow down my site? =
-No. The Taboola widget loads "asynchronously". This means your page will load independently of the widget script.
-
-= How do I customize the UI of Taboola's widgets? =
-After hundreds or A/B tests conducted we have reached a UI that outperforms anything else tested against it (on the same amount of real-estate). If you would like to change it please contact us here at Taboola http://taboola.com/contact
+= Can I customize the UI of the Taboola units? =
+While we have created a UI that we know performs the best, you can make changes. Simply contact us in your Backstage account or reach out to your Taboola representative. These customizations are activated by Taboola - no work required from you!
 
 == Screenshots ==
 1. **Taboola's settings page**

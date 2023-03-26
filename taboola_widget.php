@@ -140,7 +140,8 @@ if (!class_exists('TaboolaWP')) {
 
             // Only adding the loader if a widget is going to be placed on the page.
             if ($this->is_widget_on_page()){
-
+                // PC - since these params will be inserted in 'loaderInjectionScript.js' via search and replace, 
++               // double brackets are used to ensure that each key is a unique string.
             	$stringParams = array(
 		            '{{PUBLISHER_ID}}' => $this->settings->publisher_id,
 		            '{{PAGE_TYPE}}' => $this->get_page_type(),
