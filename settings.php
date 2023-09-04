@@ -523,6 +523,14 @@ $(document).ready(function(){
 <!--  Welcome Massage-->
 
     <form method="POST">
+
+  <?php  
+    // Generate a nonce and pass it via a hidden field
+    $my_nonce = wp_create_nonce( 'my_plugin_update_field_action' );
+  ?>
+
+  <input type="hidden" name="my_plugin_nonce" value="<?php echo esc_attr( $my_nonce ); ?>"/>
+
         <h2 class="general_h2">General Settings</h2>
     
         <div class="settings_block">
