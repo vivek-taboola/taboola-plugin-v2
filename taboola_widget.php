@@ -3,11 +3,11 @@
  * Plugin Name: Taboola
  * Plugin URI: https://developers.taboola.com/web-integrations/discuss
  * Description: Taboola
- * Version: 2.0.1
+ * Version: 2.0.2
  * Author: Taboola
  */
 
-define ("TABOOLA_PLUGIN_VERSION","2.0.1"); // => UPDATE FOR *EVERY* RELEASE (USED FOR TRACKING)
+define ("TABOOLA_PLUGIN_VERSION","2.0.2"); // => UPDATE FOR *EVERY* RELEASE (USED FOR TRACKING)
 define ("TABOOLA_MIN_VER","2.0.1"); // => UPDATE *ONLY* IF THIS RELEASE HAS *DB CHANGES*
 define ("TABOOLA_DEBUG_MODE", false); // => SET TO 'FALSE' FOR *EVERY* RELEASE (USED TO SUPRESS DEBUGGING LOGS)
 
@@ -23,6 +23,7 @@ define ("TABOOLA_CONTENT_FORMAT_HTML",'html');
 
 include_once('widget.php');
 require_once('JavaScriptWrapper.php');
+
 
 if (!class_exists('TaboolaWP')) {
     class TaboolaWP
@@ -141,7 +142,7 @@ if (!class_exists('TaboolaWP')) {
             // Only adding the loader if a widget is going to be placed on the page.
             if ($this->is_widget_on_page()){
                 // PC - since these params will be inserted in 'loaderInjectionScript.js' via search and replace, 
-+               // double brackets are used to ensure that each key is a unique string.
+               // double brackets are used to ensure that each key is a unique string.
             	$stringParams = array(
 		            '{{PUBLISHER_ID}}' => $this->settings->publisher_id,
 		            '{{PAGE_TYPE}}' => $this->get_page_type(),
@@ -441,6 +442,7 @@ if (!class_exists('TaboolaWP')) {
         }
 
         function admin_taboola_settings(){
+
             global $wpdb;
             $settings = $wpdb->get_row("select * from ".$wpdb->prefix."_taboola_settings limit 1");
             $taboola_errors = array();
@@ -543,11 +545,21 @@ if (!class_exists('TaboolaWP')) {
                     );
 
                     //var_dump($settings);
-                    if($settings == NULL){
-                        $wpdb->insert($this->tbl_taboola_settings, $data, null, null);
-                    } else {
-                        $wpdb->update($this->tbl_taboola_settings, $data, array('id' => $settings->id));
+
+                    $is_valid_nonce = false;
+
+                    if (isset( $_POST['my_plugin_nonce']) && wp_verify_nonce( $_POST['my_plugin_nonce'], 'my_plugin_update_field_action' ) ) {
+                        $is_valid_nonce = true;
                     }
+
+                    if ($is_valid_nonce) {
+                        if($settings == NULL){
+                            $wpdb->insert($this->tbl_taboola_settings, $data, null, null);
+                        } else {
+                            $wpdb->update($this->tbl_taboola_settings, $data, array('id' => $settings->id));
+                        }
+                    }
+
                 }
                 $settings = $wpdb->get_row("select * from ".$wpdb->prefix."_taboola_settings limit 1");
             }
@@ -669,7 +681,7 @@ if (!class_exists('TaboolaWP')) {
         }
 
         function update_db(){
-
+            
             // If we are up to date, then skip this method...
             if ($this->is_db_updated_for_min_ver(TABOOLA_MIN_VER)) {
                //tb_write_log("All up to date!");

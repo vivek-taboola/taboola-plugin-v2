@@ -387,6 +387,19 @@
         border: 1px solid orange !important;
     }
 
+    #rightrail-banner{
+        border: 1px solid #d4d9df;
+        border-radius: 10px;
+        background: #FFFACD;
+        padding: 10px;
+        margin: 0px 100px 0px 10px;
+        color: #0f4c81;
+    }
+
+    #right-rail{
+        padding-top: 10px;
+    }
+
 </style>
 
 <?php
@@ -523,6 +536,14 @@ $(document).ready(function(){
 <!--  Welcome Massage-->
 
     <form method="POST">
+
+  <?php  
+    // Generate a nonce and pass it via a hidden field
+    $my_nonce = wp_create_nonce( 'my_plugin_update_field_action' );
+  ?>
+
+  <input type="hidden" name="my_plugin_nonce" value="<?php echo esc_attr( $my_nonce ); ?>"/>
+
         <h2 class="general_h2">General Settings</h2>
     
         <div class="settings_block">
@@ -710,6 +731,24 @@ $(document).ready(function(){
             </div>
     </div>
 <!-- Mid Article Widget -->
+
+<!-- Right Rail Article Widget -->
+
+<div id="right-rail" class="settings_block widget_settings_block">
+    <label id="right-rail-label"><b style="font-size:15px;margin-left: 10px;">Right Rail (sidebar)</b> </label>
+    <div style="font-size:14px;margin: 5px 10px 10px 10px;">You can insert a <b>Taboola</b> unit in your website <b>sidebar</b> (if your <b>WordPress</b> theme provides one):</div>
+
+    <div id="rightrail-banner">
+        1. In the sidebar menu (left) select <b>Appearance > Widgets</b> - or click <a href="widgets.php" target="_blank" style="text-decoration:underline;color: #0176D3">here</a> </br>
+        2. Click on the + icon (top, left) and type in <b>"Taboola".</b></br>   
+        3. Drag the <b>Taboola</b> widget to the desired position in the sidebar (right).</br>  
+        4. Enter the <b>Widget ID (Mode)</b>, as provided by Taboola.</br> 
+        5. Click on <b>Update</b> (top, right) to save your changes.</br>
+        6. Browse to your website and verify that the <b>right-rail (sidebar)</b> unit displays correctly.</br>
+    </div>
+</div>
+
+<!-- Right Rail Article Widget -->
 
 <!-- Homepage mid widget -->
 
