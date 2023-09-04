@@ -392,8 +392,8 @@
         border-radius: 10px;
         background: #FFFACD;
         padding: 10px;
-        margin: 0px 100px 0px 10px;
-        color: #0f4c81;
+        width: 95%;
+        margin: auto;
     }
 
     #right-rail{
