@@ -7,6 +7,12 @@
 
 <style>
 
+    a {
+        color: rgb(68,114,196);
+        text-decoration: none;
+        font-weight: bold;
+    }
+
     .taboola-container {
         padding: 20px;
         padding-left: 0;
@@ -390,10 +396,12 @@
     #rightrail-banner{
         border: 1px solid #d4d9df;
         border-radius: 10px;
-        background: #FFFACD;
+        background: rgba(51, 125, 247, 0.1);
         padding: 10px;
+
         width: 95%;
         margin: auto;
+        /* color: #0f4c81; */
     }
 
     #right-rail{
@@ -563,9 +571,9 @@ $(document).ready(function(){
                 <input id="publisher-id" type="text" name="publisher_id" placeholder="publisher" value="<?php echo !empty($settings->publisher_id) ? htmlspecialchars($settings->publisher_id) : '' ?>"/>
             </div>
             <div class="statement">
-                <label style="color: #000000;">Don't have an account with taboola?</label>
-                <a style='float: inherit;' class='request_link' href='http://taboola.com/contact' target='_blank'>Contact us</a>
-                <label style="margin-left: -9px; color: #000000;">to get started.</label>
+            <label style="color: #000000; padding-">
+                Don't have an account with taboola? <a href='http://taboola.com/contact' target='_blank'>Contact us</a> to get started.
+            </label>
             </div>
         </div>
 
@@ -735,16 +743,16 @@ $(document).ready(function(){
 <!-- Right Rail Article Widget -->
 
 <div id="right-rail" class="settings_block widget_settings_block">
-    <label id="right-rail-label"><b style="font-size:15px;margin-left: 10px;">Right Rail (sidebar)</b> </label>
+    <label id="right-rail-label"><b style="font-size:15px;margin-left: 10px;">Right-rail (sidebar)</b> </label>
     <div style="font-size:14px;margin: 5px 10px 10px 10px;">You can insert a <b>Taboola</b> unit in your website <b>sidebar</b> (if your <b>WordPress</b> theme provides one):</div>
 
     <div id="rightrail-banner">
-        1. In the sidebar menu (left) select <b>Appearance > Widgets</b> - or click <a href="widgets.php" target="_blank" style="text-decoration:underline;color: #0176D3">here</a> </br>
-        2. Click on the + icon (top, left) and type in <b>"Taboola".</b></br>   
-        3. Drag the <b>Taboola</b> widget to the desired position in the sidebar (right).</br>  
-        4. Enter the <b>Widget ID (Mode)</b>, as provided by Taboola.</br> 
-        5. Click on <b>Update</b> (top, right) to save your changes.</br>
-        6. Browse to your website and verify that the <b>right-rail (sidebar)</b> unit displays correctly.</br>
+        1. In the <b>sidebar menu</b> (<i>left</i>) select <b>Appearance</b> > <b>Widgets</b>, or click <a href="widgets.php" target="_blank">here</a> to open the <b>Widgets</b> panel. </br>
+        2. Click on the <span style="font-size: 18px; font-weight:bold">+</span> icon (<i>top, left</i>) and type in <b>"Taboola".</b></br>   
+        3. Drag the <b>Taboola</b> widget to the desired position in the sidebar (<i>right</i>).</br>  
+        4. Enter the <b>Widget ID (Mode)</b>, as provided by <b>Taboola</b>.</br> 
+        5. Click on <b>Update</b> (<i>top, right</i>) to save your changes.</br>
+        6. Browse to your website and verify that the newly added unit displays correctly.</br>
     </div>
 </div>
 
