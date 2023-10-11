@@ -49,7 +49,7 @@ class WP_Widget_Taboola extends WP_Widget {
         $widget_id = ! empty( $instance['widget_id'] ) ? $instance['widget_id'] : '';
 
         // use the widget container name as the placement, suffix the widget_num to make it unique
-        $placement=$args["id"]."-".$widget_num;
+        $placement="WP Right Rail" ."(".$args["id"]."-".$widget_num.")";
 
         echo $before_widget;
 
