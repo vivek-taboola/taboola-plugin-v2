@@ -408,6 +408,10 @@
         padding-top: 10px;
     }
 
+    hr {
+        border-top: 1px solid lightgray;
+    }
+
 </style>
 
 <?php
@@ -753,6 +757,8 @@ $(document).ready(function(){
         4. Enter the <b>Widget ID (Mode)</b>, as provided by <b>Taboola</b>.</br> 
         5. Click on <b>Update</b> (<i>top, right</i>) to save your changes.</br>
         6. Browse to your website and verify that the newly added unit displays correctly.</br>
+        <hr>
+        To <b>watch a demo</b> of the above steps, see our <a href="https://developers.taboola.com/web-integrations/docs/sidebar-widget" target="_blank">online docs</a>.
     </div>
 </div>
 
