@@ -48,8 +48,8 @@ class WP_Widget_Taboola extends WP_Widget {
 
         $widget_id = ! empty( $instance['widget_id'] ) ? $instance['widget_id'] : '';
 
-        // use the widget container name as the placement, suffix the widget_num to make it unique
-        $placement=$args["id"]."-".$widget_num;
+        // Prefix each placement with "WP Right Rail". Grab the ID of the container (i.e. the sidebar) and append 'widget_num' to make it unique.
+        $placement = "WP Right Rail (". $args["id"]."-".$widget_num.")";
 
         echo $before_widget;
 
@@ -82,7 +82,7 @@ class WP_Widget_Taboola extends WP_Widget {
         $widget_id = esc_attr( $instance['widget_id'] );
         ?>
         <p>
-            <label for="<?php echo $this->get_field_id('widget_id'); ?>"><?php _e('Widget ID:'); ?>
+            <label for="<?php echo $this->get_field_id('widget_id'); ?>"><?php _e('Mode (Widget ID):'); ?>
                 <input class="widefat" id="<?php echo $this->get_field_id('widget_id'); ?>" name="<?php echo $this->get_field_name('widget_id'); ?>" type="text" value="<?php echo esc_attr($widget_id); ?>" />
             </label>
         </p>

@@ -2,7 +2,7 @@
 Contributors: Taboola
 Tags: content recommendations, taboola, discovery,ad networks, ads, advertising, affiliate, content ads, contextual ads, Contextual Advertising, engagement, income, monetization, monetize, pay per click, popular posts, posts, ppc, related, Related Content, related post thumbnails, related posts, relevant ads, revenue, similar posts, text ads, widgets,recommendations,thumbnails, traffic, widget
 Requires at least: 5.2
-Tested up to: 6.2.2
+Tested up to: 6.3.2
 Stable tag: trunk
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
@@ -58,6 +58,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 1. **Taboola's settings page**
 
 == Changelog ==
+
+= 2.1.0 =
+* Updated UI/UX for sidebar units
+* Security fixes & enhancements
 
 = 2.0.2 =
 * Security fix
