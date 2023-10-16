@@ -695,7 +695,7 @@ if (!class_exists('TaboolaWP')) {
             
 
             //check mysql version
-            if (function_exists('mysql_get_server_info') && version_compare(mysql_get_server_info(), '4.1.0', '>=')) {
+            if (function_exists('mysqli_get_server_info') && version_compare(mysqli_get_server_info(), '4.1.0', '>=')) {
                 if (!empty($wpdb->charset))
                     $charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
                 if (!empty($wpdb->collate))
