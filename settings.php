@@ -572,7 +572,7 @@ $(document).ready(function(){
                 </div>
             </div>
             <div class="pub_id">
-                <input id="publisher-id" type="text" name="publisher_id" placeholder="publisher" value="<?php echo !empty($settings->publisher_id) ? htmlspecialchars($settings->publisher_id) : '' ?>"/>
+                <input id="publisher-id" type="text" name="publisher_id" placeholder="publisher" value="<?php echo !empty($settings->publisher_id) ? strip_tags($settings->publisher_id) : '' ?>"/>
             </div>
             <div class="statement">
             <label style="color: #000000; padding-">
@@ -623,10 +623,10 @@ $(document).ready(function(){
           </div>
           <div class="input_below">
             <div class="widget_below">
-              <input id="first_bc_widget_id" type="text" value="<?php echo !empty($settings->first_bc_widget_id) ? htmlspecialchars($settings->first_bc_widget_id) : "" ?>" name="first_bc_widget_id" placeholder="Widget ID" />
+              <input id="first_bc_widget_id" type="text" value="<?php echo !empty($settings->first_bc_widget_id) ? strip_tags($settings->first_bc_widget_id) : "" ?>" name="first_bc_widget_id" placeholder="Widget ID" />
             </div>
             <div class="placement_below">
-              <input type="text" id="first_bc_placement" value="<?php echo !empty($settings->first_bc_placement) ? htmlspecialchars($settings->first_bc_placement) : "" ?>" name="first_bc_placement" placeholder="Placement Name" />
+              <input type="text" id="first_bc_placement" value="<?php echo !empty($settings->first_bc_placement) ? strip_tags($settings->first_bc_placement) : "" ?>" name="first_bc_placement" placeholder="Placement Name" />
             </div>
           </div>
 
@@ -688,10 +688,10 @@ $(document).ready(function(){
             </div>
             <div>
                 <div class="widget_below_mid">
-                    <input id="mid_widget_id" type="text" value="<?php echo !empty($settings->mid_widget_id) ? htmlspecialchars($settings->mid_widget_id) : "" ?>" name="mid_widget_id" placeholder="Widget ID" />
+                    <input id="mid_widget_id" type="text" value="<?php echo !empty($settings->mid_widget_id) ? strip_tags($settings->mid_widget_id) : "" ?>" name="mid_widget_id" placeholder="Widget ID" />
                 </div>
                 <div class="placement_below_mid">
-                    <input id = "mid_placement" type="text" value="<?php echo !empty($settings->mid_placement) ? htmlspecialchars($settings->mid_placement) : "" ?>" name="mid_placement" placeholder="Placement Name" />
+                    <input id = "mid_placement" type="text" value="<?php echo !empty($settings->mid_placement) ? strip_tags($settings->mid_placement) : "" ?>" name="mid_placement" placeholder="Placement Name" />
                 </div>
             </div>
 
@@ -738,7 +738,7 @@ $(document).ready(function(){
                     </div>
                 </div>
                 <div class="widget_below_mid_selector">
-                    <input id = "mid_location_string" type="text" value="<?php echo !empty($settings->mid_location_string) ? htmlspecialchars($settings->mid_location_string) : "p" ?>" name="mid_location_string" placeholder="E.g. p for paragraph" />
+                    <input id = "mid_location_string" type="text" value="<?php echo !empty($settings->mid_location_string) ? strip_tags($settings->mid_location_string) : "p" ?>" name="mid_location_string" placeholder="E.g. p for paragraph" />
                 </div>
             </div>
     </div>
@@ -810,10 +810,10 @@ $(document).ready(function(){
             </div>
             <div>
                 <div class="widget_below_home">
-                    <input id="home_widget_id" type="text" value="<?php echo !empty($settings->home_widget_id) ? htmlspecialchars($settings->home_widget_id) : "" ?>" name="home_widget_id" placeholder="Widget ID" />
+                    <input id="home_widget_id" type="text" value="<?php echo !empty($settings->home_widget_id) ? strip_tags($settings->home_widget_id) : "" ?>" name="home_widget_id" placeholder="Widget ID" />
                 </div>
                 <div class="placement_below_home">
-                    <input id = "home_placement" type="text" value="<?php echo !empty($settings->home_placement) ? htmlspecialchars($settings->home_placement) : "" ?>" name="home_placement" placeholder="Placement Name" />
+                    <input id = "home_placement" type="text" value="<?php echo !empty($settings->home_placement) ? strip_tags($settings->home_placement) : "" ?>" name="home_placement" placeholder="Placement Name" />
                 </div>
             </div>
 
@@ -865,7 +865,7 @@ $(document).ready(function(){
             </div>
             <div class="home_placement">
                 <div class="widget_below_home_selector">
-                    <input id = "home_location_string" type="text" value="<?php echo !empty($settings->home_location_string) ? htmlspecialchars($settings->home_location_string) : "" ?>" name="home_location_string" placeholder="E.g. p for paragraph" /></td>
+                    <input id = "home_location_string" type="text" value="<?php echo !empty($settings->home_location_string) ? strip_tags($settings->home_location_string) : "" ?>" name="home_location_string" placeholder="E.g. p for paragraph" /></td>
                 </div>
                 <div class="placement_below_home_Occurrence">
                     <input type="number" id="home_occurrence" value="<?php echo !empty($settings->home_location_string_occurrence) ? $settings->home_location_string_occurrence : "1" ?>" name="home_location_string_occurrence" placeholder="" style="width:65px;">
