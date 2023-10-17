@@ -60,11 +60,13 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 == Changelog ==
 
 = 2.1.0 =
-* Updated UI/UX for sidebar units
-* Security fixes & enhancements
+* Unhanced UI for sidebar units
+* Security fix (HTML injection vulnerability)
+* Code improvements (MySQLi extension)
+* Tested on WordPress 6.3.2
 
 = 2.0.2 =
-* Security fix
+* Security fix (CSRF vulnerability)
 
 = 2.0.1 =
 * Minor UI improvements
