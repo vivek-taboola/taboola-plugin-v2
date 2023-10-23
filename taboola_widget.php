@@ -448,27 +448,27 @@ if (!class_exists('TaboolaWP')) {
             $taboola_errors = array();
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-                if(trim($_POST['publisher_id']) == ''){
+                if(trim(strip_tags($_POST['publisher_id'])) == ''){ 
                     $taboola_errors[] = "Publisher ID";
                 }
 
                 if(isset($_POST['first_bc_enabled'])) {
-                    if (trim($_POST['first_bc_widget_id']) == '') {
+                    if (trim(strip_tags($_POST['first_bc_widget_id'])) == '') {
                         $taboola_errors[] = "Below-article > Widget ID";
                     }
-                    if (trim($_POST['first_bc_placement']) == '') {
+                    if (trim(strip_tags($_POST['first_bc_placement'])) == '') {
                         $taboola_errors[] = "Below-article > Placement Name";
                     }
                 }
 
                 if(isset($_POST['mid_enabled'])) {
-                    if (trim($_POST['mid_widget_id']) == '') {
+                    if (trim(strip_tags($_POST['mid_widget_id'])) == '') {
                         $taboola_errors[] = "Mid-article > Widget ID";
                     }
-                    if (trim($_POST['mid_placement']) == '') {
+                    if (trim(strip_tags($_POST['mid_placement'])) == '') {
                         $taboola_errors[] = "Mid-article > Placement Name";
                     }
-                    if (trim($_POST['mid_location_string']) == '') {
+                    if (trim(strip_tags($_POST['mid_location_string'])) == '') {
                         $taboola_errors[] = "Mid-article > CSS selector";
                     }
                     else {
@@ -490,14 +490,14 @@ if (!class_exists('TaboolaWP')) {
                 }
 
                 if(isset($_POST['home_enabled'])) {
-                    if (trim($_POST['home_widget_id']) == '') {
+                    if (trim(strip_tags($_POST['home_widget_id'])) == '') {
                         $taboola_errors[] = "Homepage > Widget ID";
                     }
-                    if (trim($_POST['home_placement']) == '') {
+                    if (trim(strip_tags($_POST['home_placement'])) == '') {
                         $taboola_errors[] = "Homepage > Placement Name";
                     }
 
-                    if (trim($_POST['home_location_string']) == '') {
+                    if (trim(strip_tags($_POST['home_location_string'])) == '') {
                         $taboola_errors[] = "Homepage > CSS selector";
                     }
                     else {
