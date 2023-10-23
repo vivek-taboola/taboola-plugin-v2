@@ -1,15 +1,15 @@
 <?php
 /**
  * Plugin Name: Taboola
- * Plugin URI: https://developers.taboola.com/web-integrations/discuss
+ * Plugin URI: https://developers.taboola.com/web-integrations/docs/wordpress-plugin
  * Description: Taboola
- * Version: 2.0.2
+ * Version: 2.1.0
  * Author: Taboola
  */
 
-define ("TABOOLA_PLUGIN_VERSION","2.1.0"); // => UPDATE FOR *EVERY* RELEASE (USED FOR TRACKING)
-define ("TABOOLA_MIN_VER","2.0.1"); // => UPDATE *ONLY* IF THIS RELEASE HAS *DB CHANGES*
-define ("TABOOLA_DEBUG_MODE", false); // => SET TO 'FALSE' FOR *EVERY* RELEASE (USED TO SUPRESS DEBUGGING LOGS)
+define ("TABOOLA_PLUGIN_VERSION","2.1.0"); // => UPDATE THIS FOR *EVERY* RELEASE (USED FOR TRACKING)
+define ("TABOOLA_MIN_VER","2.0.1"); // => UPDATE THIS *ONLY* IF THIS RELEASE HAS *DB CHANGES*
+define ("TABOOLA_DEBUG_MODE", false); // => SET THIS TO 'FALSE' FOR *EVERY* RELEASE (USED TO SUPRESS DEBUGGING LOGS)
 
 define ("TABOOLA_OPTION_NAME","taboola_plugin_version"); // Note: if this release has DB changes, then the min version will be saved under 'taboola_plugin_version' in 'wp_options'.
 
