@@ -627,7 +627,25 @@ if (!class_exists('TaboolaWP')) {
              * Checks if the DB was *previously* updated for the minimum version specified.
              * $min_ver should be passed in a format like this: "2.1.0"
              */
+
             global $wpdb;
+
+            // PC - Temporary patch for v2.1.0
+
+            // START patch ===============================================
+            // Check if the `_taboola` table exists.
+            // If not, then return false.
+
+            $table_name = $wpdb->prefix . "_taboola_settings";
+
+            if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
+                tb_write_log("Table NOT FOUND");
+                return false;
+            }
+            else {
+                tb_write_log("Table EXISTS");
+            }
+            // END patch =================================================
 
             // Check the saved version in wp_options. Default to '1.0.0' if the option is not found.
             $saved_version = get_option(TABOOLA_OPTION_NAME, '1.0.0');
@@ -640,6 +658,7 @@ if (!class_exists('TaboolaWP')) {
       
         function is_db_updated_for_current_ver() {
             /** 
+             * DEPRECATED
              * Checks if the DB was *previously* updated for the version currently loaded.
             */
             global $wpdb;
@@ -647,7 +666,7 @@ if (!class_exists('TaboolaWP')) {
             // Check the saved version in wp_options. Default to '1.0.0' if the option is not found.
             $saved_version = get_option(TABOOLA_OPTION_NAME, '1.0.0');
             
-            // Get the currently loaded plugin version from wp_options.
+            // Get the currently loaded plugin version.
             $plugin_version = $this->get_loaded_plugin_version();
 
             $db_is_up_to_date = version_compare($saved_version, $plugin_version, '>=');
@@ -665,12 +684,14 @@ if (!class_exists('TaboolaWP')) {
         }
 
         function save_taboola_version($min_ver) {
-            // Get the currently loaded plugin version
-            // $plugin_version = $this->get_loaded_plugin_version();
+            /**
+             *  Checks for the saved version in wp_options. 
+             *  If not found - adds it. Else - updates it.
+             */
+            
 
             tb_write_log("SAVING NEW MIN VERSION: " . $min_ver); // PC
 
-            // Check the saved version in wp_options. Default to '' if the option is not found.
             $saved_version = get_option(TABOOLA_OPTION_NAME, '');
             if ($saved_version == '') {
                 add_option(TABOOLA_OPTION_NAME, $min_ver);
