@@ -59,10 +59,12 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 2.1.1 =
+* Fixed a bug that sometimes caused the creation of the settings table to fail, for certain MySQL versions.
+
 = 2.1.0 =
 * Enhanced UI for sidebar units
 * Security fix (HTML injection vulnerability)
-* Code improvements (MySQLi extension)
 * Tested on WordPress 6.3.2
 
 = 2.0.2 =

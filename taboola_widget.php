@@ -3,11 +3,11 @@
  * Plugin Name: Taboola
  * Plugin URI: https://developers.taboola.com/web-integrations/docs/wordpress-plugin
  * Description: Taboola
- * Version: 2.1.0
+ * Version: 2.1.1
  * Author: Taboola
  */
 
-define ("TABOOLA_PLUGIN_VERSION","2.1.0"); // => UPDATE THIS FOR *EVERY* RELEASE (USED FOR TRACKING)
+define ("TABOOLA_PLUGIN_VERSION","2.1.1"); // => UPDATE THIS FOR *EVERY* RELEASE (USED FOR TRACKING)
 define ("TABOOLA_MIN_VER","2.0.1"); // => UPDATE THIS *ONLY* IF THIS RELEASE HAS *DB CHANGES*
 define ("TABOOLA_DEBUG_MODE", false); // => SET THIS TO 'FALSE' FOR *EVERY* RELEASE (USED TO SUPRESS DEBUGGING LOGS)
 
@@ -715,8 +715,8 @@ if (!class_exists('TaboolaWP')) {
             require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
             
 
-            //check mysql version
-            if (function_exists('mysqli_get_server_info') && version_compare(mysqli_get_server_info(), '4.1.0', '>=')) {
+            // Handling for older MySQL versions
+            if (function_exists('mysql_get_server_info') && version_compare(mysql_get_server_info(), '4.1.0', '>=')) {
                 if (!empty($wpdb->charset))
                     $charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
                 if (!empty($wpdb->collate))
