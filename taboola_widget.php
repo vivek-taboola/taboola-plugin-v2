@@ -32,8 +32,20 @@ if (!class_exists('TaboolaWP')) {
         public $data = array();
         public $_is_widget_on_page;
         public $_is_head_script_loaded = false;
+        private $tpl_sw = 'importScripts("https://cdn.taboola.com/webpush/tsw.js");';
 
-        function __construct()
+        private $msg_sw_error = <<<SWE
+        <p>
+        The file sw.js in the root directory of Wordpress is not writable.
+        Please change its permissions and try again. Otherwise replace its contents manually:
+        </p>
+        <pre><code>{{SW}}</code></pre>
+        <p>
+        Also make sure that the file is accessible at {{DOMAIN}}/sw.js        
+        </p>
+        SWE;
+
+        public function __construct()
         {
             global $wpdb;
 
@@ -72,13 +84,27 @@ if (!class_exists('TaboolaWP')) {
                 add_filter('plugin_action_links', array(&$this, 'plugin_action_links'), 10, 2 );
             }elseif ($this->settings != NULL){
                     add_action('wp_head', array(&$this, 'taboola_header_loader_inject'));
+                    if (!empty($this->settings->publisher_id_push)) {
+                        add_action('wp_head', array(&$this, 'taboola_webpush_loader_js'));
+
+                        $sw = 'sw.js';
+                        $content = file_exists(ABSPATH . $sw) ? file_get_contents(ABSPATH . $sw) : '';
+            
+                        if (strpos($content, $this->tpl_sw) === false) {
+                            if (!is_writable(ABSPATH) || (file_exists(ABSPATH . $sw) && !is_writable(ABSPATH . $sw))) {
+                                return $this->notice($this->msg_sw_error);
+                            }
+                            $content = $this->tpl_sw . PHP_EOL . $content;
+                            if (file_put_contents(ABSPATH . $sw, $content) === false) {
+                                return $this->notice($this->msg_sw_error);
+                            }
+                        }
+                    }
                     add_action('wp_footer', array(&$this, 'taboola_footer_loader_js'));
                     add_filter('the_content', array(&$this, 'load_taboola_content'));
                     add_filter('the_content', array(&$this, 'load_taboola_content_mid'));
                     add_filter('the_content', array(&$this, 'load_taboola_content_home'));
-            }elseif ($this->webpush_inject != NULL){
-                add_action('wp_head', array(&$this, 'taboola_webpush_loader_js'));
-            }
+            }            
     }
 
         function plugin_action_links($links, $file) {
@@ -169,10 +195,10 @@ if (!class_exists('TaboolaWP')) {
 
         // adding webpush loader
         function taboola_webpush_loader_js() {
-            if (is_admin()){
-                $stringParamsWeb = array(
-		            '{{PUBLISHER_ID}}' => $this->webpush_inject->publisher_id_push,
-                );
+            if($this->is_widget_on_page()){
+                    $stringParamsWeb = array(
+                        '{{PUBLISHER_ID}}' => $this->settings->publisher_id_push
+                    );
                 $webpushInjectionScript = new JavaScriptWrapper("webPush.js",$stringParamsWeb);
                 echo $webpushInjectionScript;
             }
@@ -181,7 +207,7 @@ if (!class_exists('TaboolaWP')) {
         function taboola_footer_loader_js() {
 
             // Only adding flush script if a widget is going to be placed on the page.
-            if ($this->is_widget_on_page() ){
+            if ($this->is_widget_on_page()){
                 $flushInjectionScript = new JavaScriptWrapper('flushInjectionScript.js',array());
                 echo $flushInjectionScript->getScriptMarkupString();
             }
@@ -450,7 +476,6 @@ if (!class_exists('TaboolaWP')) {
         function admin_generate_menu(){
             global $current_user;
             add_menu_page(__('Taboola','taboola_widget'), __('Taboola','taboola_widget'), 'manage_options', 'taboola_widget', array(&$this, 'admin_taboola_settings'), $this->plugin_url.'img/taboola_icon.png', 110);
-            add_submenu_page('taboola_widget', __('Taboola Web Push','taboola_widget'), __('Taboola Web Push','taboola_widget'), 'manage_options', 'web_push_settings', array(&$this, 'web_push_settings'));
         }
 
         function admin_taboola_settings(){
@@ -461,6 +486,12 @@ if (!class_exists('TaboolaWP')) {
 
                 if(trim(strip_tags($_POST['publisher_id'])) == ''){ 
                     $taboola_errors[] = "Publisher ID";
+                }
+
+                if(isset($_POST['web_push_enabled'])) {
+                    if (trim(strip_tags($_POST['publisher_id_push'])) == '') {
+                        $taboola_errors[] = "Publisher Push ID";
+                    }
                 }
 
                 if(isset($_POST['first_bc_enabled'])) {
@@ -529,9 +560,11 @@ if (!class_exists('TaboolaWP')) {
                 }        
                 
                 if(count($taboola_errors) == 0){
-
                     $data = array(
                         "publisher_id" => trim($_POST['publisher_id']),
+
+                        "web_push_enabled" => isset($_POST['web_push_enabled']) ? true : false,
+                        "publisher_id_push" => !empty($_POST['publisher_id_push']) ? trim($_POST['publisher_id_push']) : '',
 
                         "first_bc_enabled" => isset($_POST['first_bc_enabled']) ? true : false,
                         "first_bc_widget_id" => !empty($_POST['first_bc_widget_id']) ? trim($_POST['first_bc_widget_id']) : '',
@@ -576,41 +609,7 @@ if (!class_exists('TaboolaWP')) {
             }
             include_once('settings.php');
         }
-
-        public function web_push_settings(){
-               global $wpdb;
-               $webpush_inject = $wpdb->get_row("select * from ".$wpdb->prefix."_taboola_settings limit 1");
-               $taboola_errors = array();
-                if($_SERVER['REQUEST_METHOD'] == 'POST'){
-                    
-                    if(trim(strip_tags($_POST['publisher_id_push'])) == ''){ 
-                        $taboola_errors[] = "Publisher ID Push";
-                    }
-
-                    if(count($taboola_errors) == 0){
-                        $data = array(
-                            "publisher_id_push" => trim($_POST['publisher_id_push']),
-                        );
-
-                        $is_valid_nonce = false;
-
-                        if (isset( $_POST['my_plugin_nonce']) && wp_verify_nonce( $_POST['my_plugin_nonce'], 'my_plugin_update_field_action' ) ) {
-                            $is_valid_nonce = true;
-                        }
-
-                        if ($is_valid_nonce) {
-                            if($webpush_inject == NULL){
-                                $wpdb->insert($this->tbl_taboola_settings, $data, null, null);
-                            } else {
-                                $wpdb->update($this->tbl_taboola_settings, $data, array('id' => $webpush_inject->id));
-                            }
-                        }
-                    }
-                    $webpush_inject = $wpdb->get_row("select * from ".$wpdb->prefix."_taboola_settings limit 1");
-                }
-                include 'webpush_inject.php';
-            }
-
+            
         function is_mid_location_string_valid($mid_location_string){
             // TODO:: validate the location string
             return true;
@@ -779,6 +778,7 @@ if (!class_exists('TaboolaWP')) {
                 CREATE TABLE `" . $wpdb->prefix . "_taboola_settings` (
                     `id` INT NOT NULL AUTO_INCREMENT ,
                     `publisher_id` VARCHAR(255) DEFAULT NULL,
+                    `web_push_enabled` TINYINT(1) NOT NULL DEFAULT FALSE,
                     `publisher_id_push` INT(15) DEFAULT NULL,
                     `first_bc_enabled` TINYINT(1) NOT NULL DEFAULT FALSE,
                     `first_bc_widget_id` VARCHAR(255) DEFAULT NULL,
