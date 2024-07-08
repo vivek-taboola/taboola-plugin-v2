@@ -3,12 +3,12 @@
  * Plugin Name: Taboola
  * Plugin URI: https://developers.taboola.com/web-integrations/docs/wordpress-plugin
  * Description: Taboola
- * Version: 2.1.1
+ * Version: 2.2.0
  * Author: Taboola
  */
 
-define ("TABOOLA_PLUGIN_VERSION","2.1.1"); // => UPDATE THIS FOR *EVERY* RELEASE (USED FOR TRACKING)
-define ("TABOOLA_MIN_VER","2.0.1"); // => UPDATE THIS *ONLY* IF THIS RELEASE HAS *DB CHANGES*
+define ("TABOOLA_PLUGIN_VERSION","2.2.0"); // => UPDATE THIS FOR *EVERY* RELEASE (USED FOR TRACKING)
+define ("TABOOLA_MIN_VER","2.2.0"); // => UPDATE THIS *ONLY* IF THIS RELEASE HAS *DB CHANGES*
 define ("TABOOLA_DEBUG_MODE", false); // => SET THIS TO 'FALSE' FOR *EVERY* RELEASE (USED TO SUPRESS DEBUGGING LOGS)
 
 define ("TABOOLA_OPTION_NAME","taboola_plugin_version"); // Note: if this release has DB changes, then the min version will be saved under 'taboola_plugin_version' in 'wp_options'.
@@ -44,6 +44,12 @@ if (!class_exists('TaboolaWP')) {
         Also make sure that the file is accessible at {{DOMAIN}}/sw.js        
         </p>
         SWE;
+
+        public $plugin_name;
+        public $plugin_directory;
+        public $plugin_url;
+        public $settings;
+        public $tbl_taboola_settings;
 
         public function __construct()
         {
@@ -88,14 +94,16 @@ if (!class_exists('TaboolaWP')) {
                         add_action('wp_head', array(&$this, 'taboola_webpush_loader_js'));
 
                         $sw = 'sw.js';
-                        $content = file_exists(ABSPATH . $sw) ? file_get_contents(ABSPATH . $sw) : '';
-            
+                        $sw_path = ABSPATH . $sw;
+                        
+                        $content = file_exists($sw_path) ? file_get_contents($sw_path) : '';
+                        
                         if (strpos($content, $this->tpl_sw) === false) {
-                            if (!is_writable(ABSPATH) || (file_exists(ABSPATH . $sw) && !is_writable(ABSPATH . $sw))) {
+                            if (!is_writable(ABSPATH) || (file_exists($sw_path) && !is_writable($sw_path))) {
                                 return $this->notice($this->msg_sw_error);
                             }
                             $content = $this->tpl_sw . PHP_EOL . $content;
-                            if (file_put_contents(ABSPATH . $sw, $content) === false) {
+                            if (file_put_contents($sw_path, $content) === false) {
                                 return $this->notice($this->msg_sw_error);
                             }
                         }
@@ -603,7 +611,6 @@ if (!class_exists('TaboolaWP')) {
                             $wpdb->update($this->tbl_taboola_settings, $data, array('id' => $settings->id));
                         }
                     }
-
                 }
                 $settings = $wpdb->get_row("select * from ".$wpdb->prefix."_taboola_settings limit 1");
             }

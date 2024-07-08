@@ -173,7 +173,7 @@ $(document).ready(function(){
 <!--  Welcome Massage-->
 
 <form method="POST">
-<?php  
+<?php
     // Generate a nonce and pass it via a hidden field
     $my_nonce = wp_create_nonce( 'my_plugin_update_field_action' );
 ?>
@@ -507,16 +507,19 @@ $(document).ready(function(){
 </div>
 
 <div id="tab2" class="tab-content" style="display: none;">
-<h2 class="general_h2">Web Push</h2>
+<h2 class="general_h2">General Setting</h2>
 <div id="web_push" class="settings_block widget_settings_block">
-        <div class="style_box1"><label id="pub_id">Web Push Account ID :</label>
+        <div class="style_box1"><label id="pub_id">Web Push Account ID:</label>
             <div class="tooltip">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="helpTooltip__icon___1XWGN_first">
                         <g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 15.505v.99c0 .291.226.505.505.505h.99c.291 0 .505-.226.505-.505v-.99a.497.497 0 0 0-.505-.505h-.99a.497.497 0 0 0-.505.505zm4.07-6.255c.57-.57.93-1.37.93-2.25 0-2.21-1.79-4-4-4S8 6.79 8 9h2c0-1.1.9-2 2-2s2 .9 2 2c0 .55-.22 1.05-.59 1.41l-1.24 1.26C11.45 12.4 11 13.4 11 14.5v.5h2c0-1.5.45-2.1 1.17-2.83l.9-.92z"></path>
                     </g>
                 </svg>
                 <!-- <div id="arrow" ></div> -->
-                <div>Your Web Push Account ID, as provided by Taboola.</div>
+                <div>Your SC web-push numeric account ID, as provided by Taboola.<br> 
+                    This integration is only for sponsored web-push <br> <br>
+                    The header script and service worker will only be injected if the publisher already has the taboola widget running on their site.
+                </div>
             </div>
             <div class="switch_style_push">
                 <label class="switch">
