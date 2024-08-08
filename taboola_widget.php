@@ -3,12 +3,12 @@
  * Plugin Name: Taboola
  * Plugin URI: https://developers.taboola.com/web-integrations/docs/wordpress-plugin
  * Description: Taboola
- * Version: 2.2.0
+ * Version: 2.2.2
  * Author: Taboola
  */
 
-define ("TABOOLA_PLUGIN_VERSION","2.2.0"); // => UPDATE THIS FOR *EVERY* RELEASE (USED FOR TRACKING)
-define ("TABOOLA_MIN_VER","2.2.0"); // => UPDATE THIS *ONLY* IF THIS RELEASE HAS *DB CHANGES*
+define ("TABOOLA_PLUGIN_VERSION","2.2.2"); // => UPDATE THIS FOR *EVERY* RELEASE (USED FOR TRACKING)
+define ("TABOOLA_MIN_VER","2.2.2"); // => UPDATE THIS *ONLY* IF THIS RELEASE HAS *DB CHANGES*
 define ("TABOOLA_DEBUG_MODE", false); // => SET THIS TO 'FALSE' FOR *EVERY* RELEASE (USED TO SUPRESS DEBUGGING LOGS)
 
 define ("TABOOLA_OPTION_NAME","taboola_plugin_version"); // Note: if this release has DB changes, then the min version will be saved under 'taboola_plugin_version' in 'wp_options'.
@@ -147,7 +147,7 @@ if (!class_exists('TaboolaWP')) {
             // PC - only if v2 was installed:
             if (!$this->is_db_updated_for_min_ver("2.0.0"))
                 return false;
-            $retVal2 = ((trim($this->settings->publisher_id) != '') && is_front_page() && $this->settings->home_enabled && trim($this->settings->home_widget_id) != '');
+            $retVal2 = ((trim($this->settings->publisher_id) != '') && (is_front_page() || is_home()) && $this->settings->home_enabled && trim($this->settings->home_widget_id) != '');
             return $retVal2;
         }
 
@@ -203,7 +203,7 @@ if (!class_exists('TaboolaWP')) {
 
         // adding webpush loader
         function taboola_webpush_loader_js() {
-            if($this->is_widget_on_page()){
+            if(is_single() || is_home() || is_category() || is_front_page()){
                     $stringParamsWeb = array(
                         '{{PUBLISHER_ID}}' => $this->settings->publisher_id_push
                     );
@@ -670,7 +670,6 @@ if (!class_exists('TaboolaWP')) {
                 tb_write_log("This is NOT a v1 upgrade!"); //PC
                 return false;
             }
-
         }
 
         function is_db_updated_for_min_ver($min_ver) {
@@ -756,7 +755,7 @@ if (!class_exists('TaboolaWP')) {
             
             // If we are up to date, then skip this method...
             if ($this->is_db_updated_for_min_ver(TABOOLA_MIN_VER)) {
-               //tb_write_log("All up to date!");
+                //tb_write_log("All up to date!");
                 return;
             }
             
