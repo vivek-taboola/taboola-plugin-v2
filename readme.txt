@@ -60,19 +60,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 == Changelog ==
 
 = 2.2.2 =
-* Added the web push integration functionality and enabled push notifications
-
-= 2.2.1 =
-* The webPush scripts have been added to all pages, including Home, Category, and Article pages.
-
-= 2.2.0 =
-* Placed the Service Worker in the root directory
-
-= 2.1.0 =
-* Resolved the error and warnings
-
-= 2.0.0 =
-* Added the SDK script on the blog pages
+* Added support for Taboola Web Push
 
 = 2.1.1 =
 * Fixed a bug that sometimes caused the creation of the settings table to fail, for certain MySQL versions
