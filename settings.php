@@ -17,7 +17,7 @@
     <h2 style="font-size:1.7em;">Taboola WordPress Plugin</h2>
 
     <h2 class="nav-tab-wrapper">
-        <a href="#tab1" class="nav-tab" id="tab1-link">Web</a>
+        <a href="#tab1" class="nav-tab" id="tab1-link">Taboola Units</a>
         <a href="#tab2" class="nav-tab" id="tab2-link">Web Push</a>
     </h2>
 
@@ -74,7 +74,8 @@ jQuery(document).ready(function($) {
         $('.tab-content').removeClass('active').hide();
         
         $('a[href="' + tabId + '"]').addClass('nav-tab-active');
-        $(tabId).addClass('active').show();
+        $(tabId + '-div').addClass('active').show(); // PC: target the div with the same prefix as the tab ID
+
     }
 
     // On tab click, update the URL hash and hidden input value
@@ -82,7 +83,7 @@ jQuery(document).ready(function($) {
         e.preventDefault();
         var tabId = $(this).attr('href');
         window.location.hash = tabId;
-        $('#active_tab').val(tabId);
+        // $('#active_tab').val(tabId);
         showTab(tabId);
     });
 
@@ -90,7 +91,7 @@ jQuery(document).ready(function($) {
     var hash = window.location.hash;
     if (hash) {
         showTab(hash);
-        $('#active_tab').val(hash);
+        // $('#active_tab').val(hash);
     } else {
         showTab('#tab1');
     }
@@ -98,7 +99,7 @@ jQuery(document).ready(function($) {
     // Set the active tab before form submission
     $('form').submit(function() {
         var activeTab = $('.nav-tab.nav-tab-active').attr('href');
-        $('#active_tab').val(activeTab);
+        // $('#active_tab').val(activeTab);
     });
 });
 </script>
@@ -179,11 +180,11 @@ $(document).ready(function(){
 ?>
 <input type="hidden" name="my_plugin_nonce" value="<?php echo esc_attr( $my_nonce ); ?>"/>
 
-<div id="tab1" class="tab-content">
+<div id="tab1-div" class="tab-content">
             <h2 class="general_h2">General Settings</h2>
         
             <div class="settings_block">
-                <div class="style_box1"><label id="pub_id">Publisher ID :</label>
+                <div class="style_box1"><label id="pub_id">Publisher ID:</label>
                 <div class="tooltip">
                         <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
                         <!-- <img class="helpTooltip__icon___1XWGN" src='<?php echo $this->plugin_url.'img/tooltip_image.svg' ?>'/> -->
@@ -506,8 +507,8 @@ $(document).ready(function(){
 
 </div>
 
-<div id="tab2" class="tab-content" style="display: none;">
-<h2 class="general_h2">General Setting</h2>
+<div id="tab2-div" class="tab-content" style="display: none;">
+<h2 class="general_h2">General Settings</h2>
 <div id="web_push" class="settings_block widget_settings_block">
         <div class="style_box1"><label id="pub_id">Web Push Account ID:</label>
             <div class="tooltip">
@@ -516,9 +517,8 @@ $(document).ready(function(){
                     </g>
                 </svg>
                 <!-- <div id="arrow" ></div> -->
-                <div>Your SC web-push numeric account ID, as provided by Taboola.<br> 
-                    This integration is only for sponsored web-push <br> <br>
-                    The header script and service worker will only be injected if the publisher already has the taboola widget running on their site.
+                <div>Your <i>numeric</i> Web Push Account ID, as provided by Taboola.<br> <br>
+                     Make sure you have also entered your <i>alphabetic</i> Publisher ID, under the first tab.
                 </div>
             </div>
             <div class="switch_style_push">
@@ -529,7 +529,7 @@ $(document).ready(function(){
             </div>
         </div>
         <div class="web_push_id">
-            <input type="number" id="publisher_id_push" value="<?php echo !empty($settings->publisher_id_push) ? strip_tags($settings->publisher_id_push) : "" ?>" name="publisher_id_push" placeholder="Publisher ID Web Push" />
+            <input type="number" id="publisher_id_push" value="<?php echo !empty($settings->publisher_id_push) ? strip_tags($settings->publisher_id_push) : "" ?>" name="publisher_id_push" placeholder="Web Push Account ID" />
         </div>
         <div class="statement">
             <label style="color: #000000; padding-">

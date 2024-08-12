@@ -3,11 +3,11 @@
  * Plugin Name: Taboola
  * Plugin URI: https://developers.taboola.com/web-integrations/docs/wordpress-plugin
  * Description: Taboola
- * Version: 2.2.2
+ * Version: 2.2.3
  * Author: Taboola
  */
 
-define ("TABOOLA_PLUGIN_VERSION","2.2.2"); // => UPDATE THIS FOR *EVERY* RELEASE (USED FOR TRACKING)
+define ("TABOOLA_PLUGIN_VERSION","2.2.3"); // => UPDATE THIS FOR *EVERY* RELEASE (USED FOR TRACKING)
 define ("TABOOLA_MIN_VER","2.2.2"); // => UPDATE THIS *ONLY* IF THIS RELEASE HAS *DB CHANGES*
 define ("TABOOLA_DEBUG_MODE", false); // => SET THIS TO 'FALSE' FOR *EVERY* RELEASE (USED TO SUPRESS DEBUGGING LOGS)
 
@@ -498,7 +498,7 @@ if (!class_exists('TaboolaWP')) {
 
                 if(isset($_POST['web_push_enabled'])) {
                     if (trim(strip_tags($_POST['publisher_id_push'])) == '') {
-                        $taboola_errors[] = "Publisher Push ID";
+                        $taboola_errors[] = "Web Push Account ID";
                     }
                 }
 
