@@ -59,6 +59,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 2.2.3 =
+* Minor UI improvements
+
 = 2.2.2 =
 * Added support for Taboola Web Push
 
