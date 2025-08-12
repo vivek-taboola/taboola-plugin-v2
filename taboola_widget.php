@@ -3,12 +3,21 @@
  * Plugin Name: Taboola
  * Plugin URI: https://developers.taboola.com/web-integrations/docs/wordpress-plugin
  * Description: Taboola
+<<<<<<< Updated upstream
  * Version: 2.1.1
  * Author: Taboola
  */
 
 define ("TABOOLA_PLUGIN_VERSION","2.1.1"); // => UPDATE THIS FOR *EVERY* RELEASE (USED FOR TRACKING)
 define ("TABOOLA_MIN_VER","2.0.1"); // => UPDATE THIS *ONLY* IF THIS RELEASE HAS *DB CHANGES*
+=======
+ * Version: 2.2.3
+ * Author: Taboola
+ */
+
+define ("TABOOLA_PLUGIN_VERSION","2.2.3"); // => UPDATE THIS FOR *EVERY* RELEASE (USED FOR TRACKING)
+define ("TABOOLA_MIN_VER","2.2.2"); // => UPDATE THIS *ONLY* IF THIS RELEASE HAS *DB CHANGES*
+>>>>>>> Stashed changes
 define ("TABOOLA_DEBUG_MODE", false); // => SET THIS TO 'FALSE' FOR *EVERY* RELEASE (USED TO SUPRESS DEBUGGING LOGS)
 
 define ("TABOOLA_OPTION_NAME","taboola_plugin_version"); // Note: if this release has DB changes, then the min version will be saved under 'taboola_plugin_version' in 'wp_options'.
@@ -75,9 +84,54 @@ if (!class_exists('TaboolaWP')) {
                     add_action('wp_footer', array(&$this, 'taboola_footer_loader_js'));
                     add_filter('the_content', array(&$this, 'load_taboola_content'));
                     add_filter('the_content', array(&$this, 'load_taboola_content_mid'));
+<<<<<<< Updated upstream
                     add_filter('the_content', array(&$this, 'load_taboola_content_home'));
             }
+=======
+                    //add_filter('the_content', array(&$this, 'load_taboola_content_home'));
+                   // add_filter('the_excerpt', array(&$this, 'load_taboola_content_home'));
+                   // Homepage widget – capture the full page, inject once.
+                // Homepage widget – start buffering *before* anything else renders
+                add_action( 'template_redirect', [ $this, 'tb_home_buffer_start' ], 0 );
+
+                    // Homepage widget – flush the buffer *after* literally everything else
+                add_action( 'shutdown',          [ $this, 'tb_home_buffer_flush' ], PHP_INT_MAX );
+
+ 
+            }      
+                  
+>>>>>>> Stashed changes
     }
+    
+                      /* ------------------------------------------------------------------
+ * HOMEPAGE WIDGET – full-page buffer
+ * ----------------------------------------------------------------*/
+public function tb_home_buffer_start() {
+    
+    // Use the plug-in’s own logic to decide if the home widget is enabled
+    if ( $this->should_show_content_widget_home() ) {
+        ob_start( [ $this, 'tb_home_buffer_inject' ] );
+    }
+}
+
+public function tb_home_buffer_inject( $html ) {
+        //error_log( '🟢 Taboola buffer inject ran. HTML length = ' . strlen( $html ) ); // LOG #1
+   // error_log( 'TB-DEBUG ① buffer inject, html len='.strlen($html) );
+
+    /*
+     * load_taboola_content_home() already:
+     *  – reads your saved widget-ID, placement, selector & occurrence
+     *  – builds the HTML + JS
+     *  – calls embed_taboola_content_location_home() to place it
+     */
+    return $this->load_taboola_content_home( $html );
+}
+
+public function tb_home_buffer_flush() {
+    if ( ob_get_length() ) {
+        echo ob_get_clean();
+    }
+}
 
         function plugin_action_links($links, $file) {
             static $this_plugin;
@@ -109,6 +163,9 @@ if (!class_exists('TaboolaWP')) {
 
         private function should_show_content_widget_home(){
             // PC - only if v2 was installed:
+          
+    //error_log( print_r( $this->settings, true ) );   // TEMP line
+
             if (!$this->is_db_updated_for_min_ver("2.0.0"))
                 return false;
             $retVal2 = ((trim($this->settings->publisher_id) != '') && is_front_page() && $this->settings->home_enabled && trim($this->settings->home_widget_id) != '');
@@ -222,7 +279,7 @@ if (!class_exists('TaboolaWP')) {
         // Homepage widget 
         function load_taboola_content_home($content)
         {
-            
+            //error_log( 'TB-DEBUG ② entered load_taboola_content_home' );
                 $taboola_content_home = array();
                 if ($this->should_show_content_widget_home()){
 
@@ -388,6 +445,20 @@ if (!class_exists('TaboolaWP')) {
         // Do the actual logic of choosing where to place the taboola content based on the "location" attribute  
         function embed_taboola_content_location_home($content, $taboola_content_home, $location){
 
+
+         //   error_log( 'TB-DEBUG ③ raw selector string: [' . $location . ']' );
+
+    // load parser
+    //require_once plugin_dir_path( __FILE__ ) . 'simple_html_dom.php';
+   // $html_doc = str_get_html( $content );
+
+    // occurrence: settings is 1-based, find() wants 0-based
+   // $occurrence = max( 1, intval( $this->settings->home_location_string_occurrence ) );
+  //  $node       = $html_doc->find( $location, $occurrence - 1 );
+   // $found      = is_object( $node ) ? 1 : 0;
+
+  //  error_log( "TB-DEBUG ③ found {$found} matching node(s) for selector [{$location}]" );
+    // ────────────────────────────
                 $do_default = true;
 
                 if (isset($location) && $location != ''){
@@ -429,10 +500,11 @@ if (!class_exists('TaboolaWP')) {
                     }
                 }
                 // Default for below-article widget - add to the end of the content
-                // if ($do_default){
-                //     $content = $content.$this->format_taboola_content_home($taboola_content_home,TABOOLA_CONTENT_FORMAT_STRING);
-                // }
+                if ($do_default){
+                 $content = $content.$this->format_taboola_content_home($taboola_content_home,TABOOLA_CONTENT_FORMAT_STRING);
+                 }
                 return $content;
+               
 
         }
 
@@ -778,6 +850,9 @@ A few utility methods for logging
 // So the log file is located under 'wp-admin/logs'.
 function tb_write_log($log_msg)
 {
+    if (!TABOOLA_DEBUG_MODE) // If not debug mode, do nothing
+        return;
+       
     $log_filename = "logs";
     if (!file_exists($log_filename))
     {
@@ -788,10 +863,8 @@ function tb_write_log($log_msg)
     // Add date/time
      $date = date('Y-m-d H:i:s');
     $log_msg_with_date = $date." : ".$log_msg;
-    
-    if (TABOOLA_DEBUG_MODE)
-        file_put_contents($log_file_data, $log_msg_with_date . "\n", FILE_APPEND);
-   
+
+    file_put_contents($log_file_data, $log_msg_with_date . "\n", FILE_APPEND);
 }
 
 // Write to console
@@ -813,5 +886,18 @@ function tb_print_to_page($data) {
         die;
     }
 }
-
 //
+
+// Enqueue js_inject.min.js script for XPath injection
+function enqueue_taboola_scripts() {
+    wp_register_script(
+        'taboola-injector',
+        plugins_url('js/js_inject.min.js', __FILE__),
+        array(), // No dependencies
+        null,    // No version specified
+        true     // Load in footer
+    );
+
+    wp_enqueue_script('taboola-injector');
+}
+add_action('wp_enqueue_scripts', 'enqueue_taboola_scripts');
